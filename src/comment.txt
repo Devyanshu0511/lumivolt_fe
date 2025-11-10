@@ -1,0 +1,2106 @@
+// import React from "react";
+// import Navbar from "./components/Navbar";
+// import HomePage from "./pages/HomePage.jsx";
+
+// const App = () => {
+//   return (
+//     <div className="bg-gradient-to-blue from-white via-gray-50 to-slate-100 text-gray-900">
+//       <Navbar />
+//       <div className="flex flex-col h-screen">
+//         <HomePage />
+
+//         <div className="bg-gray-900 text-gray-400 py-6 text-center w-full">
+//           <p>
+//             © {new Date().getFullYear()} Lumivolt Tech Solar Pvt. Ltd. | All
+//             Rights Reserved
+//           </p>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default App;
+
+import React, { useState, useEffect, useRef } from "react";
+import {
+  motion,
+  useScroll,
+  useTransform,
+  useMotionValue,
+  animate,
+  useInView,
+  useSpring,
+} from "framer-motion";
+import {
+  Menu,
+  X,
+  Sun,
+  Moon,
+  MapPin,
+  Mail,
+  Phone,
+  Boxes,
+  Eye,
+  Package,
+  ArrowRight,
+  Factory,
+  ShieldCheck,
+  Leaf,
+  Award,
+  Zap,
+  Users,
+  TrendingUp,
+  ChevronDown,
+  Sparkles,
+  Shield,
+  Globe,
+} from "lucide-react";
+
+const RecycleIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+  >
+    <path d="M3 7V5a2 2 0 0 1 2-2h2" />
+    <path d="M17 17v2a2 2 0 0 1-2 2h-2" />
+    <path d="M17 17H9a4 4 0 0 1 0-8h8" />
+    <path d="M13 5h6a2 2 0 0 1 2 2v2" />
+    <path d="M7 19H5a2 2 0 0 1-2-2v-2" />
+  </svg>
+);
+const DropletIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+  >
+    <path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-4-2.5-6-3-4 1-6 3-2.9 3.4-3 6c0 3.5 2.5 5.5 7 7Z" />
+  </svg>
+);
+const FlowerIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+  >
+    <circle cx="12" cy="12" r="2" />
+    <path d="M12 2v3" />
+    <path d="M12 19v3" />
+    <path d="m17 7-2.6 2.6" />
+    <path d="M21 12h-3" />
+    <path d="m17 17 2.6-2.6" />
+    <path d="M5 7l2.6 2.6" />
+    <path d="M3 12h3" />
+    <path d="m5 17-2.6-2.6" />
+  </svg>
+);
+
+const App = () => {
+  const [darkMode, setDarkMode] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const { scrollYProgress } = useScroll();
+
+  useEffect(() => {
+    const getTimeBasedDarkMode = () => {
+      const hour = new Date().getHours();
+      // Consider night time: 7 PM (19) to 6 AM (6)
+      return hour < 6 || hour >= 19;
+    };
+
+    setDarkMode(getTimeBasedDarkMode());
+  }, []);
+
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      setMousePosition({ x: e.clientX, y: e.clientY });
+    };
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, []);
+
+  const navItems = [
+    "Home",
+    "About",
+    "Technology",
+    "Products",
+    "Sustainability",
+    "Careers",
+    "Contact",
+  ];
+
+  return (
+    <div
+      className={`min-h-screen transition-colors duration-500 ${
+        darkMode
+          ? "bg-gradient-to-b from-slate-950 via-blue-950 to-slate-950 text-white"
+          : "bg-gradient-to-b from-sky-50 via-blue-50 to-indigo-50 text-slate-900"
+      } overflow-x-hidden`}
+    >
+      {/* Cursor Follower */}
+      <motion.div
+        className="hidden md:block fixed w-6 h-6 rounded-full pointer-events-none z-50 mix-blend-difference"
+        animate={{
+          x: mousePosition.x - 12,
+          y: mousePosition.y - 12,
+        }}
+        transition={{ type: "spring", stiffness: 500, damping: 28 }}
+        style={{
+          backgroundColor: darkMode ? "#fbbf24" : "#3b82f6",
+        }}
+      />
+
+      {/* Progress Bar */}
+      <motion.div
+        className="fixed top-0 left-0 right-0 h-1 origin-left z-50"
+        style={{
+          backgroundColor: darkMode ? "#fbbf24" : "#3b82f6",
+          scaleX: scrollYProgress,
+        }}
+      />
+
+      <Navigation
+        darkMode={darkMode}
+        setDarkMode={setDarkMode}
+        mobileMenuOpen={mobileMenuOpen}
+        setMobileMenuOpen={setMobileMenuOpen}
+        navItems={navItems}
+      />
+
+      <HeroSection darkMode={darkMode} />
+      <StatsSection darkMode={darkMode} />
+      <AboutSection darkMode={darkMode} />
+      <TechnologySection darkMode={darkMode} />
+      <ProductsSection darkMode={darkMode} />
+      <SustainabilitySection darkMode={darkMode} />
+      <CareersSection darkMode={darkMode} />
+      <ContactSection darkMode={darkMode} />
+      <Footer darkMode={darkMode} />
+    </div>
+  );
+};
+
+const Navigation = ({
+  darkMode,
+  setDarkMode,
+  mobileMenuOpen,
+  setMobileMenuOpen,
+  navItems,
+}) => {
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 50);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  return (
+    <motion.nav
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      className={`fixed top-0 w-full z-40 transition-all duration-500 ${
+        scrolled
+          ? darkMode
+            ? "bg-slate-950/80 backdrop-blur-xl shadow-xl"
+            : "bg-white/80 backdrop-blur-xl shadow-lg"
+          : "bg-transparent"
+      }`}
+    >
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center h-20">
+          <motion.div
+            whileHover={{ scale: 1.05 }}
+            className="flex items-center space-x-3 cursor-pointer"
+          >
+            <motion.div
+              animate={{ rotate: 360 }}
+              transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+              className="relative"
+            >
+              <Sun
+                className={`w-10 h-10 ${
+                  darkMode ? "text-yellow-400" : "text-blue-500"
+                }`}
+              />
+              <motion.div
+                className="absolute inset-0 blur-xl opacity-50"
+                animate={{ scale: [1, 1.2, 1] }}
+                transition={{ duration: 2, repeat: Infinity }}
+                style={{
+                  backgroundColor: darkMode ? "#fbbf24" : "#3b82f6",
+                }}
+              />
+            </motion.div>
+            <div>
+              <span
+                className={`text-2xl font-bold ${
+                  darkMode ? "text-yellow-400" : "text-blue-600"
+                }`}
+              >
+                Lumivolt
+              </span>
+              <p
+                className={`text-xs -mt-1 ${
+                  darkMode ? "text-gray-400" : "text-gray-500"
+                }`}
+              >
+                Tech Solar
+              </p>
+            </div>
+          </motion.div>
+
+          <div className="hidden md:flex items-center space-x-1">
+            {navItems.map((item, i) => (
+              <motion.a
+                key={item}
+                href={`#${item.toLowerCase()}`}
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: i * 0.1 }}
+                whileHover={{ scale: 1.05, y: -2 }}
+                whileTap={{ scale: 0.95 }}
+                className={`px-4 py-2 rounded-xl transition-all relative group ${
+                  darkMode
+                    ? "text-gray-300 hover:text-yellow-400 hover:bg-blue-900/30"
+                    : "text-gray-600 hover:text-blue-600 hover:bg-blue-50"
+                }`}
+              >
+                {item}
+                <motion.div
+                  className="absolute bottom-0 left-0 right-0 h-0.5"
+                  initial={{ scaleX: 0 }}
+                  whileHover={{ scaleX: 1 }}
+                  transition={{ duration: 0.3 }}
+                  style={{
+                    backgroundColor: darkMode ? "#fbbf24" : "#3b82f6",
+                  }}
+                />
+              </motion.a>
+            ))}
+            <motion.button
+              whileHover={{ scale: 1.1, rotate: darkMode ? 0 : 180 }}
+              whileTap={{ scale: 0.9 }}
+              onClick={() => setDarkMode(!darkMode)}
+              className={`ml-4 p-3 rounded-full shadow-lg ${
+                darkMode
+                  ? "bg-yellow-400 text-slate-950 shadow-yellow-400/50"
+                  : "bg-blue-500 text-white shadow-blue-500/50"
+              }`}
+            >
+              {darkMode ? (
+                <Sun className="w-5 h-5" />
+              ) : (
+                <Moon className="w-5 h-5" />
+              )}
+            </motion.button>
+          </div>
+
+          <button
+            className={`md:hidden ${
+              darkMode ? "text-white" : "text-slate-900"
+            }`}
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          >
+            {mobileMenuOpen ? (
+              <X className="w-6 h-6" />
+            ) : (
+              <Menu className="w-6 h-6" />
+            )}
+          </button>
+        </div>
+      </div>
+
+      {mobileMenuOpen && (
+        <motion.div
+          initial={{ opacity: 0, height: 0 }}
+          animate={{ opacity: 1, height: "auto" }}
+          exit={{ opacity: 0, height: 0 }}
+          className={`md:hidden backdrop-blur-xl border-t ${
+            darkMode
+              ? "bg-slate-950/95 border-yellow-400/20"
+              : "bg-white/95 border-blue-500/20"
+          }`}
+        >
+          <div className="px-4 py-4 space-y-2">
+            {navItems.map((item) => (
+              <a
+                key={item}
+                href={`#${item.toLowerCase()}`}
+                className={`block px-4 py-3 rounded-xl transition-all ${
+                  darkMode
+                    ? "text-gray-300 hover:text-yellow-400 hover:bg-blue-900/30"
+                    : "text-gray-600 hover:text-blue-600 hover:bg-blue-50"
+                }`}
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                {item}
+              </a>
+            ))}
+          </div>
+        </motion.div>
+      )}
+    </motion.nav>
+  );
+};
+
+const HeroSection = ({ darkMode }) => {
+  const containerRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end start"],
+  });
+
+  const y = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
+  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+
+  return (
+    <section
+      ref={containerRef}
+      id="home"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden"
+    >
+      {/* Real Solar Farm Background - WORKING LINK */}
+      <div className="absolute inset-0">
+        <motion.div
+          style={{
+            backgroundImage: `url(https://images.unsplash.com/photo-1581092580497-e0d23cbdf844?auto=format&fit=crop&w=1920&q=80)`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            width: "100%",
+            height: "100%",
+          }}
+          animate={{ scale: [1, 1.02, 1] }}
+          transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
+        />
+        {/* Overlay for text readability */}
+        <div
+          className={`absolute inset-0 ${
+            darkMode ? "bg-black/40" : "bg-white/30"
+          }`}
+        />
+        {/* Keep your existing grid, particles, and orbs here if desired */}
+        {/* Grid Pattern */}
+        <motion.div
+          className="absolute inset-0 opacity-10"
+          style={{
+            backgroundImage: `linear-gradient(to right, ${
+              darkMode ? "#fbbf24" : "#3b82f6"
+            } 1px, transparent 1px),
+                             linear-gradient(to bottom, ${
+                               darkMode ? "#fbbf24" : "#3b82f6"
+                             } 1px, transparent 1px)`,
+            backgroundSize: "80px 80px",
+            y,
+          }}
+        />
+        {/* Floating Particles */}
+        {[...Array(30)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute rounded-full"
+            style={{
+              width: Math.random() * 3 + 1,
+              height: Math.random() * 3 + 1,
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              backgroundColor: darkMode ? "#fbbf24" : "#3b82f6",
+            }}
+            animate={{
+              y: [0, -30, 0],
+              opacity: [0.2, 1, 0.2],
+            }}
+            transition={{
+              duration: Math.random() * 3 + 2,
+              repeat: Infinity,
+              delay: Math.random() * 2,
+            }}
+          />
+        ))}
+        {/* Glowing Orbs */}
+        <motion.div
+          className="absolute top-20 right-20 w-96 h-96 rounded-full blur-3xl"
+          animate={{
+            scale: [1, 1.2, 1],
+            opacity: [0.3, 0.5, 0.3],
+          }}
+          transition={{ duration: 4, repeat: Infinity }}
+          style={{
+            backgroundColor: darkMode
+              ? "rgba(251, 191, 36, 0.1)"
+              : "rgba(59, 130, 246, 0.1)",
+          }}
+        />
+        <motion.div
+          className="absolute bottom-20 left-20 w-96 h-96 rounded-full blur-3xl"
+          animate={{
+            scale: [1.2, 1, 1.2],
+            opacity: [0.5, 0.3, 0.5],
+          }}
+          transition={{ duration: 4, repeat: Infinity }}
+          style={{
+            backgroundColor: darkMode
+              ? "rgba(59, 130, 246, 0.1)"
+              : "rgba(251, 191, 36, 0.1)",
+          }}
+        />
+      </div>
+
+      {/* Your content overlay */}
+      <motion.div
+        style={{ opacity }}
+        className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center"
+      >
+        {/* Keep all your existing text/buttons here — unchanged */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1, type: "spring" }}
+          className="mb-6"
+        >
+          <motion.div
+            animate={{ rotate: 360 }}
+            transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+            className="inline-block"
+          >
+            <Sparkles
+              className={`w-16 h-16 mx-auto ${
+                darkMode ? "text-yellow-400" : "text-blue-500"
+              }`}
+            />
+          </motion.div>
+        </motion.div>
+
+        <motion.h1
+          className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold mb-6 leading-tight"
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2, duration: 0.8 }}
+        >
+          <span className={darkMode ? "text-yellow-400" : "text-blue-600"}>
+            Powering
+          </span>
+          <br />
+          <span className={darkMode ? "text-white" : "text-slate-900"}>
+            Tomorrow
+          </span>
+        </motion.h1>
+
+        <motion.p
+          className={`text-base sm:text-lg md:text-xl mb-8 sm:mb-12 max-w-3xl mx-auto leading-relaxed ${
+            darkMode ? "text-gray-300" : "text-gray-600"
+          }`}
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4, duration: 0.8 }}
+        >
+          Next-generation solar innovation with{" "}
+          <span
+            className={`font-bold ${
+              darkMode ? "text-yellow-400" : "text-blue-600"
+            }`}
+          >
+            800 MW
+          </span>{" "}
+          fully automated manufacturing
+        </motion.p>
+
+        <motion.div
+          className="flex flex-col sm:flex-row gap-6 justify-center items-center"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.6, duration: 0.8 }}
+        >
+          <motion.button
+            whileHover={{
+              scale: 1.05,
+              boxShadow: darkMode
+                ? "0 0 40px rgba(251, 191, 36, 0.6)"
+                : "0 0 40px rgba(59, 130, 246, 0.4)",
+            }}
+            whileTap={{ scale: 0.95 }}
+            className={`group px-10 py-5 rounded-full font-bold text-lg flex items-center gap-3 shadow-xl ${
+              darkMode
+                ? "bg-yellow-400 text-slate-950 shadow-yellow-400/30"
+                : "bg-blue-600 text-white shadow-blue-600/30"
+            }`}
+          >
+            <span>Explore Technology</span>
+            <ArrowRight className="w-6 h-6 group-hover:translate-x-2 transition-transform" />
+          </motion.button>
+
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className={`px-10 py-5 rounded-full font-bold text-lg hover:bg-opacity-10 transition-all ${
+              darkMode
+                ? "border-2 border-yellow-400 text-yellow-400 hover:bg-yellow-400/10"
+                : "border-2 border-blue-600 text-blue-600 hover:bg-blue-600/10"
+            }`}
+          >
+            Contact Us
+          </motion.button>
+        </motion.div>
+      </motion.div>
+
+      {/* Scroll Indicator */}
+      <motion.div
+        className="absolute bottom-10 left-1/2 transform -translate-x-1/2"
+        animate={{ y: [0, 15, 0] }}
+        transition={{ duration: 2, repeat: Infinity }}
+      >
+        <div className="flex flex-col items-center gap-2">
+          <span
+            className={`text-sm ${
+              darkMode ? "text-gray-400" : "text-gray-500"
+            }`}
+          >
+            Scroll to explore
+          </span>
+          <ChevronDown
+            className={`w-6 h-6 ${
+              darkMode ? "text-yellow-400" : "text-blue-500"
+            }`}
+          />
+        </div>
+      </motion.div>
+    </section>
+  );
+};
+
+const StatsSection = ({ darkMode }) => {
+  const stats = [
+    {
+      value: 800,
+      label: "MW Capacity",
+      suffix: "MW",
+      icon: <Zap className="w-6 h-6" />,
+      gradientStart: darkMode ? "#fbbf24" : "#2563eb",
+      gradientEnd: darkMode ? "#f59e0b" : "#1d4ed8",
+      color: darkMode ? "text-amber-400" : "text-blue-600",
+    },
+    {
+      value: 100,
+      label: "Automation",
+      suffix: "%",
+      icon: <Factory className="w-6 h-6" />,
+      gradientStart: darkMode ? "#06b6d4" : "#10b981",
+      gradientEnd: darkMode ? "#0891b2" : "#059669",
+      color: darkMode ? "text-cyan-400" : "text-emerald-600",
+    },
+    {
+      value: 50,
+      label: "Countries",
+      suffix: "+",
+      icon: <Globe className="w-6 h-6" />,
+      gradientStart: darkMode ? "#10b981" : "#7c3aed",
+      gradientEnd: darkMode ? "#059669" : "#6d28d9",
+      color: darkMode ? "text-emerald-400" : "text-violet-600",
+    },
+    {
+      value: 1000,
+      label: "Team Members",
+      suffix: "+",
+      icon: <Users className="w-6 h-6" />,
+      gradientStart: darkMode ? "#c084fc" : "#ef4444",
+      gradientEnd: darkMode ? "#a855f7" : "#dc2626",
+      color: darkMode ? "text-violet-400" : "text-rose-600",
+    },
+  ];
+
+  return (
+    <section
+      className={`py-24 lg:py-32 relative overflow-hidden ${
+        darkMode ? "bg-slate-950" : "bg-gradient-to-b from-gray-50 to-gray-100"
+      }`}
+    >
+      {/* Floating Dot Background — more subtle & elegant */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {[...Array(8)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute w-1.5 h-1.5 rounded-full opacity-15"
+            style={{
+              top: `${Math.random() * 100}%`,
+              left: `${Math.random() * 100}%`,
+              backgroundColor: darkMode ? "#818cf8" : "#93c5fd",
+            }}
+            animate={{
+              y: [0, -12, 0],
+              x: [0, Math.sin(i * 0.7) * 12, 0],
+            }}
+            transition={{
+              duration: 5 + i * 0.4,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          />
+        ))}
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false }}
+          transition={{ duration: 0.7 }}
+          className="text-center mb-16"
+        >
+          <h2
+            className={`text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight ${
+              darkMode ? "text-white" : "text-gray-900"
+            }`}
+          >
+            By The Numbers
+          </h2>
+          <div className="mt-6 max-w-3xl mx-auto">
+            <p
+              className={`text-lg leading-relaxed ${
+                darkMode ? "text-gray-400" : "text-gray-600"
+              }`}
+            >
+              Delivering impact at scale — powering innovation, sustainability,
+              and growth across the globe.
+            </p>
+          </div>
+        </motion.div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {stats.map((stat, i) => (
+            <StatCard key={i} stat={stat} index={i} darkMode={darkMode} />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+const StatCard = ({ stat, index, darkMode }) => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: false, margin: "-100px" });
+  const count = useMotionValue(0);
+  const displayValue = useTransform(
+    count,
+    (latest) => `${Math.floor(latest)}${stat.suffix}`
+  );
+
+  useEffect(() => {
+    if (isInView) {
+      const controls = animate(count, stat.value, {
+        type: "spring",
+        stiffness: 120,
+        damping: 15,
+        mass: 1,
+      });
+      return () => controls.stop();
+    }
+  }, [isInView, count, stat.value]);
+
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 30 }}
+      animate={isInView ? { opacity: 1, y: 0 } : {}}
+      transition={{
+        delay: index * 0.12,
+        duration: 0.6,
+        ease: "easeOut",
+      }}
+      whileHover={{ y: -6, transition: { duration: 0.3 } }}
+      whileTap={{ scale: 0.98 }}
+      className="group"
+    >
+      <div
+        className={`relative rounded-2xl ${
+          darkMode
+            ? "bg-slate-800/50 backdrop-blur-md border border-slate-700/50 shadow-lg"
+            : "bg-white/80 backdrop-blur-sm border border-gray-200 shadow-md"
+        } overflow-hidden transition-all duration-300 hover:shadow-xl`}
+      >
+        {/* Gradient top accent bar — now using linear gradient via Tailwind + inline style */}
+        <div
+          className="absolute top-0 left-0 w-full h-1.5"
+          style={{
+            background: `linear-gradient(90deg, ${stat.gradientStart}, ${stat.gradientEnd})`,
+          }}
+        />
+
+        <div className="p-6 sm:p-7 text-center">
+          {/* Icon container */}
+          <div
+            className={`inline-flex items-center justify-center w-12 h-12 rounded-xl mb-5 ${
+              darkMode
+                ? "bg-slate-700 text-slate-300"
+                : "bg-gray-100 text-gray-700"
+            } group-hover:scale-110 transition-transform duration-300`}
+          >
+            <motion.div
+              animate={isInView ? { rotate: 360 } : {}}
+              transition={{ duration: 1.5, ease: "easeInOut" }}
+              className={stat.color}
+            >
+              {stat.icon}
+            </motion.div>
+          </div>
+
+          {/* Animated stat value */}
+          <motion.p
+            className={`text-3xl sm:text-4xl font-extrabold ${stat.color} mb-1`}
+          >
+            {displayValue}
+          </motion.p>
+
+          <p
+            className={`text-sm font-semibold mt-1 ${
+              darkMode ? "text-slate-300" : "text-gray-700"
+            }`}
+          >
+            {stat.label}
+          </p>
+        </div>
+      </div>
+    </motion.div>
+  );
+};
+
+const AboutSection = ({ darkMode }) => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: false, margin: "-100px" });
+
+  const milestones = [
+    {
+      year: "2020",
+      title: "Founded",
+      desc: "Launched with a mission to democratize solar energy through smart, scalable manufacturing.",
+      icon: <Sparkles className="w-6 h-6" />,
+      color: darkMode ? "text-amber-400" : "text-blue-600",
+      gradientStart: darkMode ? "#fbbf24" : "#2563eb",
+      gradientEnd: darkMode ? "#f59e0b" : "#1d4ed8",
+    },
+    {
+      year: "2022",
+      title: "800MW Plant",
+      desc: "Inaugurated India’s most automated solar module facility in Ghaziabad — precision robotics & AI-driven QA.",
+      icon: <Factory className="w-6 h-6" />,
+      color: darkMode ? "text-cyan-400" : "text-emerald-600",
+      gradientStart: darkMode ? "#06b6d4" : "#10b981",
+      gradientEnd: darkMode ? "#0891b2" : "#059669",
+    },
+    {
+      year: "2024",
+      title: "Global Reach",
+      desc: "Expanded operations to 50+ countries, delivering clean energy to homes, industries, and national grids.",
+      icon: <Globe className="w-6 h-6" />,
+      color: darkMode ? "text-emerald-400" : "text-violet-600",
+      gradientStart: darkMode ? "#10b981" : "#7c3aed",
+      gradientEnd: darkMode ? "#059669" : "#6d28d9",
+    },
+    {
+      year: "2025",
+      title: "Carbon Neutral",
+      desc: "Achieved net-zero operations across manufacturing and logistics — setting new industry benchmarks.",
+      icon: <Leaf className="w-6 h-6" />,
+      color: darkMode ? "text-violet-400" : "text-rose-600",
+      gradientStart: darkMode ? "#c084fc" : "#ef4444",
+      gradientEnd: darkMode ? "#a855f7" : "#dc2626",
+    },
+  ];
+
+  return (
+    <section
+      id="about"
+      ref={ref}
+      className="py-28 lg:py-36 relative overflow-hidden"
+    >
+      <div
+        className={`absolute inset-0 ${
+          darkMode
+            ? "bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950"
+            : "bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50"
+        }`}
+      />
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false }}
+          transition={{ duration: 0.7 }}
+          className="text-center mb-20"
+        >
+          <h2
+            className={`text-3xl sm:text-4xl md:text-5xl font-bold ${
+              darkMode ? "text-white" : "text-gray-900"
+            }`}
+          >
+            Our Journey
+          </h2>
+          <p
+            className={`mt-5 max-w-2xl mx-auto text-lg ${
+              darkMode ? "text-gray-400" : "text-gray-600"
+            }`}
+          >
+            From vision to global impact — our milestones in solar innovation
+            and sustainability.
+          </p>
+        </motion.div>
+
+        <div className="space-y-16">
+          {milestones.map((item, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, x: i % 2 === 0 ? -60 : 60 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: false }}
+              transition={{ delay: i * 0.15, duration: 0.7, ease: "easeOut" }}
+              className={`flex flex-col md:flex-row items-center gap-8 ${
+                i % 2 === 1 ? "md:flex-row-reverse" : ""
+              }`}
+            >
+              {/* Year badge — more prominent & thematic */}
+              <div className="flex-shrink-0">
+                <div
+                  className={`w-28 h-28 rounded-2xl flex items-center justify-center text-2xl font-bold shadow-lg border-2 ${
+                    darkMode
+                      ? "bg-slate-800 border-slate-700 text-amber-400"
+                      : "bg-white border-gray-200 text-blue-600"
+                  }`}
+                  style={{
+                    background: `linear-gradient(135deg, ${item.gradientStart}15, ${item.gradientEnd}10)`,
+                  }}
+                >
+                  <span className="font-extrabold">{item.year}</span>
+                </div>
+              </div>
+
+              {/* Milestone Card */}
+              <div
+                className={`relative w-full max-w-2xl rounded-2xl overflow-hidden shadow-xl transition-all duration-300 ${
+                  darkMode
+                    ? "bg-slate-900/80 border border-slate-700/60 backdrop-blur"
+                    : "bg-white/90 border border-gray-200 backdrop-blur-sm"
+                }`}
+              >
+                {/* Diagonal accent bar — now full-height & angled properly */}
+                <div
+                  className="absolute top-0 left-0 w-full h-full -z-10"
+                  style={{
+                    background: `linear-gradient(135deg, ${item.gradientStart}20 0%, transparent 50%)`,
+                  }}
+                />
+
+                <div className="p-6 sm:p-8 relative z-10">
+                  <div className="flex items-start gap-4">
+                    <div
+                      className={`p-3 rounded-xl ${
+                        darkMode ? "bg-slate-800" : "bg-gray-100"
+                      }`}
+                    >
+                      {React.cloneElement(item.icon, {
+                        className: `w-6 h-6 ${item.color}`,
+                      })}
+                    </div>
+                    <div>
+                      <h3
+                        className={`text-xl font-bold ${
+                          darkMode ? "text-white" : "text-gray-900"
+                        }`}
+                      >
+                        {item.title}
+                      </h3>
+                      <p
+                        className={`mt-3 leading-relaxed ${
+                          darkMode ? "text-gray-300" : "text-gray-600"
+                        }`}
+                      >
+                        {item.desc}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+const TechnologySection = ({ darkMode }) => {
+  const sectionRef = useRef(null);
+  const isInView = useInView(sectionRef, { once: false, margin: "-200px" });
+  const x = useMotionValue(0);
+  const animationRef = useRef(null);
+
+  // Respect user preference for reduced motion
+  const prefersReducedMotion =
+    typeof window !== "undefined" &&
+    window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+
+  // Tech cards data
+  const cards = [
+    {
+      title: "Precision Robotics",
+      desc: "±0.02mm tolerance with 24/7 uptime. 12-axis collaborative arms for flawless assembly.",
+      colorClass: darkMode
+        ? "from-blue-500 to-cyan-400"
+        : "from-blue-600 to-indigo-600",
+      icon: <Factory className="w-6 h-6" />,
+    },
+    {
+      title: "AI Quality Control",
+      desc: "Real-time defect detection using CNN models. <0.1% error rate across 1M+ daily inspections.",
+      colorClass: darkMode
+        ? "from-green-500 to-emerald-400"
+        : "from-emerald-500 to-teal-500",
+      icon: <ShieldCheck className="w-6 h-6" />,
+    },
+    {
+      title: "Modular Design",
+      desc: "Plug-and-play production lines — scale capacity from 200MW to 800MW in under 48 hours.",
+      colorClass: darkMode
+        ? "from-purple-500 to-pink-400"
+        : "from-purple-600 to-pink-500",
+      icon: <Boxes className="w-6 h-6" />,
+    },
+    {
+      title: "Energy Recovery",
+      desc: "Waste heat → electricity via thermoelectric generators. 15% lower grid dependency.",
+      colorClass: darkMode
+        ? "from-amber-500 to-orange-400"
+        : "from-amber-500 to-orange-500",
+      icon: <Leaf className="w-6 h-6" />,
+    },
+  ];
+
+  // Auto-scroll animation
+  useEffect(() => {
+    let controls;
+
+    const startAnimation = () => {
+      if (prefersReducedMotion) return;
+
+      const cardWidth = 320 + 24; // w-80 + gap-6
+      const totalWidth = cardWidth * cards.length;
+      controls = animate(x, [0, -totalWidth], {
+        ease: "linear",
+        duration: 20,
+        repeat: Infinity,
+        repeatType: "loop",
+      });
+      animationRef.current = controls;
+    };
+
+    if (isInView) {
+      startAnimation();
+    } else {
+      // Reset on exit
+      if (controls) controls.stop();
+      x.set(0);
+      animationRef.current = null;
+    }
+
+    return () => {
+      if (controls) controls.stop();
+    };
+  }, [isInView, x, cards.length, prefersReducedMotion]);
+
+  return (
+    <section
+      id="technology"
+      ref={sectionRef}
+      className={`py-24 lg:py-32 relative overflow-hidden ${
+        darkMode
+          ? "bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950"
+          : "bg-gradient-to-b from-gray-50 via-blue-50 to-indigo-50"
+      }`}
+    >
+      {/* Subtle floating dots */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {[...Array(6)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute w-1.5 h-1.5 rounded-full opacity-20"
+            style={{
+              top: `${Math.random() * 100}%`,
+              left: `${Math.random() * 100}%`,
+              backgroundColor: darkMode ? "#818cf8" : "#93c5fd",
+            }}
+            animate={{
+              y: [0, -15, 0],
+              x: [0, Math.sin(i) * 20, 0],
+            }}
+            transition={{
+              duration: 6 + i * 0.5,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          />
+        ))}
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false }}
+          transition={{ duration: 0.7 }}
+          className="text-center mb-20"
+        >
+          <h2
+            className={`text-3xl sm:text-4xl md:text-5xl font-bold ${
+              darkMode ? "text-white" : "text-gray-900"
+            }`}
+          >
+            Engineered Excellence
+          </h2>
+          <p
+            className={`mt-5 max-w-2xl mx-auto text-lg leading-relaxed ${
+              darkMode ? "text-gray-400" : "text-gray-600"
+            }`}
+          >
+            End-to-end intelligent manufacturing — where hardware, software, and
+            sustainability converge.
+          </p>
+        </motion.div>
+
+        {/* ✅ Fixed Factory Line Diagram */}
+        <div className="flex justify-center mb-16">
+          <div
+            className={`flex items-center gap-8 px-6 py-4 rounded-2xl shadow-sm border ${
+              darkMode
+                ? "bg-slate-800/60 backdrop-blur-sm border-slate-700/70"
+                : "bg-white border-gray-200 shadow-md"
+            }`}
+          >
+            {[
+              { label: "AI Vision", icon: <Eye className="w-5 h-5" /> },
+              { label: "Robotic Arms", icon: <Factory className="w-5 h-5" /> },
+              { label: "Laser Calibration", icon: <Zap className="w-5 h-5" /> },
+              {
+                label: "QC Station",
+                icon: <ShieldCheck className="w-5 h-5" />,
+              },
+              { label: "Packaging", icon: <Package className="w-5 h-5" /> },
+            ].map((step, i) => (
+              <React.Fragment key={i}>
+                <div className="flex flex-col items-center min-w-[80px]">
+                  <div
+                    className={`w-12 h-12 rounded-xl flex items-center justify-center mb-2 ${
+                      darkMode
+                        ? "bg-slate-700/80 text-blue-400 border border-slate-600/50"
+                        : "bg-blue-50 text-blue-600 border border-blue-100"
+                    }`}
+                  >
+                    {step.icon}
+                  </div>
+                  <span
+                    className={`text-xs font-medium text-center ${
+                      darkMode ? "text-slate-300" : "text-gray-600"
+                    }`}
+                  >
+                    {step.label}
+                  </span>
+                </div>
+                {i < 4 && (
+                  <div className="flex items-center">
+                    <div
+                      className={`h-0.5 w-8 ${
+                        darkMode ? "bg-slate-600" : "bg-gray-300"
+                      }`}
+                    />
+                    <div
+                      className={`h-1.5 w-1.5 rounded-full -ml-0.5 -mr-0.5 ${
+                        darkMode ? "bg-blue-500" : "bg-blue-500"
+                      }`}
+                    />
+                  </div>
+                )}
+              </React.Fragment>
+            ))}
+          </div>
+        </div>
+
+        {/* ✅ Auto-Scrolling Cards with Hover Pause */}
+        <div className="relative overflow-hidden -mx-4 px-4 py-2">
+          {/* Adaptive fade masks */}
+          <div
+            className="absolute top-0 bottom-0 left-0 w-12 z-20 pointer-events-none"
+            style={{
+              background: darkMode
+                ? "linear-gradient(to right, rgb(15 23 42 / 0.8), transparent)"
+                : "linear-gradient(to right, rgb(249 250 251 / 0.9), transparent)",
+            }}
+          />
+          <div
+            className="absolute top-0 bottom-0 right-0 w-12 z-20 pointer-events-none"
+            style={{
+              background: darkMode
+                ? "linear-gradient(to left, rgb(15 23 42 / 0.8), transparent)"
+                : "linear-gradient(to left, rgb(249 250 251 / 0.9), transparent)",
+            }}
+          />
+
+          {/* ✅ Hover-to-pause enabled */}
+          <motion.div
+            className="flex gap-6"
+            style={{ x }}
+            onHoverStart={() => {
+              if (animationRef.current) {
+                animationRef.current.pause();
+              }
+            }}
+            onHoverEnd={() => {
+              if (animationRef.current && isInView && !prefersReducedMotion) {
+                animationRef.current.play();
+              }
+            }}
+            onFocus={() => animationRef.current?.pause()}
+            onBlur={() => {
+              if (animationRef.current && isInView && !prefersReducedMotion) {
+                animationRef.current.play();
+              }
+            }}
+          >
+            {[...cards, ...cards].map((card, i) => (
+              <motion.div
+                key={i}
+                className="flex-shrink-0 w-80 rounded-2xl overflow-hidden shadow-xl border border-white/10 dark:border-slate-700/50"
+                whileHover={{ y: -8 }}
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.6 }}
+              >
+                <div className={`h-1.5 bg-gradient-to-r ${card.colorClass}`} />
+                <div
+                  className={`p-6 ${darkMode ? "bg-slate-900" : "bg-white"}`}
+                >
+                  <div className="flex items-start gap-3">
+                    <div
+                      className={`p-2.5 rounded-xl ${
+                        darkMode ? "bg-slate-800" : "bg-gray-100"
+                      }`}
+                    >
+                      <motion.span
+                        className={card.colorClass
+                          .split(" ")[0]
+                          .replace("from-", "text-")}
+                        whileHover={{ rotate: 15 }}
+                        transition={{ type: "spring", stiffness: 300 }}
+                      >
+                        {card.icon}
+                      </motion.span>
+                    </div>
+                    <div>
+                      <h3
+                        className={`font-bold text-lg ${
+                          darkMode ? "text-white" : "text-gray-900"
+                        }`}
+                      >
+                        {card.title}
+                      </h3>
+                      <p
+                        className={`mt-3 text-sm leading-relaxed ${
+                          darkMode ? "text-gray-400" : "text-gray-600"
+                        }`}
+                      >
+                        {card.desc}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+
+        {/* Hint */}
+        <p
+          className={`mt-8 text-center text-xs ${
+            darkMode ? "text-slate-500" : "text-gray-400"
+          }`}
+        >
+          The production line never stops. Hover or focus to pause.
+        </p>
+      </div>
+    </section>
+  );
+};
+
+const ProductsSection = ({ darkMode }) => {
+  const products = [
+    {
+      name: "Premium Series",
+      tagline: "High Efficiency Residential",
+      badge: "Best for Homes",
+      color: darkMode ? "#fbbf24" : "#3b82f6",
+      specs: [
+        { label: "Power", value: "550W+" },
+        { label: "Efficiency", value: "22.5%" },
+        { label: "Warranty", value: "30 yrs" },
+      ],
+      details: [
+        "Half-cut cell architecture",
+        "Anti-PID & anti-LID technology",
+        "1200V system compatibility",
+      ],
+    },
+    {
+      name: "Bifacial Elite",
+      tagline: "Double-Sided Energy Capture",
+      badge: "Max Yield",
+      color: darkMode ? "#10b981" : "#059669",
+      specs: [
+        { label: "Power", value: "600W+" },
+        { label: "Bifacial Gain", value: "+25%" },
+        { label: "Degradation", value: "<0.4%/yr" },
+      ],
+      details: [
+        "Transparent backsheet",
+        "Frameless design",
+        "Albedo-optimized glass",
+      ],
+    },
+    {
+      name: "Commercial Pro",
+      tagline: "Utility-Grade Durability",
+      badge: "Heavy Duty",
+      color: darkMode ? "#3b82f6" : "#1d4ed8",
+      specs: [
+        { label: "Power", value: "500W+" },
+        { label: "Wind Load", value: "5400 Pa" },
+        { label: "Snow Load", value: "8500 Pa" },
+      ],
+      details: [
+        "Reinforced aluminum frame",
+        "IP68 junction box",
+        "-40°C to +85°C operating range",
+      ],
+    },
+  ];
+
+  return (
+    <section id="products" className="py-24 sm:py-32 relative overflow-hidden">
+      <div
+        className={`absolute inset-0 ${
+          darkMode
+            ? "bg-gradient-to-b from-slate-950 via-blue-950 to-slate-950"
+            : "bg-gradient-to-b from-sky-50 via-blue-50 to-indigo-50"
+        }`}
+      />
+
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false }}
+          className={`text-3xl sm:text-4xl lg:text-5xl font-bold text-center mb-12 ${
+            darkMode ? "text-yellow-400" : "text-blue-600"
+          }`}
+        >
+          Solar Solutions
+        </motion.h2>
+
+        {/* Minimalist Product Strip — swipe-friendly */}
+        <div className="overflow-x-auto hide-scrollbar pb-6">
+          <div className="flex gap-6 min-w-max pb-2">
+            {products.map((product, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: false }}
+                transition={{ delay: i * 0.1 }}
+                className="w-80 shrink-0"
+                whileHover={{ y: -6 }}
+                layout
+              >
+                <div
+                  className={`rounded-2xl overflow-hidden transition-all ${
+                    darkMode
+                      ? "bg-slate-900 border border-slate-800"
+                      : "bg-white border border-gray-200"
+                  }`}
+                >
+                  {/* Header */}
+                  <div className="p-5 pb-3">
+                    <div className="flex justify-between items-start">
+                      <div>
+                        <span
+                          className={`inline-block px-3 py-1 rounded-full text-xs font-medium ${
+                            darkMode
+                              ? "bg-opacity-10 text-opacity-90"
+                              : "bg-opacity-20 text-opacity-90"
+                          }`}
+                          style={{
+                            backgroundColor: product.color + "20",
+                            color: product.color,
+                          }}
+                        >
+                          {product.badge}
+                        </span>
+                        <h3
+                          className={`mt-2 font-bold text-lg ${
+                            darkMode ? "text-white" : "text-gray-900"
+                          }`}
+                        >
+                          {product.name}
+                        </h3>
+                      </div>
+                      <Sun
+                        className="w-5 h-5"
+                        style={{ color: product.color }}
+                      />
+                    </div>
+                    <p
+                      className={`text-sm mt-2 ${
+                        darkMode ? "text-gray-400" : "text-gray-600"
+                      }`}
+                    >
+                      {product.tagline}
+                    </p>
+                  </div>
+
+                  {/* Divider */}
+                  <div
+                    className="h-px mx-5"
+                    style={{
+                      backgroundColor: product.color + "30",
+                    }}
+                  />
+
+                  {/* Specs — compact grid */}
+                  <div className="p-5 pt-4">
+                    <div className="grid grid-cols-2 gap-x-4 gap-y-3">
+                      {product.specs.map((spec, j) => (
+                        <div key={j} className="col-span-1">
+                          <div
+                            className={`text-xs ${
+                              darkMode ? "text-gray-500" : "text-gray-500"
+                            }`}
+                          >
+                            {spec.label}
+                          </div>
+                          <div
+                            className="font-medium text-sm"
+                            style={{ color: product.color }}
+                          >
+                            {spec.value}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Expandable details — minimal arrow toggle */}
+                    <motion.div
+                      initial={false}
+                      animate={{ height: "auto", opacity: 1 }}
+                      className="mt-4 text-xs space-y-1.5"
+                    >
+                      {product.details.map((d, idx) => (
+                        <div
+                          key={idx}
+                          className="flex items-start gap-1.5 text-gray-500"
+                        >
+                          <div
+                            className="mt-1.5 w-1 h-1 rounded-full"
+                            style={{ backgroundColor: product.color }}
+                          ></div>
+                          <span
+                            className={
+                              darkMode ? "text-gray-400" : "text-gray-500"
+                            }
+                          >
+                            {d}
+                          </span>
+                        </div>
+                      ))}
+                    </motion.div>
+                  </div>
+
+                  {/* CTA — subtle underline on hover */}
+                  {/* <div className="px-5 pb-5 pt-2">
+                    <motion.button
+                      whileHover={{ x: 2 }}
+                      className="group flex items-center gap-1 text-sm font-medium"
+                      style={{ color: product.color }}
+                    >
+                      View Datasheet
+                      <ArrowRight
+                        className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1"
+                        style={{ color: product.color }}
+                      />
+                    </motion.button>
+                  </div> */}
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+
+        {/* Optional: Indicator dots for mobile */}
+        <div className="flex justify-center gap-2 mt-8 sm:hidden">
+          {products.map((_, i) => (
+            <div
+              key={i}
+              className={`w-2 h-2 rounded-full ${
+                darkMode ? "bg-gray-600" : "bg-gray-300"
+              }`}
+              style={{
+                backgroundColor:
+                  i === 0 ? (darkMode ? "#fbbf24" : "#3b82f6") : "",
+              }}
+            />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+const SustainabilitySection = ({ darkMode }) => {
+  return (
+    <section
+      id="sustainability"
+      className={`py-32 relative overflow-hidden ${
+        darkMode ? "bg-slate-900/50" : "bg-white/50"
+      }`}
+    >
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: false }}
+          className="text-center mb-16"
+        >
+          <motion.div
+            animate={{ rotate: 360 }}
+            transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+            className="inline-block mb-4"
+          >
+            <Leaf
+              className={`w-16 h-16 mx-auto ${
+                darkMode ? "text-green-400" : "text-emerald-600"
+              }`}
+            />
+          </motion.div>
+          <h2
+            className={`text-3xl sm:text-4xl lg:text-5xl font-bold ${
+              darkMode ? "text-green-400" : "text-emerald-600"
+            }`}
+          >
+            Growing a Cleaner World
+          </h2>
+        </motion.div>
+
+        {/* Leaf Growth Visualization */}
+        <div className="relative flex justify-center mb-20">
+          <div className="w-16 h-1 bg-gradient-to-r from-emerald-500 to-green-500 rounded-full" />
+          <div className="absolute -top-10 left-1/2 transform -translate-x-1/2">
+            <motion.div
+              initial={{ scale: 0 }}
+              whileInView={{ scale: 1 }}
+              viewport={{ once: false }}
+              className={`w-24 h-24 rounded-full flex items-center justify-center ${
+                darkMode ? "bg-green-500/10" : "bg-emerald-100"
+              }`}
+            >
+              <Leaf
+                className={`w-12 h-12 ${
+                  darkMode ? "text-green-400" : "text-emerald-600"
+                }`}
+              />
+            </motion.div>
+          </div>
+          <div className="absolute -bottom-10 left-1/4">
+            <div
+              className={`text-center ${
+                darkMode ? "text-gray-300" : "text-gray-600"
+              }`}
+            >
+              <div className="font-bold text-xl">50K</div>
+              <div>tons CO₂ saved</div>
+            </div>
+          </div>
+          <div className="absolute -bottom-10 right-1/4">
+            <div
+              className={`text-center ${
+                darkMode ? "text-gray-300" : "text-gray-600"
+              }`}
+            >
+              <div className="font-bold text-xl">100%</div>
+              <div>renewable ops</div>
+            </div>
+          </div>
+        </div>
+
+        {/* Eco Cards — staggered wave layout */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {[
+            {
+              title: "Circular Manufacturing",
+              desc: "95% material recovery. Zero landfill waste since 2023.",
+              icon: <RecycleIcon />,
+              bg: darkMode ? "bg-green-900/30" : "bg-emerald-50",
+            },
+            {
+              title: "Water Positive",
+              desc: "Harvest 2x more water than we consume via rooftop rain catchment.",
+              icon: <DropletIcon />,
+              bg: darkMode ? "bg-blue-900/30" : "bg-blue-50",
+            },
+            {
+              title: "Biodiversity Zones",
+              desc: "Solar farms double as pollinator habitats — +40% local species.",
+              icon: <FlowerIcon />,
+              bg: darkMode ? "bg-amber-900/30" : "bg-amber-50",
+            },
+          ].map((item, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false }}
+              transition={{ delay: i * 0.2 }}
+              whileHover={{ y: -5 }}
+              className={`p-6 rounded-2xl ${item.bg} ${
+                darkMode ? "border border-slate-700" : "border border-gray-200"
+              }`}
+            >
+              <div
+                className={`inline-block p-3 rounded-lg mb-4 ${
+                  darkMode ? "bg-slate-800" : "bg-white"
+                }`}
+              >
+                {item.icon}
+              </div>
+              <h3
+                className={`font-bold text-lg ${
+                  darkMode ? "text-white" : "text-gray-900"
+                }`}
+              >
+                {item.title}
+              </h3>
+              <p
+                className={`mt-2 text-sm ${
+                  darkMode ? "text-gray-300" : "text-gray-600"
+                }`}
+              >
+                {item.desc}
+              </p>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+const CareersSection = ({ darkMode }) => {
+  const [hoveredIndex, setHoveredIndex] = useState(null);
+
+  const roles = [
+    {
+      title: "Solar Engineer",
+      type: "Full-time",
+      location: "Ghaziabad",
+      dept: "Engineering",
+    },
+    {
+      title: "Quality Analyst",
+      type: "Full-time",
+      location: "Ghaziabad",
+      dept: "Quality",
+    },
+    {
+      title: "Automation Specialist",
+      type: "Full-time",
+      location: "Ghaziabad",
+      dept: "Technology",
+    },
+    {
+      title: "R&D Scientist",
+      type: "Full-time",
+      location: "Ghaziabad",
+      dept: "Research",
+    },
+    {
+      title: "Operations Manager",
+      type: "Full-time",
+      location: "Ghaziabad",
+      dept: "Operations",
+    },
+    {
+      title: "Sustainability Officer",
+      type: "Full-time",
+      location: "Ghaziabad",
+      dept: "Environment",
+    },
+  ];
+
+  return (
+    <section id="careers" className="py-32 relative overflow-hidden">
+      <div
+        className={`absolute inset-0 ${
+          darkMode
+            ? "bg-gradient-to-b from-slate-950 via-blue-950 to-slate-950"
+            : "bg-gradient-to-b from-sky-50 via-blue-50 to-indigo-50"
+        }`}
+      />
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <motion.h2
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false }}
+          className={`text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-center mb-6 ${
+            darkMode ? "text-yellow-400" : "text-blue-600"
+          }`}
+        >
+          Join Our Team
+        </motion.h2>
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false }}
+          className={`text-center text-base sm:text-lg md:text-xl mb-12 sm:mb-20 ${
+            darkMode ? "text-gray-300" : "text-gray-600"
+          }`}
+        >
+          Be part of the solar revolution. Shape the future of clean energy.
+        </motion.p>
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {roles.map((role, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }} // ✅ FIXED TYPO: was whileUIView
+              viewport={{ once: false }}
+              transition={{ delay: index * 0.1 }}
+              whileHover={{ y: -10, scale: 1.03 }}
+              onHoverStart={() => setHoveredIndex(index)}
+              onHoverEnd={() => setHoveredIndex(null)}
+              className="group relative cursor-pointer"
+            >
+              <div
+                className={`absolute inset-0 rounded-2xl blur-xl transition-all duration-500 ${
+                  hoveredIndex === index
+                    ? darkMode
+                      ? "opacity-100 bg-yellow-400/5"
+                      : "opacity-100 bg-blue-500/5"
+                    : "opacity-0"
+                }`}
+              />
+              <div
+                className={`relative p-6 sm:p-8 rounded-2xl transition-all ${
+                  darkMode
+                    ? "bg-slate-900/70 backdrop-blur-sm border border-slate-700 group-hover:border-yellow-400/50"
+                    : "bg-white/80 backdrop-blur-sm border border-gray-200 group-hover:border-blue-500/50"
+                }`}
+              >
+                <div className="flex justify-between items-start mb-3 sm:mb-4">
+                  <div>
+                    <h3
+                      className={`text-lg sm:text-xl font-bold mb-1 sm:mb-2 group-hover:text-opacity-100 transition-colors ${
+                        darkMode
+                          ? "text-white group-hover:text-yellow-400"
+                          : "text-slate-900 group-hover:text-blue-600"
+                      }`}
+                    >
+                      {role.title}
+                    </h3>
+                    <span
+                      className={`text-xs sm:text-sm font-medium ${
+                        darkMode ? "text-yellow-400" : "text-blue-600"
+                      }`}
+                    >
+                      {role.dept}
+                    </span>
+                  </div>
+                  <motion.div
+                    animate={{ rotate: hoveredIndex === index ? 45 : 0 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <ArrowRight
+                      className={`w-5 h-5 sm:w-6 sm:h-6 ${
+                        darkMode ? "text-yellow-400" : "text-blue-500"
+                      }`}
+                    />
+                  </motion.div>
+                </div>
+                <div className="space-y-1.5">
+                  <p
+                    className={`text-xs sm:text-sm flex items-center gap-1.5 ${
+                      darkMode ? "text-gray-400" : "text-gray-500"
+                    }`}
+                  >
+                    <span
+                      className={`w-1.5 h-1.5 rounded-full ${
+                        darkMode ? "bg-green-400" : "bg-emerald-500"
+                      }`}
+                    ></span>
+                    {role.type}
+                  </p>
+                  <p
+                    className={`text-xs sm:text-sm flex items-center gap-1.5 ${
+                      darkMode ? "text-gray-400" : "text-gray-500"
+                    }`}
+                  >
+                    <MapPin
+                      className={`w-3.5 h-3.5 sm:w-4 sm:h-4 ${
+                        darkMode ? "text-yellow-400" : "text-blue-500"
+                      }`}
+                    />
+                    {role.location}
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+const ContactSection = ({ darkMode }) => {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+  const [submitted, setSubmitted] = useState(false);
+  const [focused, setFocused] = useState(null);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setSubmitted(true);
+    setTimeout(() => {
+      setSubmitted(false);
+      setFormData({ name: "", email: "", message: "" });
+    }, 3000);
+  };
+
+  return (
+    <section
+      id="contact"
+      className={`py-24 sm:py-32 relative overflow-hidden ${
+        darkMode ? "bg-slate-900/50" : "bg-white/50"
+      }`}
+    >
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <motion.h2
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false }}
+          className={`text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-center mb-6 ${
+            darkMode ? "text-yellow-400" : "text-blue-600"
+          }`}
+        >
+          Get In Touch
+        </motion.h2>
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false }}
+          className={`text-center text-base sm:text-lg md:text-xl mb-12 sm:mb-20 ${
+            darkMode ? "text-gray-300" : "text-gray-600"
+          }`}
+        >
+          Let's illuminate the future together
+        </motion.p>
+
+        <div className="grid md:grid-cols-2 gap-8 sm:gap-12">
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: false }}
+            className="space-y-6 sm:space-y-8"
+          >
+            {[
+              {
+                icon: <MapPin />,
+                title: "Location",
+                content:
+                  "Balaji Compound, Meerut Road, Morta\nGhaziabad, Uttar Pradesh, India",
+              },
+              {
+                icon: <Mail />,
+                title: "Email",
+                content: "info@lumivolt.com\nsupport@lumivolt.com",
+              },
+              {
+                icon: <Phone />,
+                title: "Phone",
+                content: "+91-1234567890\n+91-0987654321",
+              },
+            ].map((item, index) => (
+              <motion.div
+                key={index}
+                whileHover={{ x: 8 }}
+                className="flex items-start gap-4 sm:gap-6 group"
+              >
+                <motion.div
+                  whileHover={{ scale: 1.2, rotate: 360 }}
+                  transition={{ duration: 0.6 }}
+                  className={`p-3 sm:p-4 rounded-xl sm:rounded-2xl border transition-all group-hover:border-opacity-100 ${
+                    darkMode
+                      ? "bg-yellow-400/10 border-slate-700 group-hover:border-yellow-400/50"
+                      : "bg-blue-500/10 border-gray-200 group-hover:border-blue-500/50"
+                  }`}
+                >
+                  {React.cloneElement(item.icon, {
+                    className: `w-5 h-5 sm:w-6 sm:h-6 ${
+                      darkMode ? "text-yellow-400" : "text-blue-500"
+                    }`,
+                  })}
+                </motion.div>
+                <div>
+                  <h3
+                    className={`font-bold text-lg sm:text-xl mb-1 ${
+                      darkMode ? "text-white" : "text-slate-900"
+                    }`}
+                  >
+                    {item.title}
+                  </h3>
+                  <p
+                    className={`whitespace-pre-line leading-relaxed text-sm sm:text-base ${
+                      darkMode ? "text-gray-400" : "text-gray-600"
+                    }`}
+                  >
+                    {item.content}
+                  </p>
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+
+          <motion.form
+            initial={{ opacity: 0, x: 20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: false }}
+            onSubmit={handleSubmit}
+            className="relative"
+          >
+            <div
+              className={`absolute inset-0 rounded-3xl blur-2xl ${
+                darkMode ? "bg-yellow-400/5" : "bg-blue-500/5"
+              }`}
+            />
+            <div
+              className={`relative p-6 sm:p-8 rounded-3xl space-y-5 sm:space-y-6 ${
+                darkMode
+                  ? "bg-slate-900/70 backdrop-blur-sm border border-slate-700"
+                  : "bg-white/70 backdrop-blur-sm border border-gray-200"
+              }`}
+            >
+              {["name", "email"].map((field) => (
+                <div key={field}>
+                  <label
+                    className={`block text-sm sm:text-base font-medium mb-1.5 ${
+                      darkMode ? "text-gray-300" : "text-gray-600"
+                    }`}
+                  >
+                    {field.charAt(0).toUpperCase() + field.slice(1)}
+                  </label>
+                  <motion.input
+                    type={field === "email" ? "email" : "text"}
+                    value={formData[field]}
+                    onChange={(e) =>
+                      setFormData({ ...formData, [field]: e.target.value })
+                    }
+                    onFocus={() => setFocused(field)}
+                    onBlur={() => setFocused(null)}
+                    whileFocus={{ scale: 1.02 }}
+                    className={`w-full px-4 py-3 sm:px-5 sm:py-4 rounded-xl focus:outline-none transition-all placeholder-opacity-70 text-sm sm:text-base ${
+                      darkMode
+                        ? "bg-slate-950/50 text-white placeholder-gray-500 " +
+                          (focused === field
+                            ? "border-yellow-400"
+                            : "border-slate-700")
+                        : "bg-white/50 text-slate-900 placeholder-gray-400 " +
+                          (focused === field
+                            ? "border-blue-500"
+                            : "border-gray-200")
+                    }`}
+                    placeholder={`Enter your ${field}`}
+                    required
+                  />
+                </div>
+              ))}
+
+              <div>
+                <label
+                  className={`block text-sm sm:text-base font-medium mb-1.5 ${
+                    darkMode ? "text-gray-300" : "text-gray-600"
+                  }`}
+                >
+                  Message
+                </label>
+                <motion.textarea
+                  value={formData.message}
+                  onChange={(e) =>
+                    setFormData({ ...formData, message: e.target.value })
+                  }
+                  onFocus={() => setFocused("message")}
+                  onBlur={() => setFocused(null)}
+                  whileFocus={{ scale: 1.02 }}
+                  rows="4"
+                  className={`w-full px-4 py-3 sm:px-5 sm:py-4 rounded-xl focus:outline-none transition-all placeholder-opacity-70 resize-none text-sm sm:text-base ${
+                    darkMode
+                      ? "bg-slate-950/50 text-white placeholder-gray-500 " +
+                        (focused === "message"
+                          ? "border-yellow-400"
+                          : "border-slate-700")
+                      : "bg-white/50 text-slate-900 placeholder-gray-400 " +
+                        (focused === "message"
+                          ? "border-blue-500"
+                          : "border-gray-200")
+                  }`}
+                  placeholder="Tell us about your project"
+                  required
+                />
+              </div>
+
+              <motion.button
+                whileHover={{
+                  scale: 1.05,
+                  boxShadow: darkMode
+                    ? "0 0 30px rgba(251, 191, 36, 0.5)"
+                    : "0 0 30px rgba(59, 130, 246, 0.4)",
+                }}
+                whileTap={{ scale: 0.95 }}
+                type="submit"
+                className={`w-full py-3 sm:py-4 rounded-xl font-bold text-base sm:text-lg shadow-lg ${
+                  darkMode
+                    ? "bg-yellow-400 text-slate-950 shadow-yellow-400/30"
+                    : "bg-blue-600 text-white shadow-blue-600/30"
+                }`}
+              >
+                {submitted ? (
+                  <motion.span
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    className="flex items-center justify-center gap-2"
+                  >
+                    <Sparkles className="w-4 h-4 sm:w-5 sm:h-5" />
+                    <span className="text-sm sm:text-base">Message Sent!</span>
+                  </motion.span>
+                ) : (
+                  "Send Message"
+                )}
+              </motion.button>
+            </div>
+          </motion.form>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+const Footer = ({ darkMode }) => {
+  return (
+    <footer className="relative pt-12 pb-16 overflow-hidden">
+      <div
+        className={`absolute inset-0 ${
+          darkMode
+            ? "bg-gradient-to-t from-slate-950 to-slate-900"
+            : "bg-gradient-to-t from-sky-50 to-white"
+        }`}
+      />
+      <div
+        className={`absolute inset-0 border-t ${
+          darkMode ? "border-slate-800" : "border-gray-200"
+        }`}
+      />
+
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex flex-col md:flex-row justify-between items-center gap-6 sm:gap-8">
+          <motion.div
+            whileHover={{ scale: 1.05 }}
+            className="flex items-center space-x-2 sm:space-x-3"
+          >
+            <motion.div
+              animate={{ rotate: 360 }}
+              transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+            >
+              <Sun
+                className={`w-8 h-8 sm:w-10 sm:h-10 ${
+                  darkMode ? "text-yellow-400" : "text-blue-500"
+                }`}
+              />
+            </motion.div>
+            <div>
+              <span
+                className={`text-xl sm:text-2xl font-bold block ${
+                  darkMode ? "text-yellow-400" : "text-blue-600"
+                }`}
+              >
+                Lumivolt Tech Solar
+              </span>
+              <span
+                className={`text-xs sm:text-sm ${
+                  darkMode ? "text-gray-500" : "text-gray-400"
+                }`}
+              >
+                Powering Tomorrow
+              </span>
+            </div>
+          </motion.div>
+
+          <div className="flex flex-col md:flex-row items-center gap-4 sm:gap-6">
+            <div className="flex gap-3 sm:gap-4">
+              {["Twitter", "LinkedIn", "Instagram"].map((social) => (
+                <motion.a
+                  key={social}
+                  whileHover={{ scale: 1.2, y: -4 }}
+                  whileTap={{ scale: 0.9 }}
+                  href="#"
+                  className={`w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center transition-all ${
+                    darkMode
+                      ? "bg-yellow-400/10 border border-slate-700 hover:border-yellow-400"
+                      : "bg-blue-500/10 border border-gray-200 hover:border-blue-500"
+                  }`}
+                >
+                  <span
+                    className={`text-xs sm:text-sm font-bold ${
+                      darkMode ? "text-yellow-400" : "text-blue-500"
+                    }`}
+                  >
+                    {social[0]}
+                  </span>
+                </motion.a>
+              ))}
+            </div>
+          </div>
+
+          <div
+            className={`text-center md:text-right text-xs sm:text-sm ${
+              darkMode ? "text-gray-400" : "text-gray-500"
+            }`}
+          >
+            <p className="font-medium">© 2025 Lumivolt Tech Solar Pvt. Ltd.</p>
+            <p>Engineering a sustainable future</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+};
+
+export default App;
