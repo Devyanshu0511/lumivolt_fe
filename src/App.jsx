@@ -1595,7 +1595,7 @@ const ContactSection = ({ darkMode }) => {
               {
                 icon: <Mail />,
                 title: "Email",
-                content: "hello@lumivolt.in",
+                content: "contact@lumivolt.in",
               },
               {
                 icon: <Phone />,
