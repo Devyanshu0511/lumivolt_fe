@@ -18,5 +18,5 @@ __pycache__/
 *.pyc
 
 # Ignore local env file (but keep template)
-.env
-!.env.example
+# .env
+# !.env.example
