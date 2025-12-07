@@ -1,37 +1,7 @@
-import React, { useState, useEffect, useRef } from "react";
-import {
-  motion,
-  useScroll,
-  useTransform,
-  useMotionValue,
-  animate,
-  useInView,
-  useSpring,
-} from "framer-motion";
-import {
-  Menu,
-  X,
-  Sun,
-  Moon,
-  MapPin,
-  Mail,
-  Phone,
-  Boxes,
-  Eye,
-  Package,
-  ArrowRight,
-  Factory,
-  ShieldCheck,
-  Leaf,
-  Award,
-  Zap,
-  Users,
-  TrendingUp,
-  ChevronDown,
-  Sparkles,
-  Shield,
-  Globe,
-} from "lucide-react";
+import React, { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { ArrowRight, Factory, ChevronDown } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const HeroSection = ({ darkMode }) => {
   const containerRef = useRef(null);
@@ -39,6 +9,7 @@ const HeroSection = ({ darkMode }) => {
     target: containerRef,
     offset: ["start start", "end start"],
   });
+  const navigate = useNavigate();
 
   const y = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
@@ -49,7 +20,6 @@ const HeroSection = ({ darkMode }) => {
       id="home"
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
     >
-      {/* Real Solar Farm Background — sunrise-enhanced */}
       <div className="absolute inset-0">
         <motion.div
           style={{
@@ -62,7 +32,6 @@ const HeroSection = ({ darkMode }) => {
           animate={{ scale: [1, 1.02, 1] }}
           transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
         />
-        {/* Sunrise Gradient Overlay */}
         <div
           className={`absolute inset-0 bg-gradient-to-t ${
             darkMode
@@ -70,7 +39,6 @@ const HeroSection = ({ darkMode }) => {
               : "from-white/70 via-white/40 to-transparent"
           }`}
         />
-        {/* Grid Pattern */}
         <motion.div
           className="absolute inset-0 opacity-10"
           style={{
@@ -84,7 +52,6 @@ const HeroSection = ({ darkMode }) => {
             y,
           }}
         />
-        {/* Floating Particles */}
         {[...Array(30)].map((_, i) => (
           <motion.div
             key={i}
@@ -107,7 +74,6 @@ const HeroSection = ({ darkMode }) => {
             }}
           />
         ))}
-        {/* Glowing Orbs */}
         <motion.div
           className="absolute top-20 right-20 w-96 h-96 rounded-full blur-3xl"
           animate={{
@@ -136,12 +102,10 @@ const HeroSection = ({ darkMode }) => {
         />
       </div>
 
-      {/* Content Overlay */}
       <motion.div
         style={{ opacity }}
         className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center"
       >
-        {/* Tagline — subtle & elegant */}
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -168,7 +132,6 @@ const HeroSection = ({ darkMode }) => {
           </span>
         </motion.h1>
 
-        {/* Subheadline / Callout */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -213,6 +176,7 @@ const HeroSection = ({ darkMode }) => {
           transition={{ delay: 0.7, duration: 0.8 }}
         >
           <motion.button
+            onClick={() => navigate("/products")}
             whileHover={{
               scale: 1.05,
               boxShadow: darkMode
@@ -231,6 +195,7 @@ const HeroSection = ({ darkMode }) => {
           </motion.button>
 
           <motion.button
+            onClick={() => navigate("/contact")}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             className={`px-8 py-4 sm:px-10 sm:py-5 rounded-full font-bold text-lg border-2 hover:bg-opacity-10 transition-all ${

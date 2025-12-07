@@ -2,8 +2,10 @@ import React from "react";
 import { motion } from "framer-motion";
 import { Factory, Zap, ShieldCheck, Award, RecycleIcon } from "lucide-react";
 import { ArrowRight } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const WhyChooseUsSection = ({ darkMode }) => {
+  const navigate = useNavigate();
   const features = [
     {
       title: "800 MW Fully Automated Line",
@@ -128,6 +130,7 @@ const WhyChooseUsSection = ({ darkMode }) => {
             Let’s shape the future of solar energy—together.
           </p>
           <motion.button
+            onClick={() => navigate("/contact")}
             whileHover={{ scale: 1.05 }}
             className={`mt-6 px-8 py-3 rounded-full font-bold inline-flex items-center gap-2 ${
               darkMode

@@ -1,5 +1,6 @@
 // src/App.js
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
 import Layout from "./components/Layout";
 import Home from "./pages/Home";
 import About from "./pages/AboutSection";
@@ -9,10 +10,23 @@ import Sustainability from "./pages/Sustainability";
 import Leadership from "./pages/Leadership";
 import Careers from "./pages/Career";
 import Contact from "./pages/Contact";
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
+
+const ScrollToTop = () => {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [pathname]);
+
+  return null;
+};
 
 const App = () => {
   return (
     <Router>
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
@@ -24,7 +38,6 @@ const App = () => {
           <Route path="careers" element={<Careers />} />
           <Route path="contact" element={<Contact />} />
         </Route>
-        {/* Optional 404 */}
         <Route path="*" element={<div>404 — Page Not Found</div>} />
       </Routes>
     </Router>

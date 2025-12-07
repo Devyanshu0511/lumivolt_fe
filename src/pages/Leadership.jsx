@@ -7,7 +7,6 @@ const LeadershipSection = () => {
   const { darkMode } = useDarkMode();
   const leaders = [
     { name: "Devyanshu Singhal", role: "Promoter" },
-
     { name: "Samarth Wadhwa", role: "Director" },
     { name: "Pankaj Gupta", role: "Director" },
     { name: "Rajkumar Chaudhary", role: "Director" },
