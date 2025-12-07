@@ -1,7 +1,10 @@
 import React, { useRef } from "react";
 import { motion, useInView } from "framer-motion";
+import { useDarkMode } from "../components/Layout";
+import LeadershipSection from "./Leadership";
 
-const AboutSection = ({ darkMode }) => {
+const AboutSection = () => {
+  const { darkMode } = useDarkMode();
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
 
@@ -191,6 +194,7 @@ const AboutSection = ({ darkMode }) => {
           </motion.div>
         </div>
       </div>
+      <LeadershipSection />
     </section>
   );
 };

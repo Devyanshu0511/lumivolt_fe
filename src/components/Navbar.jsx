@@ -1,111 +1,143 @@
-import React, { useState, useEffect, useRef } from "react";
-import { motion } from "framer-motion";
+// src/components/Navigation.jsx (or Navbar.jsx)
+import React, { useState, useEffect, useCallback } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Link, useLocation } from "react-router-dom"; // ✅ Essential for multi-page
 import { Menu, X, Sun, Moon } from "lucide-react";
 import logo from "../assets/image.png";
+import { useDarkMode } from "./Layout";
 
-const Navigation = ({
-  darkMode,
-  setDarkMode,
-  mobileMenuOpen,
-  setMobileMenuOpen,
-  navItems,
-}) => {
+const Navigation = () => {
   const [scrolled, setScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const location = useLocation(); // ✅ Close mobile menu on route change
+  const { darkMode, setDarkMode } = useDarkMode();
 
+  // Close mobile menu when route changes
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener("scroll", handleScroll);
+    setMobileMenuOpen(false);
+  }, [location]);
+
+  // Sticky header on scroll
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 10);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const toggleDarkMode = useCallback(() => {
+    setDarkMode((prev) => !prev);
+  }, [setDarkMode]);
+
+  // Full nav items (for routing)
+  const navItems = [
+    { name: "Home", path: "/" },
+    { name: "About", path: "/about" },
+    { name: "Technology", path: "/technology" },
+    { name: "Products", path: "/products" },
+    { name: "Sustainability", path: "/sustainability" },
+    { name: "Careers", path: "/careers" },
+    { name: "Contact", path: "/contact" },
+  ];
 
   return (
     <motion.nav
       initial={{ y: -100 }}
       animate={{ y: 0 }}
-      className={`fixed top-0 w-full z-40 transition-all duration-500 ${
+      className={`fixed top-0 w-full z-50 transition-all duration-500 ${
         scrolled
           ? darkMode
-            ? "bg-slate-950/80 backdrop-blur-xl shadow-xl"
-            : "bg-white/80 backdrop-blur-xl shadow-lg"
+            ? "bg-slate-950/90 backdrop-blur-xl shadow-lg"
+            : "bg-white/90 backdrop-blur-xl shadow-md"
+          : darkMode
+          ? "bg-transparent"
           : "bg-transparent"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
-          <motion.div
-            whileHover={{ scale: 1.05 }}
-            className="flex items-center space-x-3 cursor-pointer"
-          >
-            <motion.div
-              whileHover={{ rotate: 2 }}
-              transition={{ duration: 0.3 }}
-              className="relative"
-            >
-              <motion.img
-                src={logo}
-                alt="Lumivolt Logo"
-                className="w-12 h-12 object-contain rounded-full shadow-md"
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.6, ease: "easeOut" }}
-              />
-            </motion.div>
-
-            <div>
-              <span
-                className={`text-2xl font-bold ${
-                  darkMode ? "text-yellow-400" : "text-blue-600"
-                }`}
+          {/* Logo */}
+          <motion.div whileHover={{ scale: 1.03 }} className="cursor-pointer">
+            <Link to="/" className="flex items-center space-x-2.5">
+              <motion.div
+                whileHover={{ rotate: 5 }}
+                className="relative"
+                aria-label="Lumivolt Home"
               >
-                Lumivolt
-              </span>
-              <p
-                className={`text-xs -mt-1 ${
-                  darkMode ? "text-gray-400" : "text-gray-500"
-                }`}
-              >
-                Tech Solar
-              </p>
-            </div>
+                <motion.img
+                  src={logo}
+                  alt="Lumivolt Logo"
+                  className="w-10 h-10 sm:w-12 sm:h-12 object-contain rounded-full shadow-md"
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.5 }}
+                />
+              </motion.div>
+              <div>
+                <span
+                  className={`text-xl sm:text-2xl font-bold ${
+                    darkMode ? "text-yellow-400" : "text-blue-600"
+                  }`}
+                >
+                  Lumivolt
+                </span>
+                <p
+                  className={`text-xs -mt-0.5 ${
+                    darkMode ? "text-gray-400" : "text-gray-500"
+                  }`}
+                >
+                  Tech Solar
+                </p>
+              </div>
+            </Link>
           </motion.div>
 
+          {/* Desktop Nav */}
           <div className="hidden md:flex items-center space-x-1">
             {navItems.map((item, i) => (
-              <motion.a
-                key={item}
-                href={`#${item.toLowerCase()}`}
-                initial={{ opacity: 0, y: -20 }}
+              <motion.div
+                key={item.path}
+                initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.1 }}
-                whileHover={{ scale: 1.05, y: -2 }}
-                whileTap={{ scale: 0.95 }}
-                className={`px-4 py-2 rounded-xl transition-all relative group ${
-                  darkMode
-                    ? "text-gray-300 hover:text-yellow-400 hover:bg-blue-900/30"
-                    : "text-gray-600 hover:text-blue-600 hover:bg-blue-50"
-                }`}
+                transition={{ delay: i * 0.05 }}
               >
-                {item}
-                <motion.div
-                  className="absolute bottom-0 left-0 right-0 h-0.5"
-                  initial={{ scaleX: 0 }}
-                  whileHover={{ scaleX: 1 }}
-                  transition={{ duration: 0.3 }}
-                  style={{
-                    backgroundColor: darkMode ? "#fbbf24" : "#3b82f6",
-                  }}
-                />
-              </motion.a>
+                <Link
+                  to={item.path}
+                  className={`px-4 py-2.5 rounded-xl font-medium transition-colors relative group ${
+                    darkMode
+                      ? "text-gray-300 hover:text-yellow-400"
+                      : "text-gray-600 hover:text-blue-600"
+                  }`}
+                >
+                  {item.name}
+                  {/* Animated underline */}
+                  <motion.span
+                    className="absolute bottom-0 left-4 right-4 h-0.5"
+                    layoutId="nav-underline"
+                    initial={{ scaleX: 0 }}
+                    whileHover={{ scaleX: 1 }}
+                    transition={{ duration: 0.3, ease: "easeOut" }}
+                    style={{
+                      originX: 0,
+                      backgroundColor: darkMode ? "#fbbf24" : "#3b82f6",
+                    }}
+                  />
+                </Link>
+              </motion.div>
             ))}
+
+            {/* Dark Mode Toggle */}
             <motion.button
+              onClick={toggleDarkMode}
               whileHover={{ scale: 1.1, rotate: darkMode ? 0 : 180 }}
               whileTap={{ scale: 0.9 }}
-              onClick={() => setDarkMode(!darkMode)}
-              className={`ml-4 p-3 rounded-full shadow-lg ${
+              className={`ml-3 p-3 rounded-full shadow-md ${
                 darkMode
-                  ? "bg-yellow-400 text-slate-950 shadow-yellow-400/50"
-                  : "bg-blue-500 text-white shadow-blue-500/50"
+                  ? "bg-yellow-400 text-slate-900 shadow-yellow-500/30"
+                  : "bg-blue-600 text-white shadow-blue-500/30"
               }`}
+              aria-label={
+                darkMode ? "Switch to light mode" : "Switch to dark mode"
+              }
             >
               {darkMode ? (
                 <Sun className="w-5 h-5" />
@@ -115,11 +147,16 @@ const Navigation = ({
             </motion.button>
           </div>
 
+          {/* Mobile Menu Button */}
           <button
-            className={`md:hidden ${
-              darkMode ? "text-white" : "text-slate-900"
-            }`}
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className={`md:hidden p-2 rounded-md ${
+              darkMode
+                ? "text-white hover:bg-slate-800"
+                : "text-slate-900 hover:bg-gray-200"
+            }`}
+            aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+            aria-expanded={mobileMenuOpen}
           >
             {mobileMenuOpen ? (
               <X className="w-6 h-6" />
@@ -130,35 +167,68 @@ const Navigation = ({
         </div>
       </div>
 
-      {mobileMenuOpen && (
-        <motion.div
-          initial={{ opacity: 0, height: 0 }}
-          animate={{ opacity: 1, height: "auto" }}
-          exit={{ opacity: 0, height: 0 }}
-          className={`md:hidden backdrop-blur-xl border-t ${
-            darkMode
-              ? "bg-slate-950/95 border-yellow-400/20"
-              : "bg-white/95 border-blue-500/20"
-          }`}
-        >
-          <div className="px-4 py-4 space-y-2">
-            {navItems.map((item) => (
-              <a
-                key={item}
-                href={`#${item.toLowerCase()}`}
-                className={`block px-4 py-3 rounded-xl transition-all ${
-                  darkMode
-                    ? "text-gray-300 hover:text-yellow-400 hover:bg-blue-900/30"
-                    : "text-gray-600 hover:text-blue-600 hover:bg-blue-50"
-                }`}
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                {item}
-              </a>
-            ))}
-          </div>
-        </motion.div>
-      )}
+      {/* Mobile Menu — with proper exit animation */}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <motion.div
+            key="mobile-menu"
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.25, ease: "easeInOut" }}
+            className={`md:hidden overflow-hidden backdrop-blur-xl border-t ${
+              darkMode
+                ? "bg-slate-900/95 border-slate-800"
+                : "bg-white/95 border-gray-200"
+            }`}
+          >
+            <div className="px-4 py-4 space-y-1">
+              {navItems.map((item) => (
+                <motion.div
+                  key={item.path}
+                  initial={{ x: -20, opacity: 0 }}
+                  animate={{ x: 0, opacity: 1 }}
+                  exit={{ x: -20, opacity: 0 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <Link
+                    to={item.path}
+                    className={`block w-full text-left px-4 py-3.5 rounded-xl font-medium transition-colors ${
+                      darkMode
+                        ? "text-gray-300 hover:text-yellow-400 hover:bg-slate-800/50"
+                        : "text-gray-700 hover:text-blue-600 hover:bg-blue-50"
+                    }`}
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    {item.name}
+                  </Link>
+                </motion.div>
+              ))}
+              {/* Dark mode toggle inside mobile menu */}
+              <div className="pt-2 border-t mt-2 border-gray-700/30">
+                <button
+                  onClick={() => {
+                    toggleDarkMode();
+                    setMobileMenuOpen(false);
+                  }}
+                  className={`w-full flex items-center justify-between px-4 py-3 rounded-xl ${
+                    darkMode
+                      ? "text-yellow-400 hover:bg-slate-800/50"
+                      : "text-blue-600 hover:bg-blue-50"
+                  }`}
+                >
+                  {darkMode ? "☀️ Light Mode" : "🌙 Dark Mode"}
+                  {darkMode ? (
+                    <Sun className="w-5 h-5" />
+                  ) : (
+                    <Moon className="w-5 h-5" />
+                  )}
+                </button>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.nav>
   );
 };
