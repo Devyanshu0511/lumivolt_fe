@@ -2,6 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { Sun, ShieldCheck, Award, Zap, TrendingUp } from "lucide-react";
 import { useDarkMode } from "../components/Layout";
+import { Link } from "react-router-dom";
 
 const ProductsSection = () => {
   const { darkMode } = useDarkMode();
@@ -11,6 +12,8 @@ const ProductsSection = () => {
       tagline: "High Efficiency • Residential & Commercial",
       badge: "PERC Technology",
       color: darkMode ? "#3b82f6" : "#1d4ed8",
+      path: "/products/monofacial-perc",
+      image: "/products/monofacial-perc.svg",
       specs: [
         { label: "Power", value: "400–550W" },
         { label: "Efficiency", value: "Up to 22.3%" },
@@ -27,6 +30,8 @@ const ProductsSection = () => {
       tagline: "Double-Sided Yield • Utility & Ground-Mount",
       badge: "TOPCon Technology",
       color: darkMode ? "#10b981" : "#059669",
+      path: "/products/bifacial-topcon",
+      image: "/products/bifacial-topcon.svg",
       specs: [
         { label: "Power", value: "500–600+W" },
         { label: "Bifacial Gain", value: "+10% to +25%" },
@@ -43,6 +48,8 @@ const ProductsSection = () => {
       tagline: "Premium Performance • All Applications",
       badge: "High-Efficiency",
       color: darkMode ? "#fbbf24" : "#3b82f6",
+      path: "/products/ultra-series",
+      image: "/products/ultra-series.svg",
       specs: [
         { label: "Power", value: "550–610W" },
         { label: "Efficiency", value: "Up to 22.5%" },
@@ -141,15 +148,14 @@ const ProductsSection = () => {
         {/* Product Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {products.map((product, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.15 }}
-              whileHover={{ y: -6, transition: { duration: 0.3 } }}
-              className="group"
-            >
+            <Link key={i} to={product.path} className="block group">
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.15 }}
+                whileHover={{ y: -6, transition: { duration: 0.3 } }}
+              >
               <div
                 className={`rounded-2xl overflow-hidden h-full flex flex-col ${
                   darkMode
@@ -191,6 +197,25 @@ const ProductsSection = () => {
                   >
                     {product.tagline}
                   </p>
+                </div>
+
+                {/* Product Image */}
+                <div className="px-5 pb-4">
+                  <div className="relative overflow-hidden rounded-lg bg-gray-100 dark:bg-gray-800">
+                    <img
+                      src={product.image}
+                      alt={`${product.name} solar panel`}
+                      className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105"
+                      onError={(e) => {
+                        e.target.style.display = 'none';
+                        e.target.nextSibling.style.display = 'flex';
+                      }}
+                    />
+                    {/* Fallback for missing images */}
+                    <div className="hidden w-full h-48 items-center justify-center bg-gradient-to-br from-blue-100 to-blue-200 dark:from-blue-900 dark:to-blue-800">
+                      <Sun className="w-12 h-12 text-blue-600 dark:text-blue-400" />
+                    </div>
+                  </div>
                 </div>
 
                 {/* Divider */}
@@ -259,6 +284,7 @@ const ProductsSection = () => {
                 </div>
               </div>
             </motion.div>
+            </Link>
           ))}
         </div>
 

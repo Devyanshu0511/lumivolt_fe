@@ -1,5 +1,4 @@
 // src/components/Layout.jsx
-import { Outlet } from "react-router-dom";
 import { useState, useEffect, createContext, useContext } from "react";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
@@ -19,7 +18,7 @@ export const useDarkMode = () => {
   return context;
 };
 
-const Layout = () => {
+const Layout = ({ children }) => {
   const [darkMode, setDarkMode] = useState(false);
   const location = useLocation();
 
@@ -70,7 +69,7 @@ const Layout = () => {
             transition={{ duration: 0.4 }}
             className="overflow-hidden"
           >
-            <Outlet />
+            {children}
           </motion.main>
         </AnimatePresence>
         <Footer />

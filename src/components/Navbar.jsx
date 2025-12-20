@@ -2,20 +2,36 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link, useLocation } from "react-router-dom"; // ✅ Essential for multi-page
-import { Menu, X, Sun, Moon } from "lucide-react";
+import { Menu, X, Sun, Moon, ChevronDown } from "lucide-react";
 import logo from "../assets/image.png";
 import { useDarkMode } from "./Layout";
 
 const Navigation = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [productsDropdownOpen, setProductsDropdownOpen] = useState(false);
   const location = useLocation(); // ✅ Close mobile menu on route change
   const { darkMode, setDarkMode } = useDarkMode();
 
-  // Close mobile menu when route changes
+  // Close mobile menu and dropdown when route changes
   useEffect(() => {
     setMobileMenuOpen(false);
+    setProductsDropdownOpen(false);
   }, [location]);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (!event.target.closest('.dropdown-container')) {
+        setProductsDropdownOpen(false);
+      }
+    };
+
+    if (productsDropdownOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+      return () => document.removeEventListener('mousedown', handleClickOutside);
+    }
+  }, [productsDropdownOpen]);
 
   // Sticky header on scroll
   useEffect(() => {
@@ -33,7 +49,17 @@ const Navigation = () => {
     { name: "Home", path: "/" },
     { name: "About", path: "/about" },
     { name: "Technology", path: "/technology" },
-    { name: "Products", path: "/products" },
+    {
+      name: "Products",
+      path: "/products",
+      hasDropdown: true,
+      dropdownItems: [
+        { name: "All Products", path: "/products" },
+        { name: "Monofacial PERC", path: "/products/monofacial-perc" },
+        { name: "Bifacial TOPCon", path: "/products/bifacial-topcon" },
+        { name: "Ultra Series", path: "/products/ultra-series" },
+      ]
+    },
     { name: "Sustainability", path: "/sustainability" },
     { name: "Careers", path: "/careers" },
     { name: "Contact", path: "/contact" },
@@ -99,29 +125,102 @@ const Navigation = () => {
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.05 }}
+                className="relative dropdown-container"
               >
-                <Link
-                  to={item.path}
-                  className={`px-4 py-2.5 rounded-xl font-medium transition-colors relative group ${
-                    darkMode
-                      ? "text-gray-300 hover:text-yellow-400"
-                      : "text-gray-600 hover:text-blue-600"
-                  }`}
-                >
-                  {item.name}
-                  {/* Animated underline */}
-                  <motion.span
-                    className="absolute bottom-0 left-4 right-4 h-0.5"
-                    layoutId="nav-underline"
-                    initial={{ scaleX: 0 }}
-                    whileHover={{ scaleX: 1 }}
-                    transition={{ duration: 0.3, ease: "easeOut" }}
-                    style={{
-                      originX: 0,
-                      backgroundColor: darkMode ? "#fbbf24" : "#3b82f6",
-                    }}
-                  />
-                </Link>
+                {item.hasDropdown ? (
+                  <div>
+                    <button
+                      onClick={() => setProductsDropdownOpen(!productsDropdownOpen)}
+                      className={`px-4 py-2.5 rounded-xl font-medium transition-colors relative group flex items-center gap-1 ${
+                        darkMode
+                          ? "text-gray-300 hover:text-yellow-400"
+                          : "text-gray-600 hover:text-blue-600"
+                      }`}
+                    >
+                      {item.name}
+                      <ChevronDown
+                        className={`w-4 h-4 transition-transform ${
+                          productsDropdownOpen ? "rotate-180" : ""
+                        }`}
+                      />
+                      {/* Animated underline */}
+                      <motion.span
+                        className="absolute bottom-0 left-4 right-4 h-0.5"
+                        layoutId="nav-underline"
+                        initial={{ scaleX: 0 }}
+                        whileHover={{ scaleX: 1 }}
+                        transition={{ duration: 0.3, ease: "easeOut" }}
+                        style={{
+                          originX: 0,
+                          backgroundColor: darkMode ? "#fbbf24" : "#3b82f6",
+                        }}
+                      />
+                    </button>
+
+                    {/* Dropdown Menu */}
+                    <AnimatePresence>
+                      {productsDropdownOpen && (
+                        <motion.div
+                          initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                          animate={{ opacity: 1, y: 0, scale: 1 }}
+                          exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                          transition={{ duration: 0.2 }}
+                          className={`absolute top-full left-0 mt-2 w-64 rounded-xl shadow-xl border z-50 ${
+                            darkMode
+                              ? "bg-slate-900 border-slate-700"
+                              : "bg-white border-gray-200"
+                          }`}
+                        >
+                          <div className="py-2">
+                            {item.dropdownItems.map((dropdownItem, j) => (
+                              <motion.div
+                                key={dropdownItem.path}
+                                initial={{ opacity: 0, x: -10 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ delay: j * 0.05 }}
+                              >
+                                <Link
+                                  to={dropdownItem.path}
+                                  onClick={() => setProductsDropdownOpen(false)}
+                                  className={`block px-4 py-3 text-sm transition-colors ${
+                                    darkMode
+                                      ? "text-gray-300 hover:text-yellow-400 hover:bg-slate-800"
+                                      : "text-gray-700 hover:text-blue-600 hover:bg-blue-50"
+                                  }`}
+                                >
+                                  {dropdownItem.name}
+                                </Link>
+                              </motion.div>
+                            ))}
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                ) : (
+                  <Link
+                    to={item.path}
+                    className={`px-4 py-2.5 rounded-xl font-medium transition-colors relative group ${
+                      darkMode
+                        ? "text-gray-300 hover:text-yellow-400"
+                        : "text-gray-600 hover:text-blue-600"
+                    }`}
+                  >
+                    {item.name}
+                    {/* Animated underline */}
+                    <motion.span
+                      className="absolute bottom-0 left-4 right-4 h-0.5"
+                      layoutId="nav-underline"
+                      initial={{ scaleX: 0 }}
+                      whileHover={{ scaleX: 1 }}
+                      transition={{ duration: 0.3, ease: "easeOut" }}
+                      style={{
+                        originX: 0,
+                        backgroundColor: darkMode ? "#fbbf24" : "#3b82f6",
+                      }}
+                    />
+                  </Link>
+                )}
               </motion.div>
             ))}
 
@@ -184,25 +283,53 @@ const Navigation = () => {
           >
             <div className="px-4 py-4 space-y-1">
               {navItems.map((item) => (
-                <motion.div
-                  key={item.path}
-                  initial={{ x: -20, opacity: 0 }}
-                  animate={{ x: 0, opacity: 1 }}
-                  exit={{ x: -20, opacity: 0 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <Link
-                    to={item.path}
-                    className={`block w-full text-left px-4 py-3.5 rounded-xl font-medium transition-colors ${
-                      darkMode
-                        ? "text-gray-300 hover:text-yellow-400 hover:bg-slate-800/50"
-                        : "text-gray-700 hover:text-blue-600 hover:bg-blue-50"
-                    }`}
-                    onClick={() => setMobileMenuOpen(false)}
+                <div key={item.path}>
+                  <motion.div
+                    initial={{ x: -20, opacity: 0 }}
+                    animate={{ x: 0, opacity: 1 }}
+                    exit={{ x: -20, opacity: 0 }}
+                    transition={{ duration: 0.2 }}
                   >
-                    {item.name}
-                  </Link>
-                </motion.div>
+                    <Link
+                      to={item.path}
+                      className={`block w-full text-left px-4 py-3.5 rounded-xl font-medium transition-colors ${
+                        darkMode
+                          ? "text-gray-300 hover:text-yellow-400 hover:bg-slate-800/50"
+                          : "text-gray-700 hover:text-blue-600 hover:bg-blue-50"
+                      }`}
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      {item.name}
+                    </Link>
+                  </motion.div>
+
+                  {/* Mobile Dropdown Items */}
+                  {item.hasDropdown && (
+                    <div className="ml-4 space-y-1">
+                      {item.dropdownItems.map((dropdownItem, j) => (
+                        <motion.div
+                          key={dropdownItem.path}
+                          initial={{ x: -20, opacity: 0 }}
+                          animate={{ x: 0, opacity: 1 }}
+                          exit={{ x: -20, opacity: 0 }}
+                          transition={{ duration: 0.2, delay: j * 0.05 }}
+                        >
+                          <Link
+                            to={dropdownItem.path}
+                            className={`block w-full text-left px-4 py-2.5 rounded-lg text-sm font-medium transition-colors ${
+                              darkMode
+                                ? "text-gray-400 hover:text-yellow-400 hover:bg-slate-800/50"
+                                : "text-gray-600 hover:text-blue-600 hover:bg-blue-50"
+                            }`}
+                            onClick={() => setMobileMenuOpen(false)}
+                          >
+                            {dropdownItem.name}
+                          </Link>
+                        </motion.div>
+                      ))}
+                    </div>
+                  )}
+                </div>
               ))}
               {/* Dark mode toggle inside mobile menu */}
               <div className="pt-2 border-t mt-2 border-gray-700/30">
