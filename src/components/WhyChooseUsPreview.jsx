@@ -111,8 +111,8 @@ const WhyChooseUsSection = ({ darkMode }) => {
           viewport={{ once: true }}
           className={`mt-16 p-8 rounded-3xl text-center ${
             darkMode
-              ? "bg-gradient-to-r from-slate-900 to-blue-950 border border-slate-700"
-              : "bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200"
+              ? "bg-linear-to-r from-slate-900 to-blue-950 border border-slate-700"
+              : "bg-linear-to-r from-blue-50 to-indigo-50 border border-blue-200"
           }`}
         >
           <h3

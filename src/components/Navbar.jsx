@@ -10,6 +10,7 @@ const Navigation = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [productsDropdownOpen, setProductsDropdownOpen] = useState(false);
+  const [aboutDropdownOpen, setAboutDropdownOpen] = useState(false);
   const location = useLocation(); // ✅ Close mobile menu on route change
   const { darkMode, setDarkMode } = useDarkMode();
 
@@ -17,6 +18,7 @@ const Navigation = () => {
   useEffect(() => {
     setMobileMenuOpen(false);
     setProductsDropdownOpen(false);
+    setAboutDropdownOpen(false);
   }, [location]);
 
   // Close dropdown when clicking outside
@@ -24,14 +26,15 @@ const Navigation = () => {
     const handleClickOutside = (event) => {
       if (!event.target.closest('.dropdown-container')) {
         setProductsDropdownOpen(false);
+        setAboutDropdownOpen(false);
       }
     };
 
-    if (productsDropdownOpen) {
+    if (productsDropdownOpen || aboutDropdownOpen) {
       document.addEventListener('mousedown', handleClickOutside);
       return () => document.removeEventListener('mousedown', handleClickOutside);
     }
-  }, [productsDropdownOpen]);
+  }, [productsDropdownOpen, aboutDropdownOpen]);
 
   // Sticky header on scroll
   useEffect(() => {
@@ -47,7 +50,16 @@ const Navigation = () => {
   // Full nav items (for routing)
   const navItems = [
     { name: "Home", path: "/" },
-    { name: "About", path: "/about" },
+    {
+      name: "About",
+      path: "/about",
+      hasDropdown: true,
+      dropdownItems: [
+        { name: "About Us", path: "/about" },
+        { name: "Board of Directors", path: "/board-of-directors" },
+        { name: "Policies", path: "/policies" },
+      ]
+    },
     { name: "Technology", path: "/technology" },
     {
       name: "Products",
@@ -130,7 +142,15 @@ const Navigation = () => {
                 {item.hasDropdown ? (
                   <div>
                     <button
-                      onClick={() => setProductsDropdownOpen(!productsDropdownOpen)}
+                      onClick={() => {
+                        if (item.name === "About") {
+                          setAboutDropdownOpen(!aboutDropdownOpen);
+                          setProductsDropdownOpen(false); // Close other dropdown
+                        } else if (item.name === "Products") {
+                          setProductsDropdownOpen(!productsDropdownOpen);
+                          setAboutDropdownOpen(false); // Close other dropdown
+                        }
+                      }}
                       className={`px-4 py-2.5 rounded-xl font-medium transition-colors relative group flex items-center gap-1 ${
                         darkMode
                           ? "text-gray-300 hover:text-yellow-400"
@@ -140,7 +160,7 @@ const Navigation = () => {
                       {item.name}
                       <ChevronDown
                         className={`w-4 h-4 transition-transform ${
-                          productsDropdownOpen ? "rotate-180" : ""
+                          (item.name === "About" ? aboutDropdownOpen : productsDropdownOpen) ? "rotate-180" : ""
                         }`}
                       />
                       {/* Animated underline */}
@@ -159,7 +179,7 @@ const Navigation = () => {
 
                     {/* Dropdown Menu */}
                     <AnimatePresence>
-                      {productsDropdownOpen && (
+                      {(item.name === "About" ? aboutDropdownOpen : productsDropdownOpen) && (
                         <motion.div
                           initial={{ opacity: 0, y: -10, scale: 0.95 }}
                           animate={{ opacity: 1, y: 0, scale: 1 }}

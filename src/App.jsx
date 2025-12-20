@@ -13,6 +13,8 @@ import Sustainability from "./pages/Sustainability";
 import Leadership from "./pages/Leadership";
 import Careers from "./pages/Career";
 import Contact from "./pages/Contact";
+import Policies from "./pages/Policies";
+import BoardOfDirectors from "./pages/BoardOfDirectors";
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
@@ -34,6 +36,7 @@ const App = () => {
         <Routes>
           <Route index element={<Home />} />
           <Route path="about" element={<About />} />
+          <Route path="board-of-directors" element={<BoardOfDirectors />} />
           <Route path="technology" element={<Technology />} />
           <Route path="products" element={<Products />} />
           <Route path="products/monofacial-perc" element={<MonofacialPERC />} />
@@ -42,6 +45,7 @@ const App = () => {
           <Route path="sustainability" element={<Sustainability />} />
           <Route path="leadership" element={<Leadership />} />
           <Route path="careers" element={<Careers />} />
+          <Route path="policies" element={<Policies />} />
           <Route path="contact" element={<Contact />} />
           <Route path="*" element={<div>404 — Page Not Found</div>} />
         </Routes>
