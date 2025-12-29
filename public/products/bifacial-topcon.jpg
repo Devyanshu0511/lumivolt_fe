@@ -73,3 +73,4 @@
   <rect x="120" y="340" width="360" height="40" rx="6" fill="rgba(255,255,255,0.9)" stroke="#d1d5db" stroke-width="1"/>
   <text x="300" y="362" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#1f2937">Lumivolt Bifacial TOPCon Series</text>
 </svg>
+
