@@ -12,6 +12,8 @@ build/
 # Ignore OS-generated files
 .DS_Store
 Thumbs.db
+# AppleDouble sidecars (macOS on ExFAT/FAT32/USB — metadata, not source)
+._*
 
 # Ignore Python cache
 __pycache__/

@@ -1847,7 +1847,7 @@ const ContactSection = ({ darkMode }) => {
               {
                 icon: <Phone />,
                 title: "Phone",
-                content: "+91-1234567890\n+91-0987654321",
+                content: "+91-8745987184\n+91-8745987184",
               },
             ].map((item, index) => (
               <motion.div

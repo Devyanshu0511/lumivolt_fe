@@ -3,6 +3,9 @@ import { motion, useInView } from "framer-motion";
 import { useDarkMode } from "../components/Layout";
 import LeadershipSection from "./Leadership";
 import { useNavigate } from "react-router-dom";
+import logoFull from "../assets/logo.png";
+import logoIcon from "../assets/logo2.png";
+import heroImg from "../assets/hero.jpg";
 
 const AboutSection = () => {
   const { darkMode } = useDarkMode();
@@ -34,28 +37,28 @@ const AboutSection = () => {
       title: "Manufacturing Excellence",
       desc: "Establish world-class 800 MW automated PV module production facility.",
       icon: "🏭",
-      image: "/image.png",
+      brandLogo: true,
       color: "from-blue-500 to-blue-600",
     },
     {
       title: "Market Leadership",
       desc: "Capture significant market share in India's growing solar sector.",
       icon: "📈",
-      image: "/hero.jpg",
+      image: heroImg,
       color: "from-green-500 to-green-600",
     },
     {
       title: "Innovation & R&D",
       desc: "Invest in cutting-edge solar technologies and efficiency improvements.",
       icon: "🔬",
-      image: "/image.png",
+      brandLogo: true,
       color: "from-purple-500 to-purple-600",
     },
     {
       title: "Sustainability Impact",
       desc: "Enable clean energy transition and reduce carbon footprint.",
       icon: "🌱",
-      image: "/hero.jpg",
+      image: heroImg,
       color: "from-emerald-500 to-emerald-600",
     },
   ];
@@ -67,11 +70,10 @@ const AboutSection = () => {
       className="py-28 lg:py-36 relative overflow-hidden"
     >
       <div
-        className={`absolute inset-0 ${
-          darkMode
+        className={`absolute inset-0 ${darkMode
             ? "bg-linear-to-br from-slate-950 via-slate-900 to-slate-950"
             : "bg-linear-to-br from-blue-50 via-indigo-50 to-purple-50"
-        }`}
+          }`}
       />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-24">
         {/* Overview Section */}
@@ -83,9 +85,8 @@ const AboutSection = () => {
         >
           <div className="text-center mb-16">
             <h2
-              className={`text-3xl sm:text-4xl md:text-5xl font-bold ${
-                darkMode ? "text-white" : "text-gray-900"
-              }`}
+              className={`text-3xl sm:text-4xl md:text-5xl font-bold ${darkMode ? "text-white" : "text-gray-900"
+                }`}
             >
               Overview
             </h2>
@@ -101,9 +102,8 @@ const AboutSection = () => {
               className="space-y-6"
             >
               <p
-                className={`text-lg leading-relaxed ${
-                  darkMode ? "text-gray-300" : "text-gray-600"
-                }`}
+                className={`text-lg leading-relaxed ${darkMode ? "text-gray-300" : "text-gray-600"
+                  }`}
               >
                 Lumivolt Tech Solar Pvt. Ltd. is a next-generation solar
                 technology company based in Ghaziabad, Uttar
@@ -111,24 +111,21 @@ const AboutSection = () => {
                 manufacturing line.
               </p>
               <p
-                className={`text-lg ${
-                  darkMode ? "text-gray-300" : "text-gray-600"
-                }`}
+                className={`text-lg ${darkMode ? "text-gray-300" : "text-gray-600"
+                  }`}
               >
                 We combine cutting-edge automation, precision engineering, and
                 global quality standards to deliver high-efficiency solar
                 modules built for reliability, performance, and sustainability.
               </p>
               <p
-                className={`text-lg ${
-                  darkMode ? "text-gray-300" : "text-gray-600"
-                }`}
+                className={`text-lg ${darkMode ? "text-gray-300" : "text-gray-600"
+                  }`}
               >
                 Our mission is simple:
                 <span
-                  className={`font-bold ml-1 ${
-                    darkMode ? "text-yellow-400" : "text-blue-600"
-                  }`}
+                  className={`font-bold ml-1 ${darkMode ? "text-yellow-400" : "text-blue-600"
+                    }`}
                 >
                   harness the power of the sun to build a cleaner, smarter, and
                   more energy-independent future.
@@ -146,16 +143,15 @@ const AboutSection = () => {
             >
               <div className="relative rounded-2xl overflow-hidden shadow-2xl">
                 <img
-                  src="/hero.jpg"
+                  src={heroImg}
                   alt="Lumivolt Solar Manufacturing Facility"
                   className="w-full h-80 lg:h-96 object-cover"
                 />
                 <div
-                  className={`absolute inset-0 ${
-                    darkMode
+                  className={`absolute inset-0 ${darkMode
                       ? "bg-linear-to-t from-slate-900/60 via-transparent to-transparent"
                       : "bg-linear-to-t from-blue-900/40 via-transparent to-transparent"
-                  }`}
+                    }`}
                 />
                 <div className="absolute bottom-6 left-6 right-6">
                   <p className="text-white text-sm font-medium">
@@ -176,9 +172,8 @@ const AboutSection = () => {
         >
           <div className="text-center mb-16">
             <h2
-              className={`text-3xl sm:text-4xl md:text-5xl font-bold ${
-                darkMode ? "text-white" : "text-gray-900"
-              }`}
+              className={`text-3xl sm:text-4xl md:text-5xl font-bold ${darkMode ? "text-white" : "text-gray-900"
+                }`}
             >
               Mission & Vision
             </h2>
@@ -192,23 +187,20 @@ const AboutSection = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
-                className={`p-8 rounded-xl ${
-                  darkMode
+                className={`p-8 rounded-xl ${darkMode
                     ? "bg-slate-900 border border-slate-700"
                     : "bg-blue-50 border border-blue-100"
-                }`}
+                  }`}
               >
                 <h3
-                  className={`font-bold text-2xl mb-4 ${
-                    darkMode ? "text-yellow-400" : "text-blue-600"
-                  }`}
+                  className={`font-bold text-2xl mb-4 ${darkMode ? "text-yellow-400" : "text-blue-600"
+                    }`}
                 >
                   Vision
                 </h3>
                 <p
-                  className={`text-lg leading-relaxed ${
-                    darkMode ? "text-gray-300" : "text-gray-600"
-                  }`}
+                  className={`text-lg leading-relaxed ${darkMode ? "text-gray-300" : "text-gray-600"
+                    }`}
                 >
                   Redefine solar manufacturing in India through automation,
                   quality, and innovation.
@@ -220,23 +212,20 @@ const AboutSection = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.1 }}
-                className={`p-8 rounded-xl ${
-                  darkMode
+                className={`p-8 rounded-xl ${darkMode
                     ? "bg-slate-900 border border-slate-700"
                     : "bg-emerald-50 border border-emerald-100"
-                }`}
+                  }`}
               >
                 <h3
-                  className={`font-bold text-2xl mb-4 ${
-                    darkMode ? "text-emerald-400" : "text-emerald-600"
-                  }`}
+                  className={`font-bold text-2xl mb-4 ${darkMode ? "text-emerald-400" : "text-emerald-600"
+                    }`}
                 >
                   Mission
                 </h3>
                 <p
-                  className={`text-lg leading-relaxed ${
-                    darkMode ? "text-gray-300" : "text-gray-600"
-                  }`}
+                  className={`text-lg leading-relaxed ${darkMode ? "text-gray-300" : "text-gray-600"
+                    }`}
                 >
                   Make high-performance solar energy accessible and
                   affordable—advancing India's energy self-reliance.
@@ -255,16 +244,14 @@ const AboutSection = () => {
           >
             <div className="text-center mb-12">
               <h3
-                className={`text-2xl sm:text-3xl font-bold ${
-                  darkMode ? "text-white" : "text-gray-900"
-                }`}
+                className={`text-2xl sm:text-3xl font-bold ${darkMode ? "text-white" : "text-gray-900"
+                  }`}
               >
                 Core Values
               </h3>
               <p
-                className={`mt-3 max-w-2xl mx-auto ${
-                  darkMode ? "text-gray-400" : "text-gray-600"
-                }`}
+                className={`mt-3 max-w-2xl mx-auto ${darkMode ? "text-gray-400" : "text-gray-600"
+                  }`}
               >
                 The principles that guide our every decision and action
               </p>
@@ -279,29 +266,25 @@ const AboutSection = () => {
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.1 }}
                   whileHover={{ scale: 1.02 }}
-                  className={`flex items-start gap-4 p-6 rounded-xl ${
-                    darkMode
+                  className={`flex items-start gap-4 p-6 rounded-xl ${darkMode
                       ? "bg-slate-900/70 border border-slate-700"
                       : "bg-white border border-gray-200"
-                  }`}
+                    }`}
                 >
                   <div
-                    className={`w-3 h-3 rounded-full mt-2 shrink-0 ${
-                      darkMode ? "bg-yellow-400" : "bg-blue-600"
-                    }`}
+                    className={`w-3 h-3 rounded-full mt-2 shrink-0 ${darkMode ? "bg-yellow-400" : "bg-blue-600"
+                      }`}
                   />
                   <div>
                     <h4
-                      className={`font-bold text-lg mb-2 ${
-                        darkMode ? "text-yellow-400" : "text-blue-600"
-                      }`}
+                      className={`font-bold text-lg mb-2 ${darkMode ? "text-yellow-400" : "text-blue-600"
+                        }`}
                     >
                       {v.title}
                     </h4>
                     <p
-                      className={`leading-relaxed ${
-                        darkMode ? "text-gray-300" : "text-gray-600"
-                      }`}
+                      className={`leading-relaxed ${darkMode ? "text-gray-300" : "text-gray-600"
+                        }`}
                     >
                       {v.desc}
                     </p>
@@ -320,16 +303,14 @@ const AboutSection = () => {
           >
             <div className="text-center mb-12">
               <h3
-                className={`text-2xl sm:text-3xl font-bold ${
-                  darkMode ? "text-white" : "text-gray-900"
-                }`}
+                className={`text-2xl sm:text-3xl font-bold ${darkMode ? "text-white" : "text-gray-900"
+                  }`}
               >
                 Strategic Goals
               </h3>
               <p
-                className={`mt-3 max-w-2xl mx-auto ${
-                  darkMode ? "text-gray-400" : "text-gray-600"
-                }`}
+                className={`mt-3 max-w-2xl mx-auto ${darkMode ? "text-gray-400" : "text-gray-600"
+                  }`}
               >
                 Our roadmap for transforming India's solar energy landscape
               </p>
@@ -344,21 +325,37 @@ const AboutSection = () => {
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.15 }}
                   whileHover={{ y: -8, scale: 1.02 }}
-                  className={`relative overflow-hidden rounded-2xl shadow-xl group ${
-                    darkMode
+                  className={`relative overflow-hidden rounded-2xl shadow-xl group ${darkMode
                       ? "bg-slate-900/80 border border-slate-700"
                       : "bg-white border border-gray-200"
-                  }`}
+                    }`}
                 >
                   {/* Background Image */}
-                  <div className="relative h-48 overflow-hidden">
-                    <img
-                      src={goal.image}
-                      alt={goal.title}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                    />
+                  <div className="relative h-48 overflow-hidden bg-slate-900">
+                    {goal.brandLogo ? (
+                      <>
+                        <img
+                          src={logoIcon}
+                          alt=""
+                          className="md:hidden absolute left-1/2 top-1/2 h-[85%] w-auto max-w-[min(100%,22rem)] -translate-x-1/2 -translate-y-1/2 object-contain opacity-95"
+                        />
+                        <img
+                          src={logoFull}
+                          alt=""
+                          className="hidden md:block absolute left-1/2 top-1/2 h-[88%] w-auto max-w-[min(100%,28rem)] -translate-x-1/2 -translate-y-1/2 object-contain opacity-95"
+                        />
+                      </>
+                    ) : (
+                      <img
+                        src={goal.image}
+                        alt={goal.title}
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                      />
+                    )}
                     <div
-                      className={`absolute inset-0 bg-linear-to-t ${goal.color} opacity-80`}
+                      className={`absolute inset-0 bg-linear-to-t ${goal.color} ${
+                        goal.brandLogo ? "opacity-55" : "opacity-80"
+                      }`}
                     />
                     <div className="absolute inset-0 bg-black/20" />
                     <div className="absolute inset-0 bg-black/20" />
@@ -383,11 +380,10 @@ const AboutSection = () => {
                   <div className="p-6">
                     <div className="flex items-center justify-between mb-3">
                       <span
-                        className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium ${
-                          darkMode
+                        className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium ${darkMode
                             ? "bg-slate-800 text-slate-300"
                             : "bg-gray-100 text-gray-700"
-                        }`}
+                          }`}
                       >
                         Strategic Priority
                       </span>
@@ -396,9 +392,8 @@ const AboutSection = () => {
                       />
                     </div>
                     <p
-                      className={`text-sm leading-relaxed ${
-                        darkMode ? "text-gray-300" : "text-gray-600"
-                      }`}
+                      className={`text-sm leading-relaxed ${darkMode ? "text-gray-300" : "text-gray-600"
+                        }`}
                     >
                       Driving force behind our {goal.title.toLowerCase()}{" "}
                       initiatives and long-term success.
@@ -424,11 +419,10 @@ const AboutSection = () => {
         >
           {/* Contact Banner Background */}
           <div
-            className={`absolute inset-0 ${
-              darkMode
+            className={`absolute inset-0 ${darkMode
                 ? "bg-linear-to-r from-blue-900 via-blue-800 to-indigo-900"
                 : "bg-linear-to-r from-blue-600 via-blue-500 to-indigo-600"
-            }`}
+              }`}
           />
 
           {/* Decorative Elements */}
@@ -478,7 +472,7 @@ const AboutSection = () => {
                 </motion.a>
 
                 <motion.a
-                  href="tel:+919876543210"
+                  href="tel:+918745987184"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   className="inline-flex items-center px-8 py-4 border-2 border-white text-white font-semibold rounded-lg hover:bg-white hover:text-blue-600 transition-all duration-300"

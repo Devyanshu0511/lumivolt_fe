@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
-import { Sun } from "lucide-react";
-import logo from "../assets/image.png";
+import logoFull from "../assets/logo.png";
 import { useDarkMode } from "./Layout";
 
 const Footer = () => {
@@ -26,49 +25,22 @@ const Footer = () => {
         <div className="flex flex-col md:flex-row justify-between items-center gap-6 sm:gap-8">
           {/* Logo + Brand */}
           <motion.div
-            whileHover={{ scale: 1.05 }}
-            className="flex items-center space-x-3 sm:space-x-4"
+            whileHover={{ scale: 1.02 }}
+            className="flex items-center justify-center md:justify-start w-full md:w-auto"
           >
-            <motion.div
-              whileHover={{ rotate: 2 }}
-              transition={{ duration: 0.3 }}
-              className="relative"
+            <div
+              className={`rounded-xl inline-flex max-w-full ${
+                darkMode ? "p-2 sm:p-3" : "bg-[#264488] p-2 sm:p-3 shadow-md"
+              }`}
             >
               <motion.img
-                src={logo}
-                alt="Lumivolt Logo"
-                className="w-10 h-10 sm:w-12 sm:h-12 object-contain rounded-full shadow-md"
-                initial={{ opacity: 0, scale: 0.8 }}
+                src={logoFull}
+                alt="Lumivolt — Harnessing the Sun"
+                className="h-11 sm:h-14 md:h-16 w-auto max-w-[min(100%,20rem)] sm:max-w-[min(100%,22rem)] object-contain object-left"
+                initial={{ opacity: 0, scale: 0.98 }}
                 animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.6, ease: "easeOut" }}
+                transition={{ duration: 0.45 }}
               />
-              {/* Optional Glow Animation */}
-              <motion.div
-                className="absolute inset-0 blur-xl opacity-40"
-                animate={{ scale: [1, 1.2, 1] }}
-                transition={{ duration: 2, repeat: Infinity }}
-                style={{
-                  backgroundColor: darkMode ? "#fbbf24" : "#3b82f6",
-                  borderRadius: "9999px",
-                }}
-              />
-            </motion.div>
-
-            <div>
-              <span
-                className={`text-xl sm:text-2xl font-bold block ${
-                  darkMode ? "text-yellow-400" : "text-blue-600"
-                }`}
-              >
-                Lumivolt Tech Solar
-              </span>
-              <span
-                className={`text-xs sm:text-sm ${
-                  darkMode ? "text-gray-500" : "text-gray-400"
-                }`}
-              >
-                Harnessing the Sun to Power Progress
-              </span>
             </div>
           </motion.div>
 
