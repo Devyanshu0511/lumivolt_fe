@@ -78,9 +78,8 @@ const SustainabilitySection = () => {
   return (
     <section
       id="sustainability"
-      className={`py-28 lg:py-36 relative overflow-hidden ${
-        darkMode ? "bg-slate-900/50" : "bg-white/50"
-      }`}
+      className={`py-28 lg:py-36 relative overflow-hidden ${darkMode ? "bg-slate-900/50" : "bg-white/50"
+        }`}
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
@@ -96,22 +95,19 @@ const SustainabilitySection = () => {
             className="inline-block mb-4"
           >
             <Leaf
-              className={`w-16 h-16 mx-auto ${
-                darkMode ? "text-green-400" : "text-emerald-600"
-              }`}
+              className={`w-16 h-16 mx-auto ${darkMode ? "text-green-400" : "text-emerald-600"
+                }`}
             />
           </motion.div>
           <h2
-            className={`text-3xl sm:text-4xl lg:text-5xl font-bold ${
-              darkMode ? "text-white" : "text-gray-900"
-            }`}
+            className={`text-3xl sm:text-4xl lg:text-5xl font-bold ${darkMode ? "text-white" : "text-gray-900"
+              }`}
           >
             Commitment to Quality & Sustainability
           </h2>
           <p
-            className={`mt-5 max-w-3xl mx-auto text-lg ${
-              darkMode ? "text-gray-400" : "text-gray-600"
-            }`}
+            className={`mt-5 max-w-3xl mx-auto text-lg ${darkMode ? "text-gray-400" : "text-gray-600"
+              }`}
           >
             Where precision engineering meets environmental responsibility.
           </p>
@@ -124,26 +120,24 @@ const SustainabilitySection = () => {
           className="mb-16"
         >
           <div
-            className={`rounded-2xl p-6 ${
-              darkMode
+            className={`rounded-2xl p-6 ${darkMode
                 ? "bg-slate-900/50 border border-slate-800"
                 : "bg-white/50 border border-gray-200"
-            } backdrop-blur-sm`}
+              } backdrop-blur-sm`}
           >
             <div className="flex flex-wrap justify-center gap-2 sm:gap-4">
               {navigationItems.map((item) => (
                 <button
                   key={item.id}
                   onClick={() => scrollToSection(item.id)}
-                  className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-all text-sm font-medium ${
-                    activeSection === item.id
+                  className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-all text-sm font-medium ${activeSection === item.id
                       ? darkMode
                         ? "bg-blue-600 text-white shadow-lg"
                         : "bg-blue-600 text-white shadow-lg"
                       : darkMode
-                      ? "bg-slate-800 text-gray-300 hover:bg-slate-700"
-                      : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                  }`}
+                        ? "bg-slate-800 text-gray-300 hover:bg-slate-700"
+                        : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                    }`}
                 >
                   <span>{item.icon}</span>
                   <span>{item.label}</span>
@@ -163,30 +157,26 @@ const SustainabilitySection = () => {
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className={`rounded-2xl p-6 sm:p-8 ${
-              darkMode
+            className={`rounded-2xl p-6 sm:p-8 ${darkMode
                 ? "bg-slate-900 border border-slate-800"
                 : "bg-white border border-gray-200"
-            }`}
+              }`}
           >
             <div className="flex items-start gap-4 mb-5">
               <ShieldCheck
-                className={`w-8 h-8 ${
-                  darkMode ? "text-blue-400" : "text-blue-600"
-                }`}
+                className={`w-8 h-8 ${darkMode ? "text-blue-400" : "text-blue-600"
+                  }`}
               />
               <div>
                 <h3
-                  className={`text-xl font-bold ${
-                    darkMode ? "text-white" : "text-gray-900"
-                  }`}
+                  className={`text-xl font-bold ${darkMode ? "text-white" : "text-gray-900"
+                    }`}
                 >
                   Commitment to Quality
                 </h3>
                 <p
-                  className={`mt-1 text-sm ${
-                    darkMode ? "text-gray-400" : "text-gray-600"
-                  }`}
+                  className={`mt-1 text-sm ${darkMode ? "text-gray-400" : "text-gray-600"
+                    }`}
                 >
                   Every Lumivolt module undergoes 100% automated inspection and
                   multi-level testing.
@@ -222,22 +212,19 @@ const SustainabilitySection = () => {
                   className="flex items-start gap-3"
                 >
                   <div
-                    className={`mt-1.5 w-1.5 h-1.5 rounded-full ${
-                      darkMode ? "bg-blue-500" : "bg-blue-600"
-                    }`}
+                    className={`mt-1.5 w-1.5 h-1.5 rounded-full ${darkMode ? "bg-blue-500" : "bg-blue-600"
+                      }`}
                   />
                   <div>
                     <h4
-                      className={`font-medium ${
-                        darkMode ? "text-blue-400" : "text-blue-600"
-                      }`}
+                      className={`font-medium ${darkMode ? "text-blue-400" : "text-blue-600"
+                        }`}
                     >
                       {item.title}
                     </h4>
                     <p
-                      className={`text-sm mt-0.5 ${
-                        darkMode ? "text-gray-400" : "text-gray-600"
-                      }`}
+                      className={`text-sm mt-0.5 ${darkMode ? "text-gray-400" : "text-gray-600"
+                        }`}
                     >
                       {item.desc}
                     </p>
@@ -252,30 +239,26 @@ const SustainabilitySection = () => {
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className={`rounded-2xl p-6 sm:p-8 ${
-              darkMode
+            className={`rounded-2xl p-6 sm:p-8 ${darkMode
                 ? "bg-slate-900 border border-slate-800"
                 : "bg-white border border-gray-200"
-            }`}
+              }`}
           >
             <div className="flex items-start gap-4 mb-5">
               <Leaf
-                className={`w-8 h-8 ${
-                  darkMode ? "text-emerald-400" : "text-emerald-600"
-                }`}
+                className={`w-8 h-8 ${darkMode ? "text-emerald-400" : "text-emerald-600"
+                  }`}
               />
               <div>
                 <h3
-                  className={`text-xl font-bold ${
-                    darkMode ? "text-white" : "text-gray-900"
-                  }`}
+                  className={`text-xl font-bold ${darkMode ? "text-white" : "text-gray-900"
+                    }`}
                 >
                   Sustainability at Core
                 </h3>
                 <p
-                  className={`mt-1 text-sm ${
-                    darkMode ? "text-gray-400" : "text-gray-600"
-                  }`}
+                  className={`mt-1 text-sm ${darkMode ? "text-gray-400" : "text-gray-600"
+                    }`}
                 >
                   Our operations prioritize energy efficiency, waste reduction,
                   and eco-friendly manufacturing.
@@ -284,9 +267,8 @@ const SustainabilitySection = () => {
             </div>
 
             <p
-              className={`mb-5 leading-relaxed ${
-                darkMode ? "text-gray-300" : "text-gray-600"
-              }`}
+              className={`mb-5 leading-relaxed ${darkMode ? "text-gray-300" : "text-gray-600"
+                }`}
             >
               We’re committed to green growth — ensuring our products help
               reduce carbon footprints across industries and communities.
@@ -312,23 +294,20 @@ const SustainabilitySection = () => {
                   className="text-center"
                 >
                   <div
-                    className={`text-3xl font-bold ${
-                      darkMode ? "text-emerald-400" : "text-emerald-600"
-                    }`}
+                    className={`text-3xl font-bold ${darkMode ? "text-emerald-400" : "text-emerald-600"
+                      }`}
                   >
                     {stat.value}
                   </div>
                   <div
-                    className={`mt-2 text-sm ${
-                      darkMode ? "text-gray-300" : "text-gray-600"
-                    }`}
+                    className={`mt-2 text-sm ${darkMode ? "text-gray-300" : "text-gray-600"
+                      }`}
                   >
                     {stat.label}
                   </div>
                   <div
-                    className={`text-xs ${
-                      darkMode ? "text-gray-400" : "text-gray-500"
-                    }`}
+                    className={`text-xs ${darkMode ? "text-gray-400" : "text-gray-500"
+                      }`}
                   >
                     {stat.unit}
                   </div>
@@ -371,30 +350,26 @@ const SustainabilitySection = () => {
             <motion.div
               key={i}
               whileHover={{ y: -5 }}
-              className={`p-6 rounded-2xl ${item.bg} ${
-                darkMode ? "border border-slate-700" : "border border-gray-200"
-              }`}
+              className={`p-6 rounded-2xl ${item.bg} ${darkMode ? "border border-slate-700" : "border border-gray-200"
+                }`}
             >
               <div
-                className={`inline-block p-3 rounded-lg mb-4 ${
-                  darkMode ? "bg-slate-800" : "bg-white"
-                }`}
+                className={`inline-block p-3 rounded-lg mb-4 ${darkMode ? "bg-slate-800" : "bg-white"
+                  }`}
               >
                 {React.cloneElement(item.icon, {
                   className: `w-5 h-5 ${item.color}`,
                 })}
               </div>
               <h3
-                className={`font-bold text-lg ${
-                  darkMode ? "text-white" : "text-gray-900"
-                }`}
+                className={`font-bold text-lg ${darkMode ? "text-white" : "text-gray-900"
+                  }`}
               >
                 {item.title}
               </h3>
               <p
-                className={`mt-2 text-sm ${
-                  darkMode ? "text-gray-300" : "text-gray-600"
-                }`}
+                className={`mt-2 text-sm ${darkMode ? "text-gray-300" : "text-gray-600"
+                  }`}
               >
                 {item.desc}
               </p>
@@ -412,16 +387,14 @@ const SustainabilitySection = () => {
         >
           <div className="text-center mb-12">
             <h3
-              className={`text-2xl sm:text-3xl font-bold mb-4 ${
-                darkMode ? "text-white" : "text-gray-900"
-              }`}
+              className={`text-2xl sm:text-3xl font-bold mb-4 ${darkMode ? "text-white" : "text-gray-900"
+                }`}
             >
               Calculate Your Impact
             </h3>
             <p
-              className={`text-lg ${
-                darkMode ? "text-gray-400" : "text-gray-600"
-              }`}
+              className={`text-lg ${darkMode ? "text-gray-400" : "text-gray-600"
+                }`}
             >
               See how Lumivolt solar panels can reduce your carbon footprint
             </p>
@@ -439,16 +412,14 @@ const SustainabilitySection = () => {
         >
           <div className="text-center mb-12">
             <h3
-              className={`text-2xl sm:text-3xl font-bold mb-4 ${
-                darkMode ? "text-white" : "text-gray-900"
-              }`}
+              className={`text-2xl sm:text-3xl font-bold mb-4 ${darkMode ? "text-white" : "text-gray-900"
+                }`}
             >
               Path to Carbon Neutrality
             </h3>
             <p
-              className={`text-lg ${
-                darkMode ? "text-gray-400" : "text-gray-600"
-              }`}
+              className={`text-lg ${darkMode ? "text-gray-400" : "text-gray-600"
+                }`}
             >
               Our roadmap to achieve complete carbon neutrality by 2030
             </p>
@@ -466,16 +437,14 @@ const SustainabilitySection = () => {
         >
           <div className="text-center mb-12">
             <h3
-              className={`text-2xl sm:text-3xl font-bold mb-4 ${
-                darkMode ? "text-white" : "text-gray-900"
-              }`}
+              className={`text-2xl sm:text-3xl font-bold mb-4 ${darkMode ? "text-white" : "text-gray-900"
+                }`}
             >
               Certifications & Standards
             </h3>
             <p
-              className={`text-lg ${
-                darkMode ? "text-gray-400" : "text-gray-600"
-              }`}
+              className={`text-lg ${darkMode ? "text-gray-400" : "text-gray-600"
+                }`}
             >
               Recognized excellence in sustainable manufacturing
             </p>
@@ -493,16 +462,14 @@ const SustainabilitySection = () => {
         >
           <div className="text-center mb-12">
             <h3
-              className={`text-2xl sm:text-3xl font-bold mb-4 ${
-                darkMode ? "text-white" : "text-gray-900"
-              }`}
+              className={`text-2xl sm:text-3xl font-bold mb-4 ${darkMode ? "text-white" : "text-gray-900"
+                }`}
             >
               Environmental Impact Dashboard
             </h3>
             <p
-              className={`text-lg ${
-                darkMode ? "text-gray-400" : "text-gray-600"
-              }`}
+              className={`text-lg ${darkMode ? "text-gray-400" : "text-gray-600"
+                }`}
             >
               Real-time metrics from our operations
             </p>
@@ -520,16 +487,14 @@ const SustainabilitySection = () => {
         >
           <div className="text-center mb-12">
             <h3
-              className={`text-2xl sm:text-3xl font-bold mb-4 ${
-                darkMode ? "text-white" : "text-gray-900"
-              }`}
+              className={`text-2xl sm:text-3xl font-bold mb-4 ${darkMode ? "text-white" : "text-gray-900"
+                }`}
             >
               2030 Sustainability Targets
             </h3>
             <p
-              className={`text-lg ${
-                darkMode ? "text-gray-400" : "text-gray-600"
-              }`}
+              className={`text-lg ${darkMode ? "text-gray-400" : "text-gray-600"
+                }`}
             >
               Our roadmap to carbon neutrality
             </p>
@@ -547,16 +512,14 @@ const SustainabilitySection = () => {
         >
           <div className="text-center mb-12">
             <h3
-              className={`text-2xl sm:text-3xl font-bold mb-4 ${
-                darkMode ? "text-white" : "text-gray-900"
-              }`}
+              className={`text-2xl sm:text-3xl font-bold mb-4 ${darkMode ? "text-white" : "text-gray-900"
+                }`}
             >
               Technology Impact Comparison
             </h3>
             <p
-              className={`text-lg ${
-                darkMode ? "text-gray-400" : "text-gray-600"
-              }`}
+              className={`text-lg ${darkMode ? "text-gray-400" : "text-gray-600"
+                }`}
             >
               Compare environmental benefits across our solar technologies
             </p>
@@ -576,7 +539,7 @@ const CarbonCalculator = ({ darkMode }) => {
 
   const calculateSavings = () => {
     const baseEfficiency =
-      panelType === "bifacial" ? 0.22 : panelType === "monofacial" ? 0.2 : 0.18;
+      panelType === "bifacial" ? 0.21 : panelType === "monofacial" ? 0.19 : 0.22;
     const locationMultiplier =
       location === "high" ? 1.3 : location === "moderate" ? 1.0 : 0.8;
     const annualGeneration =
@@ -596,20 +559,18 @@ const CarbonCalculator = ({ darkMode }) => {
 
   return (
     <div
-      className={`rounded-2xl p-8 ${
-        darkMode
+      className={`rounded-2xl p-8 ${darkMode
           ? "bg-slate-900 border border-slate-800"
           : "bg-white border border-gray-200"
-      }`}
+        }`}
     >
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Input Controls */}
         <div className="space-y-6">
           <div>
             <label
-              className={`block text-sm font-medium mb-2 ${
-                darkMode ? "text-gray-300" : "text-gray-700"
-              }`}
+              className={`block text-sm font-medium mb-2 ${darkMode ? "text-gray-300" : "text-gray-700"
+                }`}
             >
               Monthly Energy Usage (kWh)
             </label>
@@ -626,9 +587,8 @@ const CarbonCalculator = ({ darkMode }) => {
                 100 kWh
               </span>
               <span
-                className={`font-medium ${
-                  darkMode ? "text-white" : "text-gray-900"
-                }`}
+                className={`font-medium ${darkMode ? "text-white" : "text-gray-900"
+                  }`}
               >
                 {energyUsage} kWh
               </span>
@@ -640,20 +600,18 @@ const CarbonCalculator = ({ darkMode }) => {
 
           <div>
             <label
-              className={`block text-sm font-medium mb-2 ${
-                darkMode ? "text-gray-300" : "text-gray-700"
-              }`}
+              className={`block text-sm font-medium mb-2 ${darkMode ? "text-gray-300" : "text-gray-700"
+                }`}
             >
               Panel Technology
             </label>
             <select
               value={panelType}
               onChange={(e) => setPanelType(e.target.value)}
-              className={`w-full p-3 rounded-lg border ${
-                darkMode
+              className={`w-full p-3 rounded-lg border ${darkMode
                   ? "bg-slate-800 border-slate-600 text-white"
                   : "bg-white border-gray-300 text-gray-900"
-              }`}
+                }`}
             >
               <option value="ultra">Ultra Series (22% efficiency)</option>
               <option value="bifacial">Bifacial TOPCon (21% efficiency)</option>
@@ -665,20 +623,18 @@ const CarbonCalculator = ({ darkMode }) => {
 
           <div>
             <label
-              className={`block text-sm font-medium mb-2 ${
-                darkMode ? "text-gray-300" : "text-gray-700"
-              }`}
+              className={`block text-sm font-medium mb-2 ${darkMode ? "text-gray-300" : "text-gray-700"
+                }`}
             >
               Sunlight Conditions
             </label>
             <select
               value={location}
               onChange={(e) => setLocation(e.target.value)}
-              className={`w-full p-3 rounded-lg border ${
-                darkMode
+              className={`w-full p-3 rounded-lg border ${darkMode
                   ? "bg-slate-800 border-slate-600 text-white"
                   : "bg-white border-gray-300 text-gray-900"
-              }`}
+                }`}
             >
               <option value="high">
                 High Sun (Rajasthan, Gujarat, Karnataka)
@@ -694,72 +650,62 @@ const CarbonCalculator = ({ darkMode }) => {
         {/* Results Display */}
         <div className="space-y-4">
           <h4
-            className={`text-lg font-semibold mb-4 ${
-              darkMode ? "text-white" : "text-gray-900"
-            }`}
+            className={`text-lg font-semibold mb-4 ${darkMode ? "text-white" : "text-gray-900"
+              }`}
           >
             Your Annual Impact
           </h4>
 
           <div className="grid grid-cols-2 gap-4">
             <div
-              className={`p-4 rounded-lg ${
-                darkMode ? "bg-slate-800" : "bg-gray-50"
-              }`}
+              className={`p-4 rounded-lg ${darkMode ? "bg-slate-800" : "bg-gray-50"
+                }`}
             >
               <div
-                className={`text-2xl font-bold ${
-                  darkMode ? "text-green-400" : "text-green-600"
-                }`}
+                className={`text-2xl font-bold ${darkMode ? "text-green-400" : "text-green-600"
+                  }`}
               >
                 {savings.carbon.toLocaleString()}
               </div>
               <div
-                className={`text-sm ${
-                  darkMode ? "text-gray-400" : "text-gray-600"
-                }`}
+                className={`text-sm ${darkMode ? "text-gray-400" : "text-gray-600"
+                  }`}
               >
                 kg CO₂ Saved
               </div>
             </div>
 
             <div
-              className={`p-4 rounded-lg ${
-                darkMode ? "bg-slate-800" : "bg-gray-50"
-              }`}
+              className={`p-4 rounded-lg ${darkMode ? "bg-slate-800" : "bg-gray-50"
+                }`}
             >
               <div
-                className={`text-2xl font-bold ${
-                  darkMode ? "text-blue-400" : "text-blue-600"
-                }`}
+                className={`text-2xl font-bold ${darkMode ? "text-blue-400" : "text-blue-600"
+                  }`}
               >
                 {savings.trees}
               </div>
               <div
-                className={`text-sm ${
-                  darkMode ? "text-gray-400" : "text-gray-600"
-                }`}
+                className={`text-sm ${darkMode ? "text-gray-400" : "text-gray-600"
+                  }`}
               >
                 Trees Equivalent
               </div>
             </div>
 
             <div
-              className={`col-span-2 p-4 rounded-lg ${
-                darkMode ? "bg-slate-800" : "bg-gray-50"
-              }`}
+              className={`col-span-2 p-4 rounded-lg ${darkMode ? "bg-slate-800" : "bg-gray-50"
+                }`}
             >
               <div
-                className={`text-2xl font-bold ${
-                  darkMode ? "text-amber-400" : "text-amber-600"
-                }`}
+                className={`text-2xl font-bold ${darkMode ? "text-amber-400" : "text-amber-600"
+                  }`}
               >
                 ₹{Math.round(savings.costSavings * 83).toLocaleString()}
               </div>
               <div
-                className={`text-sm ${
-                  darkMode ? "text-gray-400" : "text-gray-600"
-                }`}
+                className={`text-sm ${darkMode ? "text-gray-400" : "text-gray-600"
+                  }`}
               >
                 Annual Savings (₹)
               </div>
@@ -822,49 +768,43 @@ const CertificationsShowcase = ({ darkMode }) => {
           viewport={{ once: true }}
           transition={{ delay: index * 0.1 }}
           whileHover={{ y: -5 }}
-          className={`p-6 rounded-2xl ${
-            darkMode
+          className={`p-6 rounded-2xl ${darkMode
               ? "bg-slate-900 border border-slate-700"
               : "bg-white border border-gray-200"
-          }`}
+            }`}
         >
           <div className="flex items-center justify-between mb-3">
             <ShieldCheck
-              className={`w-8 h-8 ${
-                darkMode ? "text-green-400" : "text-green-600"
-              }`}
+              className={`w-8 h-8 ${darkMode ? "text-green-400" : "text-green-600"
+                }`}
             />
             <span
-              className={`text-xs px-2 py-1 rounded-full ${
-                darkMode
+              className={`text-xs px-2 py-1 rounded-full ${darkMode
                   ? "bg-green-900 text-green-300"
                   : "bg-green-100 text-green-800"
-              }`}
+                }`}
             >
               Certified
             </span>
           </div>
 
           <h4
-            className={`text-lg font-bold mb-2 ${
-              darkMode ? "text-white" : "text-gray-900"
-            }`}
+            className={`text-lg font-bold mb-2 ${darkMode ? "text-white" : "text-gray-900"
+              }`}
           >
             {cert.name}
           </h4>
 
           <p
-            className={`text-sm mb-2 ${
-              darkMode ? "text-gray-400" : "text-gray-600"
-            }`}
+            className={`text-sm mb-2 ${darkMode ? "text-gray-400" : "text-gray-600"
+              }`}
           >
             {cert.issuer}
           </p>
 
           <p
-            className={`text-sm mb-4 ${
-              darkMode ? "text-gray-300" : "text-gray-700"
-            }`}
+            className={`text-sm mb-4 ${darkMode ? "text-gray-300" : "text-gray-700"
+              }`}
           >
             {cert.description}
           </p>
@@ -909,19 +849,17 @@ const EnvironmentalDashboard = ({ darkMode }) => {
 
   return (
     <div
-      className={`rounded-2xl p-8 ${
-        darkMode
+      className={`rounded-2xl p-8 ${darkMode
           ? "bg-slate-900 border border-slate-800"
           : "bg-white border border-gray-200"
-      }`}
+        }`}
     >
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Metric Selector */}
         <div className="space-y-4">
           <h4
-            className={`text-lg font-semibold mb-4 ${
-              darkMode ? "text-white" : "text-gray-900"
-            }`}
+            className={`text-lg font-semibold mb-4 ${darkMode ? "text-white" : "text-gray-900"
+              }`}
           >
             Select Metric
           </h4>
@@ -929,27 +867,24 @@ const EnvironmentalDashboard = ({ darkMode }) => {
             <button
               key={key}
               onClick={() => setSelectedMetric(key)}
-              className={`w-full p-4 rounded-lg text-left transition-all ${
-                selectedMetric === key
+              className={`w-full p-4 rounded-lg text-left transition-all ${selectedMetric === key
                   ? darkMode
                     ? "bg-slate-800 border-2 border-blue-400"
                     : "bg-blue-50 border-2 border-blue-400"
                   : darkMode
-                  ? "bg-slate-800 hover:bg-slate-700"
-                  : "bg-gray-50 hover:bg-gray-100"
-              }`}
+                    ? "bg-slate-800 hover:bg-slate-700"
+                    : "bg-gray-50 hover:bg-gray-100"
+                }`}
             >
               <div
-                className={`font-medium ${
-                  darkMode ? "text-white" : "text-gray-900"
-                }`}
+                className={`font-medium ${darkMode ? "text-white" : "text-gray-900"
+                  }`}
               >
                 {metric.title}
               </div>
               <div
-                className={`text-sm ${
-                  darkMode ? "text-gray-400" : "text-gray-600"
-                }`}
+                className={`text-sm ${darkMode ? "text-gray-400" : "text-gray-600"
+                  }`}
               >
                 {metric.status}
               </div>
@@ -961,38 +896,35 @@ const EnvironmentalDashboard = ({ darkMode }) => {
         <div className="lg:col-span-2">
           <div className="text-center mb-8">
             <h3
-              className={`text-2xl font-bold mb-2 ${
-                darkMode ? "text-white" : "text-gray-900"
-              }`}
+              className={`text-2xl font-bold mb-2 ${darkMode ? "text-white" : "text-gray-900"
+                }`}
             >
               {currentMetric.title}
             </h3>
             <div
-              className={`text-4xl font-bold mb-2 ${
-                currentMetric.color === "green"
+              className={`text-4xl font-bold mb-2 ${currentMetric.color === "green"
                   ? darkMode
                     ? "text-green-400"
                     : "text-green-600"
                   : currentMetric.color === "blue"
-                  ? darkMode
-                    ? "text-blue-400"
-                    : "text-blue-600"
-                  : currentMetric.color === "amber"
-                  ? darkMode
-                    ? "text-amber-400"
-                    : "text-amber-600"
-                  : darkMode
-                  ? "text-emerald-400"
-                  : "text-emerald-600"
-              }`}
+                    ? darkMode
+                      ? "text-blue-400"
+                      : "text-blue-600"
+                    : currentMetric.color === "amber"
+                      ? darkMode
+                        ? "text-amber-400"
+                        : "text-amber-600"
+                      : darkMode
+                        ? "text-emerald-400"
+                        : "text-emerald-600"
+                }`}
             >
               {currentMetric.current.toLocaleString()}
               {currentMetric.unit}
             </div>
             <div
-              className={`text-sm ${
-                darkMode ? "text-gray-400" : "text-gray-600"
-              }`}
+              className={`text-sm ${darkMode ? "text-gray-400" : "text-gray-600"
+                }`}
             >
               Target: {currentMetric.target.toLocaleString()}{" "}
               {currentMetric.unit}
@@ -1002,29 +934,26 @@ const EnvironmentalDashboard = ({ darkMode }) => {
           {/* Progress Bar */}
           <div className="mb-8">
             <div
-              className={`w-full bg-gray-200 rounded-full h-4 ${
-                darkMode ? "bg-slate-700" : "bg-gray-200"
-              }`}
+              className={`w-full bg-gray-200 rounded-full h-4 ${darkMode ? "bg-slate-700" : "bg-gray-200"
+                }`}
             >
               <motion.div
                 initial={{ width: 0 }}
                 animate={{
-                  width: `${
-                    (currentMetric.current /
+                  width: `${(currentMetric.current /
                       Math.max(currentMetric.current, currentMetric.target)) *
                     100
-                  }%`,
+                    }%`,
                 }}
                 transition={{ duration: 1, delay: 0.5 }}
-                className={`h-4 rounded-full ${
-                  currentMetric.color === "green"
+                className={`h-4 rounded-full ${currentMetric.color === "green"
                     ? "bg-green-500"
                     : currentMetric.color === "blue"
-                    ? "bg-blue-500"
-                    : currentMetric.color === "amber"
-                    ? "bg-amber-500"
-                    : "bg-emerald-500"
-                }`}
+                      ? "bg-blue-500"
+                      : currentMetric.color === "amber"
+                        ? "bg-amber-500"
+                        : "bg-emerald-500"
+                  }`}
               />
             </div>
             <div className="flex justify-between text-sm mt-2">
@@ -1040,61 +969,55 @@ const EnvironmentalDashboard = ({ darkMode }) => {
           {/* Status Indicators */}
           <div className="grid grid-cols-2 gap-4">
             <div
-              className={`p-4 rounded-lg ${
-                darkMode ? "bg-slate-800" : "bg-gray-50"
-              }`}
+              className={`p-4 rounded-lg ${darkMode ? "bg-slate-800" : "bg-gray-50"
+                }`}
             >
               <div
-                className={`text-lg font-semibold ${
-                  darkMode ? "text-white" : "text-gray-900"
-                }`}
+                className={`text-lg font-semibold ${darkMode ? "text-white" : "text-gray-900"
+                  }`}
               >
                 Status
               </div>
               <div
-                className={`text-sm ${
-                  currentMetric.color === "green"
+                className={`text-sm ${currentMetric.color === "green"
                     ? darkMode
                       ? "text-green-400"
                       : "text-green-600"
                     : currentMetric.color === "blue"
-                    ? darkMode
-                      ? "text-blue-400"
-                      : "text-blue-600"
-                    : currentMetric.color === "amber"
-                    ? darkMode
-                      ? "text-amber-400"
-                      : "text-amber-600"
-                    : darkMode
-                    ? "text-emerald-400"
-                    : "text-emerald-600"
-                }`}
+                      ? darkMode
+                        ? "text-blue-400"
+                        : "text-blue-600"
+                      : currentMetric.color === "amber"
+                        ? darkMode
+                          ? "text-amber-400"
+                          : "text-amber-600"
+                        : darkMode
+                          ? "text-emerald-400"
+                          : "text-emerald-600"
+                  }`}
               >
                 {currentMetric.status}
               </div>
             </div>
 
             <div
-              className={`p-4 rounded-lg ${
-                darkMode ? "bg-slate-800" : "bg-gray-50"
-              }`}
+              className={`p-4 rounded-lg ${darkMode ? "bg-slate-800" : "bg-gray-50"
+                }`}
             >
               <div
-                className={`text-lg font-semibold ${
-                  darkMode ? "text-white" : "text-gray-900"
-                }`}
+                className={`text-lg font-semibold ${darkMode ? "text-white" : "text-gray-900"
+                  }`}
               >
                 Progress
               </div>
               <div
-                className={`text-sm ${
-                  darkMode ? "text-gray-400" : "text-gray-600"
-                }`}
+                className={`text-sm ${darkMode ? "text-gray-400" : "text-gray-600"
+                  }`}
               >
                 {Math.round(
                   (currentMetric.current /
                     Math.max(currentMetric.current, currentMetric.target)) *
-                    100
+                  100
                 )}
                 % Complete
               </div>
@@ -1142,55 +1065,50 @@ const FutureGoals = ({ darkMode }) => {
           viewport={{ once: true }}
           transition={{ delay: index * 0.1 }}
           whileHover={{ scale: 1.02 }}
-          className={`p-6 rounded-2xl ${
-            darkMode
+          className={`p-6 rounded-2xl ${darkMode
               ? "bg-slate-900 border border-slate-800"
               : "bg-white border border-gray-200"
-          }`}
+            }`}
         >
           <div className="flex items-center justify-between mb-4">
             <div
-              className={`text-2xl font-bold ${
-                darkMode ? "text-blue-400" : "text-blue-600"
-              }`}
+              className={`text-2xl font-bold ${darkMode ? "text-blue-400" : "text-blue-600"
+                }`}
             >
               {goal.year}
             </div>
             <span
-              className={`px-3 py-1 rounded-full text-xs font-medium ${
-                goal.status === "On Track"
+              className={`px-3 py-1 rounded-full text-xs font-medium ${goal.status === "On Track"
                   ? darkMode
                     ? "bg-green-900 text-green-300"
                     : "bg-green-100 text-green-800"
                   : goal.status === "In Progress"
-                  ? darkMode
-                    ? "bg-blue-900 text-blue-300"
-                    : "bg-blue-100 text-blue-800"
-                  : goal.status === "Planning"
-                  ? darkMode
-                    ? "bg-amber-900 text-amber-300"
-                    : "bg-amber-100 text-amber-800"
-                  : darkMode
-                  ? "bg-purple-900 text-purple-300"
-                  : "bg-purple-100 text-purple-800"
-              }`}
+                    ? darkMode
+                      ? "bg-blue-900 text-blue-300"
+                      : "bg-blue-100 text-blue-800"
+                    : goal.status === "Planning"
+                      ? darkMode
+                        ? "bg-amber-900 text-amber-300"
+                        : "bg-amber-100 text-amber-800"
+                      : darkMode
+                        ? "bg-purple-900 text-purple-300"
+                        : "bg-purple-100 text-purple-800"
+                }`}
             >
               {goal.status}
             </span>
           </div>
 
           <h4
-            className={`text-lg font-semibold mb-3 ${
-              darkMode ? "text-white" : "text-gray-900"
-            }`}
+            className={`text-lg font-semibold mb-3 ${darkMode ? "text-white" : "text-gray-900"
+              }`}
           >
             {goal.title}
           </h4>
 
           <p
-            className={`text-sm mb-4 ${
-              darkMode ? "text-gray-300" : "text-gray-600"
-            }`}
+            className={`text-sm mb-4 ${darkMode ? "text-gray-300" : "text-gray-600"
+              }`}
           >
             {goal.description}
           </p>
@@ -1205,24 +1123,22 @@ const FutureGoals = ({ darkMode }) => {
               </span>
             </div>
             <div
-              className={`w-full bg-gray-200 rounded-full h-2 ${
-                darkMode ? "bg-slate-700" : "bg-gray-200"
-              }`}
+              className={`w-full bg-gray-200 rounded-full h-2 ${darkMode ? "bg-slate-700" : "bg-gray-200"
+                }`}
             >
               <motion.div
                 initial={{ width: 0 }}
                 whileInView={{ width: `${goal.progress}%` }}
                 viewport={{ once: true }}
                 transition={{ duration: 1, delay: index * 0.2 }}
-                className={`h-2 rounded-full ${
-                  goal.status === "On Track"
+                className={`h-2 rounded-full ${goal.status === "On Track"
                     ? "bg-green-500"
                     : goal.status === "In Progress"
-                    ? "bg-blue-500"
-                    : goal.status === "Planning"
-                    ? "bg-amber-500"
-                    : "bg-purple-500"
-                }`}
+                      ? "bg-blue-500"
+                      : goal.status === "Planning"
+                        ? "bg-amber-500"
+                        : "bg-purple-500"
+                  }`}
               />
             </div>
           </div>
@@ -1270,19 +1186,17 @@ const TechnologyComparison = ({ darkMode }) => {
 
   return (
     <div
-      className={`rounded-2xl p-8 ${
-        darkMode
+      className={`rounded-2xl p-8 ${darkMode
           ? "bg-slate-900 border border-slate-800"
           : "bg-white border border-gray-200"
-      }`}
+        }`}
     >
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Technology Selector */}
         <div className="space-y-4">
           <h4
-            className={`text-lg font-semibold mb-4 ${
-              darkMode ? "text-white" : "text-gray-900"
-            }`}
+            className={`text-lg font-semibold mb-4 ${darkMode ? "text-white" : "text-gray-900"
+              }`}
           >
             Select Technology
           </h4>
@@ -1290,27 +1204,24 @@ const TechnologyComparison = ({ darkMode }) => {
             <button
               key={key}
               onClick={() => setSelectedTech(key)}
-              className={`w-full p-4 rounded-lg text-left transition-all ${
-                selectedTech === key
+              className={`w-full p-4 rounded-lg text-left transition-all ${selectedTech === key
                   ? darkMode
                     ? "bg-slate-800 border-2 border-blue-400"
                     : "bg-blue-50 border-2 border-blue-400"
                   : darkMode
-                  ? "bg-slate-800 hover:bg-slate-700"
-                  : "bg-gray-50 hover:bg-gray-100"
-              }`}
+                    ? "bg-slate-800 hover:bg-slate-700"
+                    : "bg-gray-50 hover:bg-gray-100"
+                }`}
             >
               <div
-                className={`font-medium ${
-                  darkMode ? "text-white" : "text-gray-900"
-                }`}
+                className={`font-medium ${darkMode ? "text-white" : "text-gray-900"
+                  }`}
               >
                 {tech.name}
               </div>
               <div
-                className={`text-sm ${
-                  darkMode ? "text-gray-400" : "text-gray-600"
-                }`}
+                className={`text-sm ${darkMode ? "text-gray-400" : "text-gray-600"
+                  }`}
               >
                 {tech.efficiency}% Efficiency
               </div>
@@ -1322,16 +1233,14 @@ const TechnologyComparison = ({ darkMode }) => {
         <div className="lg:col-span-2">
           <div className="mb-6">
             <h3
-              className={`text-2xl font-bold mb-2 ${
-                darkMode ? "text-white" : "text-gray-900"
-              }`}
+              className={`text-2xl font-bold mb-2 ${darkMode ? "text-white" : "text-gray-900"
+                }`}
             >
               {currentTech.name}
             </h3>
             <p
-              className={`text-sm ${
-                darkMode ? "text-gray-300" : "text-gray-600"
-              }`}
+              className={`text-sm ${darkMode ? "text-gray-300" : "text-gray-600"
+                }`}
             >
               {currentTech.description}
             </p>
@@ -1341,16 +1250,14 @@ const TechnologyComparison = ({ darkMode }) => {
             <div className="space-y-4">
               <div>
                 <div
-                  className={`text-sm font-medium mb-1 ${
-                    darkMode ? "text-gray-400" : "text-gray-600"
-                  }`}
+                  className={`text-sm font-medium mb-1 ${darkMode ? "text-gray-400" : "text-gray-600"
+                    }`}
                 >
                   Efficiency
                 </div>
                 <div
-                  className={`text-2xl font-bold ${
-                    darkMode ? "text-green-400" : "text-green-600"
-                  }`}
+                  className={`text-2xl font-bold ${darkMode ? "text-green-400" : "text-green-600"
+                    }`}
                 >
                   {currentTech.efficiency}%
                 </div>
@@ -1358,16 +1265,14 @@ const TechnologyComparison = ({ darkMode }) => {
 
               <div>
                 <div
-                  className={`text-sm font-medium mb-1 ${
-                    darkMode ? "text-gray-400" : "text-gray-600"
-                  }`}
+                  className={`text-sm font-medium mb-1 ${darkMode ? "text-gray-400" : "text-gray-600"
+                    }`}
                 >
                   Lifespan
                 </div>
                 <div
-                  className={`text-2xl font-bold ${
-                    darkMode ? "text-blue-400" : "text-blue-600"
-                  }`}
+                  className={`text-2xl font-bold ${darkMode ? "text-blue-400" : "text-blue-600"
+                    }`}
                 >
                   {currentTech.lifespan} years
                 </div>
@@ -1377,16 +1282,14 @@ const TechnologyComparison = ({ darkMode }) => {
             <div className="space-y-4">
               <div>
                 <div
-                  className={`text-sm font-medium mb-1 ${
-                    darkMode ? "text-gray-400" : "text-gray-600"
-                  }`}
+                  className={`text-sm font-medium mb-1 ${darkMode ? "text-gray-400" : "text-gray-600"
+                    }`}
                 >
                   Carbon Payback
                 </div>
                 <div
-                  className={`text-2xl font-bold ${
-                    darkMode ? "text-amber-400" : "text-amber-600"
-                  }`}
+                  className={`text-2xl font-bold ${darkMode ? "text-amber-400" : "text-amber-600"
+                    }`}
                 >
                   {currentTech.carbonPayback} years
                 </div>
@@ -1394,23 +1297,20 @@ const TechnologyComparison = ({ darkMode }) => {
 
               <div>
                 <div
-                  className={`text-sm font-medium mb-1 ${
-                    darkMode ? "text-gray-400" : "text-gray-600"
-                  }`}
+                  className={`text-sm font-medium mb-1 ${darkMode ? "text-gray-400" : "text-gray-600"
+                    }`}
                 >
                   Annual Energy Output
                 </div>
                 <div
-                  className={`text-2xl font-bold ${
-                    darkMode ? "text-purple-400" : "text-purple-600"
-                  }`}
+                  className={`text-2xl font-bold ${darkMode ? "text-purple-400" : "text-purple-600"
+                    }`}
                 >
                   {currentTech.energyOutput} kWh
                 </div>
                 <div
-                  className={`text-xs ${
-                    darkMode ? "text-gray-500" : "text-gray-400"
-                  }`}
+                  className={`text-xs ${darkMode ? "text-gray-500" : "text-gray-400"
+                    }`}
                 >
                   per kW installed
                 </div>
@@ -1420,9 +1320,8 @@ const TechnologyComparison = ({ darkMode }) => {
 
           {/* Key Benefits */}
           <div
-            className={`mt-6 p-4 rounded-lg ${
-              darkMode ? "bg-slate-800" : "bg-gray-50"
-            }`}
+            className={`mt-6 p-4 rounded-lg ${darkMode ? "bg-slate-800" : "bg-gray-50"
+              }`}
           >
             <div className="grid grid-cols-2 gap-4 text-sm">
               <div>
@@ -1430,9 +1329,8 @@ const TechnologyComparison = ({ darkMode }) => {
                   CO₂ Saved (30 years):
                 </span>
                 <div
-                  className={`font-semibold ${
-                    darkMode ? "text-green-400" : "text-green-600"
-                  }`}
+                  className={`font-semibold ${darkMode ? "text-green-400" : "text-green-600"
+                    }`}
                 >
                   {Math.round((currentTech.energyOutput * 30 * 0.4) / 1000)}{" "}
                   tons
@@ -1443,9 +1341,8 @@ const TechnologyComparison = ({ darkMode }) => {
                   Carbon Payback:
                 </span>
                 <div
-                  className={`font-semibold ${
-                    darkMode ? "text-emerald-400" : "text-emerald-600"
-                  }`}
+                  className={`font-semibold ${darkMode ? "text-emerald-400" : "text-emerald-600"
+                    }`}
                 >
                   {currentTech.carbonPayback} years
                 </div>
@@ -1514,9 +1411,8 @@ const CarbonNeutralityPath = ({ darkMode }) => {
     <div className="relative">
       {/* Timeline Line */}
       <div
-        className={`absolute left-1/2 transform -translate-x-1/2 w-0.5 h-full ${
-          darkMode ? "bg-slate-700" : "bg-gray-300"
-        }`}
+        className={`absolute left-1/2 transform -translate-x-1/2 w-0.5 h-full ${darkMode ? "bg-slate-700" : "bg-gray-300"
+          }`}
       />
 
       <div className="space-y-8">
@@ -1526,88 +1422,79 @@ const CarbonNeutralityPath = ({ darkMode }) => {
             initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className={`flex items-center ${
-              index % 2 === 0 ? "justify-start" : "justify-end"
-            }`}
+            className={`flex items-center ${index % 2 === 0 ? "justify-start" : "justify-end"
+              }`}
           >
             <div
-              className={`w-1/2 ${
-                index % 2 === 0 ? "pr-8 text-right" : "pl-8 text-left"
-              }`}
+              className={`w-1/2 ${index % 2 === 0 ? "pr-8 text-right" : "pl-8 text-left"
+                }`}
             >
               <motion.div
                 whileHover={{ scale: 1.05 }}
                 onClick={() =>
                   setSelectedPhase(selectedPhase === index ? null : index)
                 }
-                className={`p-6 rounded-2xl cursor-pointer transition-all ${
-                  selectedPhase === index
+                className={`p-6 rounded-2xl cursor-pointer transition-all ${selectedPhase === index
                     ? darkMode
                       ? "bg-slate-800 border-2 border-blue-400"
                       : "bg-blue-50 border-2 border-blue-400"
                     : darkMode
-                    ? "bg-slate-900 border border-slate-700"
-                    : "bg-white border border-gray-200"
-                }`}
+                      ? "bg-slate-900 border border-slate-700"
+                      : "bg-white border border-gray-200"
+                  }`}
               >
                 <div
-                  className={`text-2xl font-bold mb-2 ${
-                    darkMode ? "text-blue-400" : "text-blue-600"
-                  }`}
+                  className={`text-2xl font-bold mb-2 ${darkMode ? "text-blue-400" : "text-blue-600"
+                    }`}
                 >
                   {phase.phase}
                 </div>
                 <div
-                  className={`text-sm font-medium mb-1 ${
-                    darkMode ? "text-gray-400" : "text-gray-600"
-                  }`}
+                  className={`text-sm font-medium mb-1 ${darkMode ? "text-gray-400" : "text-gray-600"
+                    }`}
                 >
                   {phase.period}
                 </div>
                 <h4
-                  className={`text-lg font-semibold mb-2 ${
-                    darkMode ? "text-white" : "text-gray-900"
-                  }`}
+                  className={`text-lg font-semibold mb-2 ${darkMode ? "text-white" : "text-gray-900"
+                    }`}
                 >
                   {phase.title}
                 </h4>
                 <p
-                  className={`text-sm mb-3 ${
-                    darkMode ? "text-gray-300" : "text-gray-600"
-                  }`}
+                  className={`text-sm mb-3 ${darkMode ? "text-gray-300" : "text-gray-600"
+                    }`}
                 >
                   {phase.description}
                 </p>
                 <div
-                  className={`text-sm font-medium ${
-                    darkMode ? "text-green-400" : "text-green-600"
-                  }`}
+                  className={`text-sm font-medium ${darkMode ? "text-green-400" : "text-green-600"
+                    }`}
                 >
                   {phase.impact}
                 </div>
 
                 <div
-                  className={`mt-3 px-2 py-1 rounded-full text-xs font-medium inline-block ${
-                    phase.status === "Completed"
+                  className={`mt-3 px-2 py-1 rounded-full text-xs font-medium inline-block ${phase.status === "Completed"
                       ? darkMode
                         ? "bg-green-900 text-green-300"
                         : "bg-green-100 text-green-800"
                       : phase.status === "In Progress"
-                      ? darkMode
-                        ? "bg-blue-900 text-blue-300"
-                        : "bg-blue-100 text-blue-800"
-                      : phase.status === "Planning"
-                      ? darkMode
-                        ? "bg-amber-900 text-amber-300"
-                        : "bg-amber-100 text-amber-800"
-                      : phase.status === "Research"
-                      ? darkMode
-                        ? "bg-emerald-900 text-emerald-300"
-                        : "bg-emerald-100 text-emerald-800"
-                      : darkMode
-                      ? "bg-gray-900 text-gray-300"
-                      : "bg-gray-100 text-gray-800"
-                  }`}
+                        ? darkMode
+                          ? "bg-blue-900 text-blue-300"
+                          : "bg-blue-100 text-blue-800"
+                        : phase.status === "Planning"
+                          ? darkMode
+                            ? "bg-amber-900 text-amber-300"
+                            : "bg-amber-100 text-amber-800"
+                          : phase.status === "Research"
+                            ? darkMode
+                              ? "bg-emerald-900 text-emerald-300"
+                              : "bg-emerald-100 text-emerald-800"
+                            : darkMode
+                              ? "bg-gray-900 text-gray-300"
+                              : "bg-gray-100 text-gray-800"
+                    }`}
                 >
                   {phase.status}
                 </div>
@@ -1619,9 +1506,8 @@ const CarbonNeutralityPath = ({ darkMode }) => {
                     className="mt-4 pt-4 border-t border-gray-200"
                   >
                     <p
-                      className={`text-sm ${
-                        darkMode ? "text-gray-400" : "text-gray-500"
-                      }`}
+                      className={`text-sm ${darkMode ? "text-gray-400" : "text-gray-500"
+                        }`}
                     >
                       Detailed roadmap and milestones for{" "}
                       {phase.title.toLowerCase()}...
@@ -1633,9 +1519,8 @@ const CarbonNeutralityPath = ({ darkMode }) => {
 
             {/* Timeline Dot */}
             <div
-              className={`absolute left-1/2 transform -translate-x-1/2 w-4 h-4 rounded-full ${
-                darkMode ? "bg-blue-400" : "bg-blue-600"
-              }`}
+              className={`absolute left-1/2 transform -translate-x-1/2 w-4 h-4 rounded-full ${darkMode ? "bg-blue-400" : "bg-blue-600"
+                }`}
             />
           </motion.div>
         ))}
