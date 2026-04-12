@@ -1,9 +1,15 @@
-import React from "react";
+import React, { useState, useCallback } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 
 const FAQSection = ({ darkMode }) => {
   const navigate = useNavigate();
+  /** Flip cards are hover-only on desktop; touch users need tap to see answers */
+  const [flipped, setFlipped] = useState(() => ({}));
+
+  const toggleFlip = useCallback((index) => {
+    setFlipped((prev) => ({ ...prev, [index]: !prev[index] }));
+  }, []);
   const faqs = [
     {
       question: "What makes Lumivolt solar panels different?",
@@ -67,8 +73,23 @@ const FAQSection = ({ darkMode }) => {
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
               className="group h-64 cursor-pointer perspective-1000"
+              role="button"
+              tabIndex={0}
+              aria-expanded={!!flipped[i]}
+              aria-label={`${faq.question}. ${flipped[i] ? "Answer shown" : "Show answer"}`}
+              onClick={() => toggleFlip(i)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  toggleFlip(i);
+                }
+              }}
             >
-              <div className="relative w-full h-full transition-transform duration-700 transform-style-preserve-3d group-hover:rotate-y-180">
+              <div
+                className={`relative w-full h-full transition-transform duration-700 transform-style-preserve-3d ${
+                  flipped[i] ? "rotate-y-180" : ""
+                } md:group-hover:rotate-y-180`}
+              >
                 {/* Front of card */}
                 <div
                   className={`absolute inset-0 w-full h-full backface-hidden rounded-2xl p-6 flex flex-col justify-center items-center text-center ${
@@ -105,6 +126,13 @@ const FAQSection = ({ darkMode }) => {
                   >
                     {faq.question}
                   </h3>
+                  <p
+                    className={`mt-3 text-xs font-medium md:hidden ${
+                      darkMode ? "text-gray-500" : "text-gray-500"
+                    }`}
+                  >
+                    Tap to see answer
+                  </p>
                 </div>
 
                 {/* Back of card */}

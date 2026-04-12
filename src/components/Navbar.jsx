@@ -1,9 +1,11 @@
 // src/components/Navigation.jsx (or Navbar.jsx)
 import React, { useState, useEffect, useCallback } from "react";
+import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { Link, useLocation } from "react-router-dom"; // ✅ Essential for multi-page
+import { Link, useLocation } from "react-router-dom";
 import { Menu, X, Sun, Moon, ChevronDown } from "lucide-react";
 import logoFull from "../assets/logo.png";
+import "../assets/navbar.css";
 import { useDarkMode } from "./Layout";
 
 const Navigation = () => {
@@ -11,43 +13,66 @@ const Navigation = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [productsDropdownOpen, setProductsDropdownOpen] = useState(false);
   const [aboutDropdownOpen, setAboutDropdownOpen] = useState(false);
-  const location = useLocation(); // ✅ Close mobile menu on route change
+  const location = useLocation();
   const { darkMode, setDarkMode } = useDarkMode();
 
-  // Close mobile menu and dropdown when route changes
+  const themeClass = darkMode ? "navbar--dark" : "navbar--light";
+
   useEffect(() => {
     setMobileMenuOpen(false);
     setProductsDropdownOpen(false);
     setAboutDropdownOpen(false);
   }, [location]);
 
-  // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (!event.target.closest('.dropdown-container')) {
+      if (!event.target.closest(".dropdown-container")) {
         setProductsDropdownOpen(false);
         setAboutDropdownOpen(false);
       }
     };
 
     if (productsDropdownOpen || aboutDropdownOpen) {
-      document.addEventListener('mousedown', handleClickOutside);
-      return () => document.removeEventListener('mousedown', handleClickOutside);
+      document.addEventListener("mousedown", handleClickOutside);
+      return () => document.removeEventListener("mousedown", handleClickOutside);
     }
   }, [productsDropdownOpen, aboutDropdownOpen]);
 
-  // Sticky header on scroll
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 10);
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    if (!mobileMenuOpen) return;
+    const scrollY = window.scrollY;
+    const prev = {
+      position: document.body.style.position,
+      top: document.body.style.top,
+      left: document.body.style.left,
+      right: document.body.style.right,
+      overflow: document.body.style.overflow,
+    };
+    document.body.style.position = "fixed";
+    document.body.style.top = `-${scrollY}px`;
+    document.body.style.left = "0";
+    document.body.style.right = "0";
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.position = prev.position;
+      document.body.style.top = prev.top;
+      document.body.style.left = prev.left;
+      document.body.style.right = prev.right;
+      document.body.style.overflow = prev.overflow;
+      window.scrollTo(0, scrollY);
+    };
+  }, [mobileMenuOpen]);
+
   const toggleDarkMode = useCallback(() => {
     setDarkMode((prev) => !prev);
   }, [setDarkMode]);
 
-  // Full nav items (for routing)
   const navItems = [
     { name: "Home", path: "/" },
     {
@@ -58,7 +83,7 @@ const Navigation = () => {
         { name: "About Us", path: "/about" },
         { name: "Board of Directors", path: "/board-of-directors" },
         { name: "Policies", path: "/policies" },
-      ]
+      ],
     },
     { name: "Technology", path: "/technology" },
     {
@@ -70,7 +95,7 @@ const Navigation = () => {
         { name: "Monofacial PERC", path: "/products/monofacial-perc" },
         { name: "Bifacial TOPCon", path: "/products/bifacial-topcon" },
         { name: "Ultra Series", path: "/products/ultra-series" },
-      ]
+      ],
     },
     { name: "Sustainability", path: "/sustainability" },
     { name: "Careers", path: "/careers" },
@@ -78,280 +103,222 @@ const Navigation = () => {
   ];
 
   return (
-    <motion.nav
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      className={`fixed top-0 w-full z-50 transition-all duration-500 ${darkMode
-        ? scrolled
-          ? "bg-slate-950/90 backdrop-blur-xl shadow-lg"
-          : "bg-transparent"
-        : "bg-[#264488] backdrop-blur-xl " +
-        (scrolled ? "shadow-lg" : "shadow-sm")
-        }`}
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-20">
-          {/* Logo */}
-          <motion.div
-            whileHover={{ scale: 1.03 }}
-            className="cursor-pointer min-w-0 flex-1 md:flex-initial pr-2"
-          >
-            <Link
-              to="/"
-              className="flex items-center min-w-0 max-w-full"
-              aria-label="Lumivolt Home"
-            >
-              <motion.img
-                src={logoFull}
-                alt="Lumivolt — Harnessing the Sun"
-                className="h-15  w-auto max-w-[min(100%,13rem)] sm:max-w-[min(100%,17rem)] object-contain object-left"
-                initial={{ opacity: 0, scale: 0.98 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.45 }}
-              />
-            </Link>
-          </motion.div>
+    <>
+      <motion.nav
+        initial={{ y: -100 }}
+        animate={{ y: 0 }}
+        className={`navbar ${themeClass}${scrolled ? " navbar--scrolled" : ""}`}
+      >
+        <div className="navbar__inner">
+          <div className="navbar__bar">
+            <motion.div whileHover={{ scale: 1.03 }} className="navbar__brand">
+              <Link to="/" className="navbar__brand-link" aria-label="Lumivolt Home">
+                <motion.img
+                  src={logoFull}
+                  alt="Lumivolt — Harnessing the Sun"
+                  className="navbar__logo"
+                  initial={{ opacity: 0, scale: 0.98 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.45 }}
+                />
+              </Link>
+            </motion.div>
 
-          {/* Desktop Nav */}
-          <div className="hidden md:flex items-center space-x-1">
-            {navItems.map((item, i) => (
-              <motion.div
-                key={item.path}
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.05 }}
-                className="relative dropdown-container"
-              >
-                {item.hasDropdown ? (
-                  <div>
-                    <button
-                      onClick={() => {
-                        if (item.name === "About") {
-                          setAboutDropdownOpen(!aboutDropdownOpen);
-                          setProductsDropdownOpen(false); // Close other dropdown
-                        } else if (item.name === "Products") {
-                          setProductsDropdownOpen(!productsDropdownOpen);
-                          setAboutDropdownOpen(false); // Close other dropdown
-                        }
-                      }}
-                      className={`px-4 py-2.5 rounded-xl font-medium transition-colors relative group flex items-center gap-1 ${darkMode
-                        ? "text-gray-300 hover:text-yellow-400"
-                        : "text-white/90 hover:text-yellow-300"
-                        }`}
-                    >
-                      {item.name}
-                      <ChevronDown
-                        className={`w-4 h-4 transition-transform ${(item.name === "About" ? aboutDropdownOpen : productsDropdownOpen) ? "rotate-180" : ""
+            <div className="navbar__desktop">
+              {navItems.map((item, i) => (
+                <motion.div
+                  key={item.path}
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: i * 0.05 }}
+                  className="navbar__item dropdown-container"
+                >
+                  {item.hasDropdown ? (
+                    <div>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          if (item.name === "About") {
+                            setAboutDropdownOpen(!aboutDropdownOpen);
+                            setProductsDropdownOpen(false);
+                          } else if (item.name === "Products") {
+                            setProductsDropdownOpen(!productsDropdownOpen);
+                            setAboutDropdownOpen(false);
+                          }
+                        }}
+                        className="navbar__dropdown-btn"
+                      >
+                        {item.name}
+                        <ChevronDown
+                          className={`navbar__chevron${
+                            (item.name === "About" ? aboutDropdownOpen : productsDropdownOpen)
+                              ? " navbar__chevron--open"
+                              : ""
                           }`}
-                      />
-                      {/* Animated underline */}
+                        />
+                        <motion.span
+                          className="navbar__underline"
+                          layoutId="nav-underline"
+                          initial={{ scaleX: 0 }}
+                          whileHover={{ scaleX: 1 }}
+                          transition={{ duration: 0.3, ease: "easeOut" }}
+                          style={{ originX: 0 }}
+                        />
+                      </button>
+
+                      <AnimatePresence>
+                        {(item.name === "About" ? aboutDropdownOpen : productsDropdownOpen) && (
+                          <motion.div
+                            initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                            animate={{ opacity: 1, y: 0, scale: 1 }}
+                            exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                            transition={{ duration: 0.2 }}
+                            className="navbar__dropdown-panel"
+                          >
+                            <div className="navbar__dropdown-list">
+                              {item.dropdownItems.map((dropdownItem, j) => (
+                                <motion.div
+                                  key={dropdownItem.path}
+                                  initial={{ opacity: 0, x: -10 }}
+                                  animate={{ opacity: 1, x: 0 }}
+                                  transition={{ delay: j * 0.05 }}
+                                >
+                                  <Link
+                                    to={dropdownItem.path}
+                                    onClick={() => {
+                                      setProductsDropdownOpen(false);
+                                      setAboutDropdownOpen(false);
+                                    }}
+                                    className="navbar__dropdown-link"
+                                  >
+                                    {dropdownItem.name}
+                                  </Link>
+                                </motion.div>
+                              ))}
+                            </div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                  ) : (
+                    <Link to={item.path} className="navbar__link">
+                      {item.name}
                       <motion.span
-                        className="absolute bottom-0 left-4 right-4 h-0.5"
+                        className="navbar__underline"
                         layoutId="nav-underline"
                         initial={{ scaleX: 0 }}
                         whileHover={{ scaleX: 1 }}
                         transition={{ duration: 0.3, ease: "easeOut" }}
-                        style={{
-                          originX: 0,
-                          backgroundColor: darkMode ? "#fbbf24" : "#fde047",
-                        }}
+                        style={{ originX: 0 }}
                       />
-                    </button>
-
-                    {/* Dropdown Menu */}
-                    <AnimatePresence>
-                      {(item.name === "About" ? aboutDropdownOpen : productsDropdownOpen) && (
-                        <motion.div
-                          initial={{ opacity: 0, y: -10, scale: 0.95 }}
-                          animate={{ opacity: 1, y: 0, scale: 1 }}
-                          exit={{ opacity: 0, y: -10, scale: 0.95 }}
-                          transition={{ duration: 0.2 }}
-                          className={`absolute top-full left-0 mt-2 w-64 rounded-xl shadow-xl border z-50 ${darkMode
-                            ? "bg-slate-900 border-slate-700"
-                            : "bg-[#1e3d78] border-white/15"
-                            }`}
-                        >
-                          <div className="py-2">
-                            {item.dropdownItems.map((dropdownItem, j) => (
-                              <motion.div
-                                key={dropdownItem.path}
-                                initial={{ opacity: 0, x: -10 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                transition={{ delay: j * 0.05 }}
-                              >
-                                <Link
-                                  to={dropdownItem.path}
-                                  onClick={() => setProductsDropdownOpen(false)}
-                                  className={`block px-4 py-3 text-sm transition-colors ${darkMode
-                                    ? "text-gray-300 hover:text-yellow-400 hover:bg-slate-800"
-                                    : "text-white/90 hover:text-yellow-300 hover:bg-white/10"
-                                    }`}
-                                >
-                                  {dropdownItem.name}
-                                </Link>
-                              </motion.div>
-                            ))}
-                          </div>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </div>
-                ) : (
-                  <Link
-                    to={item.path}
-                    className={`px-4 py-2.5 rounded-xl font-medium transition-colors relative group ${darkMode
-                      ? "text-gray-300 hover:text-yellow-400"
-                      : "text-white/90 hover:text-yellow-300"
-                      }`}
-                  >
-                    {item.name}
-                    {/* Animated underline */}
-                    <motion.span
-                      className="absolute bottom-0 left-4 right-4 h-0.5"
-                      layoutId="nav-underline"
-                      initial={{ scaleX: 0 }}
-                      whileHover={{ scaleX: 1 }}
-                      transition={{ duration: 0.3, ease: "easeOut" }}
-                      style={{
-                        originX: 0,
-                        backgroundColor: darkMode ? "#fbbf24" : "#fde047",
-                      }}
-                    />
-                  </Link>
-                )}
-              </motion.div>
-            ))}
-
-            {/* Dark Mode Toggle */}
-            <motion.button
-              onClick={toggleDarkMode}
-              whileHover={{ scale: 1.1, rotate: darkMode ? 0 : 180 }}
-              whileTap={{ scale: 0.9 }}
-              className={`ml-3 p-3 rounded-full shadow-md ${darkMode
-                ? "bg-yellow-400 text-slate-900 shadow-yellow-500/30"
-                : "bg-white/15 text-white hover:bg-white/25 shadow-black/20"
-                }`}
-              aria-label={
-                darkMode ? "Switch to light mode" : "Switch to dark mode"
-              }
-            >
-              {darkMode ? (
-                <Sun className="w-5 h-5" />
-              ) : (
-                <Moon className="w-5 h-5" />
-              )}
-            </motion.button>
-          </div>
-
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className={`md:hidden p-2 rounded-md ${darkMode
-              ? "text-white hover:bg-slate-800"
-              : "text-white hover:bg-white/10"
-              }`}
-            aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
-            aria-expanded={mobileMenuOpen}
-          >
-            {mobileMenuOpen ? (
-              <X className="w-6 h-6" />
-            ) : (
-              <Menu className="w-6 h-6" />
-            )}
-          </button>
-        </div>
-      </div>
-
-      {/* Mobile Menu — with proper exit animation */}
-      <AnimatePresence>
-        {mobileMenuOpen && (
-          <motion.div
-            key="mobile-menu"
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.25, ease: "easeInOut" }}
-            className={`md:hidden overflow-hidden backdrop-blur-xl border-t ${darkMode
-              ? "bg-slate-900/95 border-slate-800"
-              : "bg-[#264488] border-white/15"
-              }`}
-          >
-            <div className="px-4 py-4 space-y-1">
-              {navItems.map((item) => (
-                <div key={item.path}>
-                  <motion.div
-                    initial={{ x: -20, opacity: 0 }}
-                    animate={{ x: 0, opacity: 1 }}
-                    exit={{ x: -20, opacity: 0 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <Link
-                      to={item.path}
-                      className={`block w-full text-left px-4 py-3.5 rounded-xl font-medium transition-colors ${darkMode
-                        ? "text-gray-300 hover:text-yellow-400 hover:bg-slate-800/50"
-                        : "text-white/90 hover:text-yellow-300 hover:bg-white/10"
-                        }`}
-                      onClick={() => setMobileMenuOpen(false)}
-                    >
-                      {item.name}
                     </Link>
-                  </motion.div>
-
-                  {/* Mobile Dropdown Items */}
-                  {item.hasDropdown && (
-                    <div className="ml-4 space-y-1">
-                      {item.dropdownItems.map((dropdownItem, j) => (
-                        <motion.div
-                          key={dropdownItem.path}
-                          initial={{ x: -20, opacity: 0 }}
-                          animate={{ x: 0, opacity: 1 }}
-                          exit={{ x: -20, opacity: 0 }}
-                          transition={{ duration: 0.2, delay: j * 0.05 }}
-                        >
-                          <Link
-                            to={dropdownItem.path}
-                            className={`block w-full text-left px-4 py-2.5 rounded-lg text-sm font-medium transition-colors ${darkMode
-                              ? "text-gray-400 hover:text-yellow-400 hover:bg-slate-800/50"
-                              : "text-blue-100/90 hover:text-yellow-300 hover:bg-white/10"
-                              }`}
-                            onClick={() => setMobileMenuOpen(false)}
-                          >
-                            {dropdownItem.name}
-                          </Link>
-                        </motion.div>
-                      ))}
-                    </div>
                   )}
-                </div>
+                </motion.div>
               ))}
-              {/* Dark mode toggle inside mobile menu */}
-              <div
-                className={`pt-2 border-t mt-2 ${darkMode ? "border-gray-700/30" : "border-white/15"
-                  }`}
+
+              <motion.button
+                type="button"
+                onClick={toggleDarkMode}
+                whileHover={{ scale: 1.1, rotate: darkMode ? 0 : 180 }}
+                whileTap={{ scale: 0.9 }}
+                className="navbar__theme-btn"
+                aria-label={darkMode ? "Switch to light mode" : "Switch to dark mode"}
               >
-                <button
-                  onClick={() => {
-                    toggleDarkMode();
-                    setMobileMenuOpen(false);
-                  }}
-                  className={`w-full flex items-center justify-between px-4 py-3 rounded-xl ${darkMode
-                    ? "text-yellow-400 hover:bg-slate-800/50"
-                    : "text-yellow-300 hover:bg-white/10"
-                    }`}
-                >
-                  {darkMode ? "☀️ Light Mode" : "🌙 Dark Mode"}
-                  {darkMode ? (
-                    <Sun className="w-5 h-5" />
-                  ) : (
-                    <Moon className="w-5 h-5" />
-                  )}
-                </button>
-              </div>
+                {darkMode ? <Sun className="navbar__icon" /> : <Moon className="navbar__icon" />}
+              </motion.button>
             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </motion.nav>
+
+            <button
+              type="button"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="navbar__menu-btn"
+              aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+              aria-expanded={mobileMenuOpen}
+            >
+              {mobileMenuOpen ? (
+                <X className="navbar__menu-icon" />
+              ) : (
+                <Menu className="navbar__menu-icon" />
+              )}
+            </button>
+          </div>
+        </div>
+      </motion.nav>
+
+      {createPortal(
+        <AnimatePresence>
+          {mobileMenuOpen && (
+            <motion.div
+              key="mobile-menu"
+              role="dialog"
+              aria-modal="true"
+              initial={{ opacity: 0, y: -8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.2, ease: "easeOut" }}
+              className={`navbar__mobile-sheet navbar__mobile-sheet--${darkMode ? "dark" : "light"}`}
+            >
+              <div className="navbar__mobile-inner">
+                {navItems.map((item) => (
+                  <div key={item.path}>
+                    <motion.div
+                      initial={{ x: -20, opacity: 0 }}
+                      animate={{ x: 0, opacity: 1 }}
+                      exit={{ x: -20, opacity: 0 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <Link
+                        to={item.path}
+                        className="navbar__mobile-link"
+                        onClick={() => setMobileMenuOpen(false)}
+                      >
+                        {item.name}
+                      </Link>
+                    </motion.div>
+
+                    {item.hasDropdown && (
+                      <div className="navbar__mobile-sub">
+                        {item.dropdownItems.map((dropdownItem, j) => (
+                          <motion.div
+                            key={dropdownItem.path}
+                            initial={{ x: -20, opacity: 0 }}
+                            animate={{ x: 0, opacity: 1 }}
+                            exit={{ x: -20, opacity: 0 }}
+                            transition={{ duration: 0.2, delay: j * 0.05 }}
+                          >
+                            <Link
+                              to={dropdownItem.path}
+                              className="navbar__mobile-sublink"
+                              onClick={() => setMobileMenuOpen(false)}
+                            >
+                              {dropdownItem.name}
+                            </Link>
+                          </motion.div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                ))}
+                <div className="navbar__mobile-theme-wrap">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      toggleDarkMode();
+                      setMobileMenuOpen(false);
+                    }}
+                    className="navbar__mobile-theme-btn"
+                  >
+                    {darkMode ? "☀️ Light Mode" : "🌙 Dark Mode"}
+                    {darkMode ? <Sun className="navbar__icon" /> : <Moon className="navbar__icon" />}
+                  </button>
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>,
+        document.body
+      )}
+    </>
   );
 };
 
