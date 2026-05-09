@@ -15,7 +15,8 @@ import Careers from "./pages/Career";
 import Contact from "./pages/Contact";
 import Policies from "./pages/Policies";
 import BoardOfDirectors from "./pages/BoardOfDirectors";
-import { useEffect } from "react";
+import ComingSoon from "./pages/ComingSoon";
+import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
 const ScrollToTop = () => {
@@ -29,6 +30,13 @@ const ScrollToTop = () => {
 };
 
 const App = () => {
+  // Set this to true to enable Coming Soon page, false to show the full website
+  const isComingSoon = true;
+
+  if (isComingSoon) {
+    return <ComingSoon />;
+  }
+
   return (
     <Router>
       <ScrollToTop />
@@ -55,3 +63,4 @@ const App = () => {
 };
 
 export default App;
+
