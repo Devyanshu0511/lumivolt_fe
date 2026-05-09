@@ -42,18 +42,14 @@ const ComingSoon = () => {
         >
           <img src={logo} alt="Lumivolt Logo" className="brand-logo-img" />
 
-          <div className="status-badge">
-            <span className="pulse">●</span> COMING SOON
-          </div>
-
-          <h1 className="main-title">
-            The Future of <br />
-            <span style={{ color: '#ffb800' }}>Solar Energy</span>
+          <h1 className=" status-badge" style={{ color: '#fff' }}>
+            The Future of
+            Solar Energy
           </h1>
 
-          <p className="subtitle">
-            We're building something revolutionary. Lumivolt is redefining how we harness the sun's power for a sustainable tomorrow.
-          </p>
+          <div className="main-title" style={{ color: '#ffb800' }}>
+            COMING SOON
+          </div>
 
           <motion.div
             initial={{ opacity: 0 }}
@@ -70,7 +66,7 @@ const ComingSoon = () => {
       </div>
 
       <div className="coming-soon-footer">
-        © 2026 LUMIVOLT ENERGY. ALL RIGHTS RESERVED.
+        © 2026 Lumivolt Tech Solar Private Limited. ALL RIGHTS RESERVED.
       </div>
     </div>
   );

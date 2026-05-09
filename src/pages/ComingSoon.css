@@ -44,7 +44,7 @@
 .brand-logo-img {
   height: 80px;
   width: auto;
-  margin: 2rem auto;
+  margin: 0 auto 3rem;
   display: flex;
   filter: drop-shadow(0 0 20px rgba(255, 184, 0, 0.3));
 }
@@ -53,7 +53,7 @@
   font-size: clamp(3rem, 10vw, 6rem);
   font-weight: 900;
   line-height: 1.1;
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
   letter-spacing: -0.05em;
 }
 
@@ -66,16 +66,26 @@
 }
 
 .status-badge {
-  display: inline-block;
-  padding: 0.5rem 1.25rem;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 2rem;
+  background: rgba(255, 184, 0, 0.05);
+  border: 1px solid rgba(255, 184, 0, 0.2);
   border-radius: 100px;
-  font-size: 0.875rem;
-  font-weight: 500;
+  font-size: 1.1rem;
+  font-weight: 600;
   color: #ffb800;
-  margin-bottom: 2rem;
+  margin-bottom: 2.5rem;
   backdrop-filter: blur(10px);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  box-shadow: 0 0 30px rgba(255, 184, 0, 0.1);
+}
+
+.pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  font-size: 0.8rem;
 }
 
 .coming-soon-footer {
@@ -89,17 +99,6 @@
 }
 
 @keyframes pulse {
-
-  0%,
-  100% {
-    opacity: 0.5;
-  }
-
-  50% {
-    opacity: 1;
-  }
-}
-
-.pulse {
-  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.2); }
 }
