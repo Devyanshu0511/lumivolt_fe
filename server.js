@@ -18,7 +18,11 @@ app.use(express.json());
 // Paths
 const policiesFile = path.join(__dirname, 'src', 'data', 'policies.json');
 const productsFile = path.join(__dirname, 'src', 'data', 'products.json');
+const galleryFile = path.join(__dirname, 'src', 'data', 'gallery.json');
 const publicDir = path.join(__dirname, 'public');
+
+// Serve static files from public directory
+app.use(express.static(publicDir));
 
 // Configure Multer for file uploads
 const storage = multer.diskStorage({
@@ -31,6 +35,20 @@ const storage = multer.diskStorage({
   }
 });
 const upload = multer({ storage: storage });
+
+const galleryStorage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, publicDir);
+  },
+  filename: function (req, file, cb) {
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+    cb(null, 'gallery-' + uniqueSuffix + path.extname(file.originalname));
+  }
+});
+const galleryUpload = multer({ 
+  storage: galleryStorage,
+  limits: { fileSize: 5 * 1024 * 1024 } // 5MB limit
+});
 
 // Routes
 
@@ -100,6 +118,79 @@ app.post('/api/upload-image', upload.single('image'), (req, res) => {
   } catch (error) {
     res.status(500).json({ error: 'Upload failed' });
   }
+});
+
+// Get Gallery
+app.get('/api/gallery', (req, res) => {
+  try {
+    const data = fs.readFileSync(galleryFile, 'utf8');
+    res.json(JSON.parse(data));
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to read gallery' });
+  }
+});
+
+// Update Gallery
+app.post('/api/gallery', (req, res) => {
+  try {
+    const newGallery = req.body;
+    fs.writeFileSync(galleryFile, JSON.stringify(newGallery, null, 2), 'utf8');
+    res.json({ success: true });
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to write gallery' });
+  }
+});
+
+// Delete Gallery Item
+app.delete('/api/gallery/:id', (req, res) => {
+  try {
+    const { id } = req.params;
+    const data = JSON.parse(fs.readFileSync(galleryFile, 'utf8'));
+    const itemIndex = data.findIndex(item => item.id === id);
+    
+    if (itemIndex > -1) {
+      const item = data[itemIndex];
+      if (item.url) {
+        const filePath = path.join(publicDir, item.url.replace(/^\//, ''));
+        if (fs.existsSync(filePath)) {
+          fs.unlinkSync(filePath);
+        }
+      }
+      
+      data.splice(itemIndex, 1);
+      fs.writeFileSync(galleryFile, JSON.stringify(data, null, 2), 'utf8');
+      res.json({ success: true });
+    } else {
+      res.status(404).json({ error: 'Item not found' });
+    }
+  } catch (error) {
+    console.error('Delete error:', error);
+    res.status(500).json({ error: 'Failed to delete gallery item' });
+  }
+});
+
+// Upload Gallery Media
+app.post('/api/upload-gallery', (req, res) => {
+  galleryUpload.single('media')(req, res, function (err) {
+    if (err instanceof multer.MulterError) {
+      if (err.code === 'LIMIT_FILE_SIZE') {
+        return res.status(400).json({ error: 'File size exceeds 5MB limit' });
+      }
+      return res.status(400).json({ error: err.message });
+    } else if (err) {
+      return res.status(500).json({ error: 'Upload failed' });
+    }
+    
+    if (!req.file) {
+      return res.status(400).json({ error: 'No file uploaded' });
+    }
+    
+    const type = req.file.mimetype.startsWith('video/') ? 'video' : 'image';
+    res.json({ 
+      url: `/${req.file.filename}`,
+      type: type
+    });
+  });
 });
 
 app.listen(port, () => {

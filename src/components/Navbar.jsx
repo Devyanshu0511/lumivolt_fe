@@ -98,6 +98,7 @@ const Navigation = () => {
     },
     { name: "Sustainability", path: "/sustainability" },
     { name: "Careers", path: "/careers" },
+    { name: "Gallery", path: "/gallery" },
     { name: "Contact", path: "/contact" },
   ];
 

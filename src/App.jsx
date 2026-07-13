@@ -15,6 +15,7 @@ import Contact from "./pages/Contact";
 import Policies from "./pages/Policies";
 import BoardOfDirectors from "./pages/BoardOfDirectors";
 import ComingSoon from "./pages/ComingSoon";
+import Gallery from "./pages/Gallery";
 
 // Admin Components
 import AdminLayout from "./components/AdminLayout";
@@ -22,6 +23,7 @@ import AdminLogin from "./pages/AdminLogin";
 import AdminPolicies from "./pages/AdminPolicies";
 import AdminProducts from "./pages/AdminProducts";
 import AdminSettings from "./pages/AdminSettings";
+import AdminGallery from "./pages/AdminGallery";
 
 const ScrollToTop = () => {
   const { pathname } = useLocation();
@@ -51,6 +53,7 @@ const App = () => {
           <Route index element={<Navigate to="products" replace />} />
           <Route path="products" element={<AdminProducts />} />
           <Route path="policies" element={<AdminPolicies />} />
+          <Route path="gallery" element={<AdminGallery />} />
           <Route path="settings" element={<AdminSettings />} />
         </Route>
 
@@ -70,6 +73,7 @@ const App = () => {
                 <Route path="leadership" element={<Leadership />} />
                 <Route path="careers" element={<Careers />} />
                 <Route path="policies" element={<Policies />} />
+                <Route path="gallery" element={<Gallery />} />
                 <Route path="contact" element={<Contact />} />
                 <Route path="*" element={<div>404 — Page Not Found</div>} />
               </Routes>
