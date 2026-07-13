@@ -2,7 +2,8 @@ import React, { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { ShieldCheck, Leaf } from "lucide-react";
 import { useDarkMode } from "../context/DarkModeContext";
-import productsData from "../data/products.json";
+import { API_BASE_URL } from "../config";
+import { Loader2 } from "lucide-react";
 
 const SustainabilitySection = () => {
   const { darkMode } = useDarkMode();
@@ -537,9 +538,33 @@ const CarbonCalculator = ({ darkMode }) => {
   const [energyUsage, setEnergyUsage] = useState(500);
   const [panelType, setPanelType] = useState("bifacial-topcon");
   const [location, setLocation] = useState("high");
+  const [productsData, setProductsData] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch(`${API_BASE_URL}/api/products`)
+      .then(res => res.json())
+      .then(data => {
+        setProductsData(data);
+        setLoading(false);
+      })
+      .catch(err => {
+        console.error("Failed to fetch products:", err);
+        setLoading(false);
+      });
+  }, []);
+
+  if (loading) {
+    return (
+      <div className={`rounded-2xl p-8 flex justify-center py-20 ${darkMode ? "bg-slate-900 border border-slate-800" : "bg-white border border-gray-200"}`}>
+        <Loader2 className="w-10 h-10 animate-spin text-blue-500" />
+      </div>
+    );
+  }
 
   const calculateSavings = () => {
-    const selectedProduct = productsData.find((p) => p.id === panelType) || productsData[1];
+    const selectedProduct = productsData.find((p) => p.id === panelType) || productsData[1] || productsData[0];
+    if (!selectedProduct) return { generation: 0, carbon: 0, trees: 0, costSavings: 0 };
     const baseEfficiency = selectedProduct.ecoStats.efficiencyValue / 100;
     const locationMultiplier =
       location === "high" ? 1.3 : location === "moderate" ? 1.0 : 0.8;

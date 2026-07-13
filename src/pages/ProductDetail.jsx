@@ -3,8 +3,9 @@ import { motion } from "framer-motion";
 import { Sun, ShieldCheck, Award, Zap, TrendingUp, ArrowLeft } from "lucide-react";
 import { useDarkMode } from "../context/DarkModeContext";
 import { Link, useParams } from "react-router-dom";
-import productsData from "../data/products.json";
-
+import { API_BASE_URL } from "../config";
+import { Loader2 } from "lucide-react";
+import { useState, useEffect } from "react";
 export const ProductDetailContent = ({ productData, isPreview = false, darkMode = false }) => {
   if (!productData) return null;
 
@@ -319,6 +320,29 @@ export const ProductDetailContent = ({ productData, isPreview = false, darkMode 
 const ProductDetail = () => {
   const { darkMode } = useDarkMode();
   const { id } = useParams();
+  const [productsData, setProductsData] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch(`${API_BASE_URL}/api/products`)
+      .then(res => res.json())
+      .then(data => {
+        setProductsData(data);
+        setLoading(false);
+      })
+      .catch(err => {
+        console.error("Failed to fetch products:", err);
+        setLoading(false);
+      });
+  }, []);
+
+  if (loading) {
+    return (
+      <div className={`min-h-screen flex items-center justify-center ${darkMode ? "bg-slate-950" : "bg-gray-50"}`}>
+        <Loader2 className="w-10 h-10 animate-spin text-blue-500" />
+      </div>
+    );
+  }
 
   const productData = productsData.find((p) => p.id === id);
 

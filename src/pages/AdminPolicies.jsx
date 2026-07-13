@@ -255,7 +255,7 @@ const AdminPolicies = () => {
                         <label className="text-xs text-gray-500 mb-2 block">Current PDF</label>
                         <div className="flex items-center gap-3">
                           <a 
-                            href={editPdfFile ? URL.createObjectURL(editPdfFile) : editForm.pdfUrl} 
+                            href={editPdfFile ? URL.createObjectURL(editPdfFile) : (editForm.pdfUrl?.startsWith('/') ? API_BASE_URL + editForm.pdfUrl : editForm.pdfUrl)} 
                             target="_blank" 
                             rel="noopener noreferrer" 
                             className="bg-gray-800 border border-gray-700 rounded px-3 py-1.5 text-blue-400 hover:text-blue-300 text-sm truncate flex-1 hover:bg-gray-700 transition-colors"

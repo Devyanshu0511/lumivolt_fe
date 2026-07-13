@@ -7,8 +7,7 @@ import { Menu, X, Sun, Moon, ChevronDown } from "lucide-react";
 import logoFull from "../assets/logo.png";
 import "../assets/navbar.css";
 import { useDarkMode } from "../context/DarkModeContext";
-import productsData from "../data/products.json";
-
+import { API_BASE_URL } from "../config";
 const Navigation = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -18,6 +17,14 @@ const Navigation = () => {
   const { darkMode, setDarkMode } = useDarkMode();
 
   const themeClass = darkMode ? "navbar--dark" : "navbar--light";
+  const [productsData, setProductsData] = useState([]);
+
+  useEffect(() => {
+    fetch(`${API_BASE_URL}/api/products`)
+      .then(res => res.json())
+      .then(data => setProductsData(data))
+      .catch(err => console.error("Failed to fetch products:", err));
+  }, []);
 
   useEffect(() => {
     setMobileMenuOpen(false);

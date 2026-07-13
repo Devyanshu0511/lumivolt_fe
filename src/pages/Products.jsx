@@ -3,10 +3,27 @@ import { motion } from "framer-motion";
 import { Sun, ShieldCheck, Award, Zap, TrendingUp } from "lucide-react";
 import { useDarkMode } from "../context/DarkModeContext";
 import { Link } from "react-router-dom";
-import productsData from "../data/products.json";
+import { API_BASE_URL } from "../config";
+import { Loader2 } from "lucide-react";
 
 const ProductsSection = () => {
   const { darkMode } = useDarkMode();
+  const [productsData, setProductsData] = React.useState([]);
+  const [loading, setLoading] = React.useState(true);
+
+  React.useEffect(() => {
+    fetch(`${API_BASE_URL}/api/products`)
+      .then(res => res.json())
+      .then(data => {
+        setProductsData(data);
+        setLoading(false);
+      })
+      .catch(err => {
+        console.error("Failed to fetch products:", err);
+        setLoading(false);
+      });
+  }, []);
+
   const products = productsData.map((p) => ({
     ...p,
     color: darkMode ? p.colorDark : p.colorLight,
@@ -96,7 +113,11 @@ const ProductsSection = () => {
 
         {/* Product Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {products.map((product, i) => (
+          {loading ? (
+            <div className="col-span-full flex justify-center py-20">
+              <Loader2 className="w-10 h-10 animate-spin text-blue-500" />
+            </div>
+          ) : products.map((product, i) => (
             <Link key={i} to={product.path} className="block group">
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
@@ -151,7 +172,7 @@ const ProductsSection = () => {
                 <div className="px-5 pb-4">
                   <div className="relative overflow-hidden rounded-lg bg-gray-100 dark:bg-gray-800">
                     <img
-                      src={product.image}
+                      src={product.image?.startsWith('/') ? API_BASE_URL + product.image : product.image}
                       alt={`${product.name} solar panel`}
                       className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105"
                       onError={(e) => {

@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FileText, Shield, Lock, Cookie, RefreshCw, AlertTriangle, Download } from "lucide-react";
 import { useDarkMode } from "../context/DarkModeContext";
-import policiesData from "../data/policies.json";
-
+import { API_BASE_URL } from "../config";
+import { Loader2 } from "lucide-react";
 const iconMap = {
   Shield,
   FileText,
@@ -17,6 +17,21 @@ const Policies = () => {
   const { darkMode } = useDarkMode();
   const [selectedPolicy, setSelectedPolicy] = useState(null);
   const [showComingSoon, setShowComingSoon] = useState(false);
+  const [policiesData, setPoliciesData] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  React.useEffect(() => {
+    fetch(`${API_BASE_URL}/api/policies`)
+      .then(res => res.json())
+      .then(data => {
+        setPoliciesData(data);
+        setLoading(false);
+      })
+      .catch(err => {
+        console.error("Failed to fetch policies:", err);
+        setLoading(false);
+      });
+  }, []);
 
   const policies = policiesData.map(policy => ({
     ...policy,
@@ -62,7 +77,11 @@ const Policies = () => {
         </motion.p>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {policies.map((policy, index) => {
+          {loading ? (
+            <div className="col-span-full flex justify-center py-20">
+              <Loader2 className="w-10 h-10 animate-spin text-blue-500" />
+            </div>
+          ) : policies.map((policy, index) => {
             const IconComponent = policy.icon;
             return (
               <motion.div
@@ -189,7 +208,7 @@ const Policies = () => {
 
               <div className="flex-1 w-full bg-gray-100 dark:bg-slate-800 rounded-xl overflow-hidden">
                 <iframe
-                  src={selectedPolicy.pdfUrl}
+                  src={selectedPolicy.pdfUrl?.startsWith('/') ? API_BASE_URL + selectedPolicy.pdfUrl : selectedPolicy.pdfUrl}
                   title={selectedPolicy.title}
                   className="w-full h-full border-0"
                 />
