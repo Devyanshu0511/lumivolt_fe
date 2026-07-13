@@ -3,65 +3,16 @@ import { motion } from "framer-motion";
 import { Sun, ShieldCheck, Award, Zap, TrendingUp } from "lucide-react";
 import { useDarkMode } from "../components/Layout";
 import { Link } from "react-router-dom";
+import productsData from "../data/products.json";
 
 const ProductsSection = () => {
   const { darkMode } = useDarkMode();
-  const products = [
-    {
-      name: "Monofacial PERC",
-      tagline: "High Efficiency • Residential & Commercial",
-      badge: "PERC Technology",
-      color: darkMode ? "#3b82f6" : "#1d4ed8",
-      path: "/products/monofacial-perc",
-      image: "/products/monofacial-perc.svg",
-      specs: [
-        { label: "Power", value: "400–550W" },
-        { label: "Efficiency", value: "Up to 22.3%" },
-        { label: "Warranty", value: "25 yrs" },
-      ],
-      details: [
-        "Half-cut PERC cells",
-        "PID & LID resistant",
-        "IEC 61215 / 61730 certified",
-      ],
-    },
-    {
-      name: "Bifacial TOPCon",
-      tagline: "Double-Sided Yield • Utility & Ground-Mount",
-      badge: "TOPCon Technology",
-      color: darkMode ? "#10b981" : "#059669",
-      path: "/products/bifacial-topcon",
-      image: "/products/bifacial-topcon.svg",
-      specs: [
-        { label: "Power", value: "500–600+W" },
-        { label: "Bifacial Gain", value: "+10% to +25%" },
-        { label: "Degradation", value: "<0.45%/yr" },
-      ],
-      details: [
-        "N-type TOPCon cells",
-        "Transparent backsheet / dual-glass",
-        "MNRE & ISO 9001 compliant",
-      ],
-    },
-    {
-      name: "Ultra Series",
-      tagline: "Premium Performance • All Applications",
-      badge: "High-Efficiency",
-      color: darkMode ? "#fbbf24" : "#3b82f6",
-      path: "/products/ultra-series",
-      image: "/products/ultra-series.svg",
-      specs: [
-        { label: "Power", value: "550–610W" },
-        { label: "Efficiency", value: "Up to 22.5%" },
-        { label: "Load Rating", value: "5400/8500 Pa" },
-      ],
-      details: [
-        "Advanced multi-busbar design",
-        "Enhanced frame & junction box (IP68)",
-        "30-year linear performance warranty",
-      ],
-    },
-  ];
+  const products = productsData.map((p) => ({
+    ...p,
+    color: darkMode ? p.colorDark : p.colorLight,
+    specs: p.overviewSpecs,
+    details: p.overviewDetails,
+  }));
 
   return (
     <section id="products" className="py-24 sm:py-32 relative overflow-hidden">

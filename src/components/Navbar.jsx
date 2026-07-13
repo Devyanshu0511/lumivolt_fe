@@ -7,6 +7,7 @@ import { Menu, X, Sun, Moon, ChevronDown } from "lucide-react";
 import logoFull from "../assets/logo.png";
 import "../assets/navbar.css";
 import { useDarkMode } from "./Layout";
+import productsData from "../data/products.json";
 
 const Navigation = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -92,9 +93,7 @@ const Navigation = () => {
       hasDropdown: true,
       dropdownItems: [
         { name: "All Products", path: "/products" },
-        { name: "Monofacial PERC", path: "/products/monofacial-perc" },
-        { name: "Bifacial TOPCon", path: "/products/bifacial-topcon" },
-        { name: "Ultra Series", path: "/products/ultra-series" },
+        ...productsData.map((p) => ({ name: p.name, path: p.path })),
       ],
     },
     { name: "Sustainability", path: "/sustainability" },

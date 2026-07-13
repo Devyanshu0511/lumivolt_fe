@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { ShieldCheck, Leaf } from "lucide-react";
 import { useDarkMode } from "../components/Layout";
+import productsData from "../data/products.json";
 
 const SustainabilitySection = () => {
   const { darkMode } = useDarkMode();
@@ -534,12 +535,12 @@ const SustainabilitySection = () => {
 // Interactive Carbon Calculator Component
 const CarbonCalculator = ({ darkMode }) => {
   const [energyUsage, setEnergyUsage] = useState(500);
-  const [panelType, setPanelType] = useState("bifacial");
+  const [panelType, setPanelType] = useState("bifacial-topcon");
   const [location, setLocation] = useState("high");
 
   const calculateSavings = () => {
-    const baseEfficiency =
-      panelType === "bifacial" ? 0.21 : panelType === "monofacial" ? 0.19 : 0.22;
+    const selectedProduct = productsData.find((p) => p.id === panelType) || productsData[1];
+    const baseEfficiency = selectedProduct.ecoStats.efficiencyValue / 100;
     const locationMultiplier =
       location === "high" ? 1.3 : location === "moderate" ? 1.0 : 0.8;
     const annualGeneration =
@@ -613,11 +614,11 @@ const CarbonCalculator = ({ darkMode }) => {
                   : "bg-white border-gray-300 text-gray-900"
                 }`}
             >
-              <option value="ultra">Ultra Series (22% efficiency)</option>
-              <option value="bifacial">Bifacial TOPCon (21% efficiency)</option>
-              <option value="monofacial">
-                Monofacial PERC (19% efficiency)
-              </option>
+              {productsData.map((p) => (
+                <option key={p.id} value={p.id}>
+                  {p.name} ({p.ecoStats.efficiencyValue}% efficiency)
+                </option>
+              ))}
             </select>
           </div>
 
@@ -1150,39 +1151,9 @@ const FutureGoals = ({ darkMode }) => {
 
 // Technology Comparison Component
 const TechnologyComparison = ({ darkMode }) => {
-  const [selectedTech, setSelectedTech] = useState("bifacial");
+  const [selectedTechId, setSelectedTechId] = useState("bifacial-topcon");
 
-  const technologies = {
-    ultra: {
-      name: "Ultra Series",
-      efficiency: 22,
-      lifespan: 30,
-      carbonPayback: 1.2,
-      energyOutput: 440,
-      description:
-        "Next-generation solar technology with maximum efficiency and performance.",
-    },
-    bifacial: {
-      name: "Bifacial TOPCon",
-      efficiency: 21,
-      lifespan: 30,
-      carbonPayback: 1.5,
-      energyOutput: 420,
-      description:
-        "Advanced bifacial technology capturing sunlight from both sides for optimal energy generation.",
-    },
-    monofacial: {
-      name: "Monofacial PERC",
-      efficiency: 19,
-      lifespan: 25,
-      carbonPayback: 2.1,
-      energyOutput: 380,
-      description:
-        "Reliable and proven technology with strong performance in various conditions.",
-    },
-  };
-
-  const currentTech = technologies[selectedTech];
+  const currentTech = productsData.find((p) => p.id === selectedTechId) || productsData[1];
 
   return (
     <div
@@ -1200,11 +1171,11 @@ const TechnologyComparison = ({ darkMode }) => {
           >
             Select Technology
           </h4>
-          {Object.entries(technologies).map(([key, tech]) => (
+          {productsData.map((tech) => (
             <button
-              key={key}
-              onClick={() => setSelectedTech(key)}
-              className={`w-full p-4 rounded-lg text-left transition-all ${selectedTech === key
+              key={tech.id}
+              onClick={() => setSelectedTechId(tech.id)}
+              className={`w-full p-4 rounded-lg text-left transition-all ${selectedTechId === tech.id
                   ? darkMode
                     ? "bg-slate-800 border-2 border-blue-400"
                     : "bg-blue-50 border-2 border-blue-400"
@@ -1223,7 +1194,7 @@ const TechnologyComparison = ({ darkMode }) => {
                 className={`text-sm ${darkMode ? "text-gray-400" : "text-gray-600"
                   }`}
               >
-                {tech.efficiency}% Efficiency
+                {tech.ecoStats.efficiencyValue}% Efficiency
               </div>
             </button>
           ))}
@@ -1259,7 +1230,7 @@ const TechnologyComparison = ({ darkMode }) => {
                   className={`text-2xl font-bold ${darkMode ? "text-green-400" : "text-green-600"
                     }`}
                 >
-                  {currentTech.efficiency}%
+                  {currentTech.ecoStats.efficiencyValue}%
                 </div>
               </div>
 
@@ -1274,7 +1245,7 @@ const TechnologyComparison = ({ darkMode }) => {
                   className={`text-2xl font-bold ${darkMode ? "text-[#274488]" : "text-[#274488]"
                     }`}
                 >
-                  {currentTech.lifespan} years
+                  {currentTech.ecoStats.lifespan} years
                 </div>
               </div>
             </div>
@@ -1291,7 +1262,7 @@ const TechnologyComparison = ({ darkMode }) => {
                   className={`text-2xl font-bold ${darkMode ? "text-amber-400" : "text-amber-600"
                     }`}
                 >
-                  {currentTech.carbonPayback} years
+                  {currentTech.ecoStats.carbonPayback} years
                 </div>
               </div>
 
@@ -1306,7 +1277,7 @@ const TechnologyComparison = ({ darkMode }) => {
                   className={`text-2xl font-bold ${darkMode ? "text-purple-400" : "text-purple-600"
                     }`}
                 >
-                  {currentTech.energyOutput} kWh
+                  {currentTech.ecoStats.energyOutput} kWh
                 </div>
                 <div
                   className={`text-xs ${darkMode ? "text-gray-500" : "text-gray-400"
@@ -1332,7 +1303,7 @@ const TechnologyComparison = ({ darkMode }) => {
                   className={`font-semibold ${darkMode ? "text-green-400" : "text-green-600"
                     }`}
                 >
-                  {Math.round((currentTech.energyOutput * 30 * 0.4) / 1000)}{" "}
+                  {Math.round((currentTech.ecoStats.energyOutput * 30 * 0.4) / 1000)}{" "}
                   tons
                 </div>
               </div>
@@ -1344,7 +1315,7 @@ const TechnologyComparison = ({ darkMode }) => {
                   className={`font-semibold ${darkMode ? "text-emerald-400" : "text-emerald-600"
                     }`}
                 >
-                  {currentTech.carbonPayback} years
+                  {currentTech.ecoStats.carbonPayback} years
                 </div>
               </div>
             </div>

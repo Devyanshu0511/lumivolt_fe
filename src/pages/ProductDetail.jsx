@@ -1,57 +1,28 @@
 import React from "react";
 import { motion } from "framer-motion";
-import {
-  Sun,
-  ShieldCheck,
-  Award,
-  Zap,
-  TrendingUp,
-  ArrowLeft,
-} from "lucide-react";
+import { Sun, ShieldCheck, Award, Zap, TrendingUp, ArrowLeft } from "lucide-react";
 import { useDarkMode } from "../components/Layout";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import productsData from "../data/products.json";
 
-const MonofacialPERC = () => {
+const ProductDetail = () => {
   const { darkMode } = useDarkMode();
+  const { id } = useParams();
+
+  const productData = productsData.find((p) => p.id === id);
+
+  if (!productData) {
+    return (
+      <div className={`min-h-screen flex flex-col items-center justify-center ${darkMode ? "bg-slate-950 text-white" : "bg-gray-50 text-gray-900"}`}>
+        <h1 className="text-3xl font-bold mb-4">Product Not Found</h1>
+        <Link to="/products" className="text-blue-500 hover:underline">Return to Products</Link>
+      </div>
+    );
+  }
 
   const product = {
-    name: "Monofacial PERC",
-    tagline: "High Efficiency • Residential & Commercial",
-    badge: "PERC Technology",
-    color: darkMode ? "#3b82f6" : "#1d4ed8",
-    description:
-      "Our Monofacial PERC modules deliver exceptional performance for residential and commercial installations. Featuring advanced PERC technology with half-cut cells, these modules offer superior efficiency and reliability.",
-    specs: [
-      { label: "Power Range", value: "400–550W" },
-      { label: "Efficiency", value: "Up to 22.3%" },
-      { label: "Warranty", value: "25 years" },
-      { label: "Cell Type", value: "Mono-crystalline" },
-      { label: "Dimensions", value: "2094×1038×35mm" },
-      { label: "Weight", value: "22.5 kg" },
-    ],
-    features: [
-      "Half-cut PERC cells for improved efficiency",
-      "PID & LID resistant design",
-      "IEC 61215 / 61730 certified",
-      "Enhanced mechanical load tolerance (5400 Pa)",
-      "IP68 junction box with MC4 connectors",
-      "Anti-reflective coating for maximum light absorption",
-    ],
-    benefits: [
-      "Higher power output per square meter",
-      "Lower levelized cost of energy (LCOE)",
-      "Excellent performance in low-light conditions",
-      "Reduced hot-spot risk with half-cut technology",
-      "Long-term reliability with industry-leading warranty",
-    ],
-    certifications: [
-      "IEC 61215 (Design qualification)",
-      "IEC 61730 (Safety qualification)",
-      "UL 1703 (US safety standard)",
-      "ISO 9001 (Quality management)",
-      "IEC 61701 (Salt mist corrosion)",
-      "IEC 62716 (Ammonia corrosion)",
-    ],
+    ...productData,
+    color: darkMode ? productData.colorDark : productData.colorLight,
   };
 
   return (
@@ -61,8 +32,8 @@ const MonofacialPERC = () => {
         <div
           className={`absolute inset-0 ${
             darkMode
-              ? "bg-gradient-to-b from-slate-950 via-blue-950 to-slate-950"
-              : "bg-gradient-to-b from-sky-50 via-blue-50 to-indigo-50"
+              ? "bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950"
+              : "bg-gradient-to-b from-blue-50 via-white to-blue-50"
           }`}
         />
 
@@ -115,10 +86,7 @@ const MonofacialPERC = () => {
             >
               {product.tagline}
             </p>
-            <Sun
-              className="w-16 h-16 mx-auto mb-6"
-              style={{ color: product.color }}
-            />
+            <Sun className="w-16 h-16 mx-auto mb-6" style={{ color: product.color }} />
           </motion.div>
 
           {/* Description */}
@@ -296,10 +264,7 @@ const MonofacialPERC = () => {
                     : "bg-white border border-gray-200"
                 }`}
               >
-                <Award
-                  className="w-6 h-6 mx-auto mb-2"
-                  style={{ color: product.color }}
-                />
+                <Award className="w-6 h-6 mx-auto mb-2" style={{ color: product.color }} />
                 <span
                   className={`text-sm font-medium ${
                     darkMode ? "text-gray-300" : "text-gray-700"
@@ -333,8 +298,7 @@ const MonofacialPERC = () => {
                 darkMode ? "text-gray-300" : "text-gray-600"
               }`}
             >
-              Contact our team to discuss your specific requirements and get a
-              customized quote.
+              Contact our team to discuss your specific requirements and get a customized quote.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
@@ -362,4 +326,4 @@ const MonofacialPERC = () => {
   );
 };
 
-export default MonofacialPERC;
+export default ProductDetail;
