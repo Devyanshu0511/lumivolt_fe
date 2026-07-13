@@ -50,7 +50,7 @@ const WhyChooseUsSection = ({ darkMode }) => {
         >
           <h2
             className={`text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 ${
-              darkMode ? "text-yellow-400" : "text-blue-600"
+              darkMode ? "text-yellow-400" : "text-[#274488]"
             }`}
           >
             Why Choose Lumivolt?
@@ -82,7 +82,7 @@ const WhyChooseUsSection = ({ darkMode }) => {
               >
                 {React.cloneElement(f.icon, {
                   className: `w-5 h-5 ${
-                    darkMode ? "text-yellow-400" : "text-blue-600"
+                    darkMode ? "text-yellow-400" : "text-[#274488]"
                   }`,
                 })}
               </div>
@@ -117,7 +117,7 @@ const WhyChooseUsSection = ({ darkMode }) => {
         >
           <h3
             className={`text-xl sm:text-2xl font-bold ${
-              darkMode ? "text-yellow-400" : "text-blue-600"
+              darkMode ? "text-yellow-400" : "text-[#274488]"
             }`}
           >
             Partner with Lumivolt
@@ -135,7 +135,7 @@ const WhyChooseUsSection = ({ darkMode }) => {
             className={`mt-6 px-8 py-3 rounded-full font-bold inline-flex items-center gap-2 ${
               darkMode
                 ? "bg-yellow-400 text-slate-950 shadow-lg"
-                : "bg-blue-600 text-white shadow-md"
+                : "bg-[#274488] text-white shadow-md"
             }`}
           >
             Contact Us Today <ArrowRight className="w-4 h-4" />

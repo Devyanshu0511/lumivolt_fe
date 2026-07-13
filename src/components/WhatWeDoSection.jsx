@@ -8,7 +8,7 @@ const WhatWeDoSection = ({ darkMode }) => {
       icon: <Sun className="w-6 h-6" />,
       title: "Advanced PV Module Manufacturing",
       desc: "State-of-the-art, automated production lines ensure consistent quality and world-class efficiency.",
-      color: darkMode ? "text-yellow-400" : "text-blue-600",
+      color: darkMode ? "text-yellow-400" : "text-[#274488]",
     },
     {
       icon: <Factory className="w-6 h-6" />,

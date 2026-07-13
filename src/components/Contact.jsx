@@ -8,7 +8,7 @@ export default function Contact() {
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           transition={{ duration: 0.8 }}
-          className="text-3xl font-semibold text-blue-600 mb-8"
+          className="text-3xl font-semibold text-[#274488] mb-8"
         >
           Get in Touch
         </motion.h2>
@@ -16,7 +16,7 @@ export default function Contact() {
           Balaji Compound, Meerut Road, Morta, Ghaziabad, Uttar Pradesh
           <br />
           Email:{" "}
-          <a href="mailto:info@lumivolt.com" className="text-blue-600">
+          <a href="mailto:info@lumivolt.com" className="text-[#274488]">
             info@lumivolt.com
           </a>
           <br />
@@ -24,7 +24,7 @@ export default function Contact() {
         </p>
         <a
           href="mailto:info@lumivolt.com"
-          className="inline-block bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg transition"
+          className="inline-block bg-[#274488] hover:bg-[#1a2d5a] text-white px-8 py-3 rounded-lg transition"
         >
           Send Message
         </a>

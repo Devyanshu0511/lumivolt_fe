@@ -54,7 +54,7 @@ const FAQSection = ({ darkMode }) => {
         >
           <h2
             className={`text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 ${
-              darkMode ? "text-yellow-400" : "text-blue-600"
+              darkMode ? "text-yellow-400" : "text-[#274488]"
             }`}
           >
             Frequently Asked Questions
@@ -105,7 +105,7 @@ const FAQSection = ({ darkMode }) => {
                   >
                     <svg
                       className={`w-6 h-6 ${
-                        darkMode ? "text-yellow-400" : "text-blue-600"
+                        darkMode ? "text-yellow-400" : "text-[#274488]"
                       }`}
                       fill="none"
                       stroke="currentColor"
@@ -150,7 +150,7 @@ const FAQSection = ({ darkMode }) => {
                   >
                     <svg
                       className={`w-6 h-6 ${
-                        darkMode ? "text-yellow-400" : "text-blue-600"
+                        darkMode ? "text-yellow-400" : "text-[#274488]"
                       }`}
                       fill="none"
                       stroke="currentColor"
@@ -186,7 +186,7 @@ const FAQSection = ({ darkMode }) => {
         >
           <h3
             className={`text-xl sm:text-2xl font-bold mb-4 ${
-              darkMode ? "text-yellow-400" : "text-blue-600"
+              darkMode ? "text-yellow-400" : "text-[#274488]"
             }`}
           >
             Still have questions?
@@ -205,7 +205,7 @@ const FAQSection = ({ darkMode }) => {
             className={`px-8 py-3 rounded-full font-bold ${
               darkMode
                 ? "bg-yellow-400 text-slate-950 shadow-lg"
-                : "bg-blue-600 text-white shadow-md"
+                : "bg-[#274488] text-white shadow-md"
             }`}
           >
             Contact Our Experts

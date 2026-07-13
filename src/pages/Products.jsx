@@ -77,8 +77,7 @@ const ProductsSection = () => {
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          animate={{ opacity: 1, y: 0 }}
           className="text-center mb-12"
         >
           <h2
@@ -100,8 +99,7 @@ const ProductsSection = () => {
         {/* Unified Feature Strip */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
           className={`mb-12 p-4 sm:p-5 rounded-2xl border ${
             darkMode
@@ -151,8 +149,7 @@ const ProductsSection = () => {
             <Link key={i} to={product.path} className="block group">
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
+                animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.15 }}
                 whileHover={{ y: -6, transition: { duration: 0.3 } }}
               >
@@ -213,7 +210,7 @@ const ProductsSection = () => {
                     />
                     {/* Fallback for missing images */}
                     <div className="hidden w-full h-48 items-center justify-center bg-gradient-to-br from-blue-100 to-blue-200 dark:from-blue-900 dark:to-blue-800">
-                      <Sun className="w-12 h-12 text-blue-600 dark:text-blue-400" />
+                      <Sun className="w-12 h-12 text-[#274488] dark:text-[#274488]" />
                     </div>
                   </div>
                 </div>
@@ -291,8 +288,7 @@ const ProductsSection = () => {
         {/* CTA below */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5 }}
           className="mt-16 text-center"
         >
@@ -308,7 +304,7 @@ const ProductsSection = () => {
           {/* 
           <motion.button
             whileHover={{ scale: 1.05, boxShadow: "0 0 20px rgba(59, 130, 246, 0.4)" }}
-            className="px-6 py-3 rounded-full font-medium bg-blue-600 text-white"
+            className="px-6 py-3 rounded-full font-medium bg-[#274488] text-white"
           >
             Download Full Product Catalog
           </motion.button>

@@ -43,7 +43,7 @@ const CareersSection = () => {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className={`text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-center mb-6 ${darkMode ? "text-yellow-400" : "text-blue-600"
+          className={`text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-center mb-6 ${darkMode ? "text-yellow-400" : "text-[#274488]"
             }`}
         >
           Join Our Team
@@ -68,7 +68,7 @@ const CareersSection = () => {
             <div
               className={`inline-block px-8 py-4 rounded-full text-lg sm:text-xl font-semibold ${darkMode
                 ? "bg-yellow-400/10 text-yellow-400 border border-yellow-400/20"
-                : "bg-blue-50 text-blue-600 border border-blue-200"
+                : "bg-blue-50 text-[#274488] border border-blue-200"
                 }`}
             >
               Coming Soon
@@ -107,13 +107,13 @@ const CareersSection = () => {
                       <h3
                         className={`text-lg sm:text-xl font-bold mb-1 sm:mb-2 group-hover:text-opacity-100 transition-colors ${darkMode
                           ? "text-white group-hover:text-yellow-400"
-                          : "text-slate-900 group-hover:text-blue-600"
+                          : "text-slate-900 group-hover:text-[#274488]"
                           }`}
                       >
                         {role.title}
                       </h3>
                       <span
-                        className={`text-xs sm:text-sm font-medium ${darkMode ? "text-yellow-400" : "text-blue-600"
+                        className={`text-xs sm:text-sm font-medium ${darkMode ? "text-yellow-400" : "text-[#274488]"
                           }`}
                       >
                         {role.dept}
@@ -124,7 +124,7 @@ const CareersSection = () => {
                       transition={{ duration: 0.3 }}
                     >
                       <ArrowRight
-                        className={`w-5 h-5 sm:w-6 sm:h-6 ${darkMode ? "text-yellow-400" : "text-blue-500"
+                        className={`w-5 h-5 sm:w-6 sm:h-6 ${darkMode ? "text-yellow-400" : "text-[#274488]"
                           }`}
                       />
                     </motion.div>
@@ -145,7 +145,7 @@ const CareersSection = () => {
                         }`}
                     >
                       <MapPin
-                        className={`w-3.5 h-3.5 sm:w-4 sm:h-4 ${darkMode ? "text-yellow-400" : "text-blue-500"
+                        className={`w-3.5 h-3.5 sm:w-4 sm:h-4 ${darkMode ? "text-yellow-400" : "text-[#274488]"
                           }`}
                       />
                       {role.location}

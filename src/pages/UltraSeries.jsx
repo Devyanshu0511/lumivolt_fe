@@ -326,7 +326,7 @@ const UltraSeries = () => {
               <Link
                 to="/contact"
                 className="px-8 py-4 rounded-full font-semibold text-white transition-all hover:scale-105"
-                style={{ backgroundColor: product.color }}
+                style={{ backgroundColor: darkMode ? product.color : '#274488' }}
               >
                 Get Quote
               </Link>

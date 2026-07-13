@@ -105,7 +105,7 @@ const StatsSection = ({ darkMode }) => {
       icon: <Zap className="w-6 h-6" />,
       gradientStart: darkMode ? "#fbbf24" : "#2563eb",
       gradientEnd: darkMode ? "#f59e0b" : "#1d4ed8",
-      color: darkMode ? "text-amber-400" : "text-blue-600",
+      color: darkMode ? "text-amber-400" : "text-[#274488]",
     },
     {
       value: 100,

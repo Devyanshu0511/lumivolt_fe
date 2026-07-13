@@ -172,7 +172,7 @@ const ContactSection = () => {
     >
       {/* Subtle animated background pattern */}
       <div
-        className={`absolute inset-0 -z-10 opacity-10 pointer-events-none ${darkMode ? "text-yellow-400/20" : "text-blue-400/20"
+        className={`absolute inset-0 -z-10 opacity-10 pointer-events-none ${darkMode ? "text-yellow-400/20" : "text-[#274488]/20"
           }`}
         style={{
           backgroundImage:
@@ -196,7 +196,7 @@ const ContactSection = () => {
             transition={{ delay: 0.1, type: "spring", stiffness: 300 }}
             className={`inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium mb-4 ${darkMode
               ? "bg-yellow-400/10 text-yellow-400 border border-yellow-400/20"
-              : "bg-blue-100 text-blue-700 border border-blue-200"
+              : "bg-blue-100 text-[#274488] border border-blue-200"
               }`}
           >
             <Sparkles className="w-4 h-4" />
@@ -248,7 +248,7 @@ const ContactSection = () => {
               className={`text-2xl font-bold mb-6 flex items-center gap-2 ${darkMode ? "text-white" : "text-slate-900"
                 }`}
             >
-              <MapPin className="w-6 h-6 text-blue-500" />
+              <MapPin className="w-6 h-6 text-[#274488]" />
               Get In Touch
             </h3>
 
@@ -280,7 +280,7 @@ const ContactSection = () => {
                   content: (
                     <a
                       href="tel:+918745987184"
-                      className={`inline-flex items-center gap-1 font-medium hover:underline ${darkMode ? "text-yellow-400" : "text-blue-600"
+                      className={`inline-flex items-center gap-1 font-medium hover:underline ${darkMode ? "text-yellow-400" : "text-[#274488]"
                         }`}
                     >
                       +91 87459 87184
@@ -293,7 +293,7 @@ const ContactSection = () => {
                   content: (
                     <a
                       href="mailto:info@lumivolt.in"
-                      className={`inline-flex items-center gap-1 font-medium hover:underline ${darkMode ? "text-yellow-400" : "text-blue-600"
+                      className={`inline-flex items-center gap-1 font-medium hover:underline ${darkMode ? "text-yellow-400" : "text-[#274488]"
                         }`}
                     >
                       info@lumivolt.in
@@ -309,7 +309,7 @@ const ContactSection = () => {
                   <div
                     className={`flex-shrink-0 w-10 h-10 rounded-xl flex items-center justify-center mt-0.5 transition-all duration-300 group-hover:scale-110 ${darkMode
                       ? "bg-yellow-400/10 text-yellow-400"
-                      : "bg-blue-100 text-blue-600"
+                      : "bg-blue-100 text-[#274488]"
                       }`}
                   >
                     <item.icon className="w-5 h-5" />
@@ -348,7 +348,7 @@ const ContactSection = () => {
               className={`text-2xl font-bold mb-6 flex items-center gap-2 ${darkMode ? "text-white" : "text-slate-900"
                 }`}
             >
-              <Send className="w-6 h-6 text-blue-500" />
+              <Send className="w-6 h-6 text-[#274488]" />
               Send Us a Message
             </h3>
 
@@ -535,7 +535,7 @@ const ContactSection = () => {
                       size="large"
                       className={`w-full font-semibold flex items-center justify-center gap-2 rounded-xl transition-all duration-300 ${darkMode
                         ? "bg-gradient-to-r from-yellow-500 to-yellow-600 text-slate-950 shadow-lg hover:shadow-yellow-500/20"
-                        : "bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-lg hover:shadow-blue-600/30"
+                        : "!bg-[#274488] !border-[#274488] hover:!bg-[#1a2d5a] hover:!border-[#1a2d5a] text-white shadow-lg hover:shadow-[#274488]/30"
                         }`}
                     >
                       <Send className="w-5 h-5" />
@@ -577,7 +577,7 @@ const ContactSection = () => {
                 rel="noopener noreferrer"
                 className={`inline-flex items-center gap-1 text-sm font-medium px-3 py-1.5 rounded-lg ${darkMode
                   ? "bg-slate-800 text-yellow-400 hover:bg-slate-700"
-                  : "bg-blue-100 text-blue-700 hover:bg-blue-200"
+                  : "bg-blue-100 text-[#274488] hover:bg-blue-200"
                   }`}
               >
                 Open in Google Maps <ExternalLink className="w-4 h-4" />

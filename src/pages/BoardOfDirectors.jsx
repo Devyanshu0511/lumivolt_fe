@@ -110,7 +110,7 @@ const BoardOfDirectors = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             className={`text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 ${
-              darkMode ? "text-yellow-400" : "text-blue-600"
+              darkMode ? "text-yellow-400" : "text-[#274488]"
             }`}
           >
             Board of Directors
@@ -155,14 +155,14 @@ const BoardOfDirectors = () => {
                   className={`inline-flex items-center justify-center w-12 h-12 rounded-full mb-4 ${
                     darkMode
                       ? "bg-yellow-400/10 text-yellow-400"
-                      : "bg-blue-50 text-blue-600"
+                      : "bg-blue-50 text-[#274488]"
                   }`}
                 >
                   <IconComponent className="w-6 h-6" />
                 </div>
                 <div
                   className={`text-2xl sm:text-3xl font-bold mb-2 ${
-                    darkMode ? "text-yellow-400" : "text-blue-600"
+                    darkMode ? "text-yellow-400" : "text-[#274488]"
                   }`}
                 >
                   {stat.value}

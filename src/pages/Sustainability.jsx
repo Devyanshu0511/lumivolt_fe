@@ -164,7 +164,7 @@ const SustainabilitySection = () => {
           >
             <div className="flex items-start gap-4 mb-5">
               <ShieldCheck
-                className={`w-8 h-8 ${darkMode ? "text-blue-400" : "text-blue-600"
+                className={`w-8 h-8 ${darkMode ? "text-[#274488]" : "text-[#274488]"
                   }`}
               />
               <div>
@@ -217,7 +217,7 @@ const SustainabilitySection = () => {
                   />
                   <div>
                     <h4
-                      className={`font-medium ${darkMode ? "text-blue-400" : "text-blue-600"
+                      className={`font-medium ${darkMode ? "text-[#274488]" : "text-[#274488]"
                         }`}
                     >
                       {item.title}
@@ -336,7 +336,7 @@ const SustainabilitySection = () => {
               title: "Water Positive",
               desc: "Harvest more water than we consume through sustainable practices.",
               icon: <DropletIcon />,
-              color: darkMode ? "text-blue-400" : "text-blue-600",
+              color: darkMode ? "text-[#274488]" : "text-[#274488]",
               bg: darkMode ? "bg-blue-900/20" : "bg-blue-50",
             },
             {
@@ -680,7 +680,7 @@ const CarbonCalculator = ({ darkMode }) => {
                 }`}
             >
               <div
-                className={`text-2xl font-bold ${darkMode ? "text-blue-400" : "text-blue-600"
+                className={`text-2xl font-bold ${darkMode ? "text-[#274488]" : "text-[#274488]"
                   }`}
               >
                 {savings.trees}
@@ -908,8 +908,8 @@ const EnvironmentalDashboard = ({ darkMode }) => {
                     : "text-green-600"
                   : currentMetric.color === "blue"
                     ? darkMode
-                      ? "text-blue-400"
-                      : "text-blue-600"
+                      ? "text-[#274488]"
+                      : "text-[#274488]"
                     : currentMetric.color === "amber"
                       ? darkMode
                         ? "text-amber-400"
@@ -985,8 +985,8 @@ const EnvironmentalDashboard = ({ darkMode }) => {
                       : "text-green-600"
                     : currentMetric.color === "blue"
                       ? darkMode
-                        ? "text-blue-400"
-                        : "text-blue-600"
+                        ? "text-[#274488]"
+                        : "text-[#274488]"
                       : currentMetric.color === "amber"
                         ? darkMode
                           ? "text-amber-400"
@@ -1072,7 +1072,7 @@ const FutureGoals = ({ darkMode }) => {
         >
           <div className="flex items-center justify-between mb-4">
             <div
-              className={`text-2xl font-bold ${darkMode ? "text-blue-400" : "text-blue-600"
+              className={`text-2xl font-bold ${darkMode ? "text-[#274488]" : "text-[#274488]"
                 }`}
             >
               {goal.year}
@@ -1084,8 +1084,8 @@ const FutureGoals = ({ darkMode }) => {
                     : "bg-green-100 text-green-800"
                   : goal.status === "In Progress"
                     ? darkMode
-                      ? "bg-blue-900 text-blue-300"
-                      : "bg-blue-100 text-blue-800"
+                      ? "bg-blue-900 text-[#274488]"
+                      : "bg-blue-100 text-[#274488]"
                     : goal.status === "Planning"
                       ? darkMode
                         ? "bg-amber-900 text-amber-300"
@@ -1271,7 +1271,7 @@ const TechnologyComparison = ({ darkMode }) => {
                   Lifespan
                 </div>
                 <div
-                  className={`text-2xl font-bold ${darkMode ? "text-blue-400" : "text-blue-600"
+                  className={`text-2xl font-bold ${darkMode ? "text-[#274488]" : "text-[#274488]"
                     }`}
                 >
                   {currentTech.lifespan} years
@@ -1444,7 +1444,7 @@ const CarbonNeutralityPath = ({ darkMode }) => {
                   }`}
               >
                 <div
-                  className={`text-2xl font-bold mb-2 ${darkMode ? "text-blue-400" : "text-blue-600"
+                  className={`text-2xl font-bold mb-2 ${darkMode ? "text-[#274488]" : "text-[#274488]"
                     }`}
                 >
                   {phase.phase}
@@ -1481,8 +1481,8 @@ const CarbonNeutralityPath = ({ darkMode }) => {
                         : "bg-green-100 text-green-800"
                       : phase.status === "In Progress"
                         ? darkMode
-                          ? "bg-blue-900 text-blue-300"
-                          : "bg-blue-100 text-blue-800"
+                          ? "bg-blue-900 text-[#274488]"
+                          : "bg-blue-100 text-[#274488]"
                         : phase.status === "Planning"
                           ? darkMode
                             ? "bg-amber-900 text-amber-300"

@@ -124,7 +124,7 @@ const AboutSection = () => {
               >
                 Our mission is simple:
                 <span
-                  className={`font-bold ml-1 ${darkMode ? "text-yellow-400" : "text-blue-600"
+                  className={`font-bold ml-1 ${darkMode ? "text-yellow-400" : "text-[#274488]"
                     }`}
                 >
                   harness the power of the sun to build a cleaner, smarter, and
@@ -193,7 +193,7 @@ const AboutSection = () => {
                   }`}
               >
                 <h3
-                  className={`font-bold text-2xl mb-4 ${darkMode ? "text-yellow-400" : "text-blue-600"
+                  className={`font-bold text-2xl mb-4 ${darkMode ? "text-yellow-400" : "text-[#274488]"
                     }`}
                 >
                   Vision
@@ -277,7 +277,7 @@ const AboutSection = () => {
                   />
                   <div>
                     <h4
-                      className={`font-bold text-lg mb-2 ${darkMode ? "text-yellow-400" : "text-blue-600"
+                      className={`font-bold text-lg mb-2 ${darkMode ? "text-yellow-400" : "text-[#274488]"
                         }`}
                     >
                       {v.title}
@@ -420,7 +420,7 @@ const AboutSection = () => {
           {/* Contact Banner Background */}
           <div
             className={`absolute inset-0 ${darkMode
-                ? "bg-linear-to-r from-blue-900 via-blue-800 to-indigo-900"
+                ? "bg-gray-800"
                 : "bg-linear-to-r from-blue-600 via-blue-500 to-indigo-600"
               }`}
           />
@@ -442,7 +442,7 @@ const AboutSection = () => {
               <h3 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6">
                 Ready to Power Your Future?
               </h3>
-              <p className="text-lg sm:text-xl text-blue-100 mb-8 max-w-3xl mx-auto leading-relaxed">
+              <p className={`text-lg sm:text-xl mb-8 max-w-3xl mx-auto leading-relaxed ${darkMode ? "text-gray-300" : "text-[#274488]"}`}>
                 Join thousands of businesses and homeowners who have chosen
                 Lumivolt for reliable, sustainable solar energy solutions. Let's
                 discuss how we can transform your energy future together.
@@ -453,7 +453,7 @@ const AboutSection = () => {
                   onClick={() => navigate("/contact")}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="inline-flex items-center px-8 py-4 bg-white text-blue-600 font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300"
+                  className="inline-flex items-center px-8 py-4 bg-white text-[#274488] font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300"
                 >
                   <svg
                     className="w-5 h-5 mr-2"
@@ -475,7 +475,7 @@ const AboutSection = () => {
                   href="tel:+918745987184"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="inline-flex items-center px-8 py-4 border-2 border-white text-white font-semibold rounded-lg hover:bg-white hover:text-blue-600 transition-all duration-300"
+                  className="inline-flex items-center px-8 py-4 border-2 border-white text-white font-semibold rounded-lg hover:bg-white hover:text-[#274488] transition-all duration-300"
                 >
                   <svg
                     className="w-5 h-5 mr-2"
@@ -496,17 +496,17 @@ const AboutSection = () => {
 
               {/* Contact Info */}
               <div className="mt-12 grid grid-cols-1 sm:grid-cols-3 gap-6 text-center">
-                <div className="text-blue-100">
+                <div className="text-[#274488]">
                   <div className="text-2xl font-bold text-white mb-1">24/7</div>
                   <div className="text-sm">Support Available</div>
                 </div>
-                <div className="text-blue-100">
+                <div className="text-[#274488]">
                   <div className="text-2xl font-bold text-white mb-1">
                     800 MW
                   </div>
                   <div className="text-sm">Manufacturing Capacity</div>
                 </div>
-                <div className="text-blue-100">
+                <div className="text-[#274488]">
                   <div className="text-2xl font-bold text-white mb-1">100%</div>
                   <div className="text-sm">Renewable Energy</div>
                 </div>

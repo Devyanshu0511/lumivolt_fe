@@ -31,7 +31,7 @@ const ScrollToTop = () => {
 
 const App = () => {
   // Set this to true to enable Coming Soon page, false to show the full website
-  const isComingSoon = true;
+  const isComingSoon = false;
 
   if (isComingSoon) {
     return <ComingSoon />;
@@ -63,4 +63,3 @@ const App = () => {
 };
 
 export default App;
-

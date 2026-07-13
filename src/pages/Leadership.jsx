@@ -89,7 +89,7 @@ const LeadershipSection = () => {
         >
           <Sparkles
             className={`w-8 h-8 mx-auto mb-3 ${
-              darkMode ? "text-amber-400" : "text-blue-500"
+              darkMode ? "text-amber-400" : "text-[#274488]"
             }`}
           />
           <h3
@@ -143,7 +143,7 @@ const LeadershipSection = () => {
                     className={`w-full h-full flex items-center justify-center ${
                       darkMode
                         ? "bg-amber-500/20 text-amber-400"
-                        : "bg-blue-100 text-blue-600"
+                        : "bg-blue-100 text-[#274488]"
                     }`}
                   >
                     <span className="font-bold text-xl">
@@ -167,7 +167,7 @@ const LeadershipSection = () => {
                 </h4>
                 <p
                   className={`mb-4 text-sm font-medium ${
-                    darkMode ? "text-amber-400" : "text-blue-600"
+                    darkMode ? "text-amber-400" : "text-[#274488]"
                   }`}
                 >
                   {leader.role}

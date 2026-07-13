@@ -73,7 +73,7 @@ const Footer = () => {
                 >
                   <span
                     className={`text-xs sm:text-sm font-bold ${
-                      darkMode ? "text-yellow-400" : "text-blue-500"
+                      darkMode ? "text-yellow-400" : "text-[#274488]"
                     }`}
                   >
                     {social.name[0]}

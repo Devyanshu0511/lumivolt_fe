@@ -123,7 +123,7 @@ const HeroSection = ({ darkMode }) => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2, duration: 0.8 }}
         >
-          <span className={darkMode ? "text-yellow-400" : "text-blue-600"}>
+          <span className={darkMode ? "text-yellow-400" : "text-[#274488]"}>
             Powering Tomorrow
           </span>
           <br />
@@ -148,7 +148,7 @@ const HeroSection = ({ darkMode }) => {
         >
           <span
             className={`text-sm sm:text-base font-semibold flex items-center gap-2 ${
-              darkMode ? "text-yellow-300" : "text-blue-600"
+              darkMode ? "text-yellow-300" : "text-[#274488]"
             }`}
           >
             <Factory className="w-4 h-4" />
@@ -187,7 +187,7 @@ const HeroSection = ({ darkMode }) => {
             className={`group px-8 py-4 sm:px-10 sm:py-5 rounded-full font-bold text-lg flex items-center gap-3 shadow-xl ${
               darkMode
                 ? "bg-yellow-400 text-slate-950 shadow-yellow-400/30"
-                : "bg-blue-600 text-white shadow-blue-600/30"
+                : "bg-[#274488] text-white shadow-[#274488]/30"
             }`}
           >
             Explore Our Solutions
@@ -201,7 +201,7 @@ const HeroSection = ({ darkMode }) => {
             className={`px-8 py-4 sm:px-10 sm:py-5 rounded-full font-bold text-lg border-2 hover:bg-opacity-10 transition-all ${
               darkMode
                 ? "border-yellow-400 text-yellow-400 hover:bg-yellow-400/10"
-                : "border-blue-600 text-blue-600 hover:bg-blue-600/10"
+                : "border-[#274488] text-[#274488] hover:bg-[#274488]/10"
             }`}
           >
             Partner with Us
@@ -225,7 +225,7 @@ const HeroSection = ({ darkMode }) => {
           </span>
           <ChevronDown
             className={`w-6 h-6 ${
-              darkMode ? "text-yellow-400" : "text-blue-500"
+              darkMode ? "text-yellow-400" : "text-[#274488]"
             }`}
           />
         </div>
