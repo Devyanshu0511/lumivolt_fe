@@ -56,7 +56,7 @@ const Layout = ({ children }) => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.4 }}
-            className="overflow-hidden"
+            className="relative overflow-hidden"
           >
             {children}
           </motion.main>
