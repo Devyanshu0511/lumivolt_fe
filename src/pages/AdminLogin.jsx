@@ -11,7 +11,7 @@ const AdminLogin = () => {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    if (username === 'admin' && password === 'admin') {
+    if (username === 'admin' && password === 'Lumivolt@2026') {
       // In a real app, you'd get a token and store it. Here we just set a flag in localStorage
       localStorage.setItem('adminAuthenticated', 'true');
       navigate('/admin/policies');
@@ -22,7 +22,7 @@ const AdminLogin = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-950 px-4">
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         className="w-full max-w-md bg-gray-900 border border-gray-800 rounded-2xl shadow-2xl p-8"
