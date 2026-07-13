@@ -32,7 +32,7 @@ import {
   Shield,
   Globe,
 } from "lucide-react";
-import { useDarkMode } from "../components/Layout";
+import { useDarkMode } from "../context/DarkModeContext";
 
 const TechnologySection = () => {
   const { darkMode } = useDarkMode();

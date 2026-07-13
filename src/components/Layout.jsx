@@ -5,18 +5,7 @@ import Footer from "./Footer";
 import { AnimatePresence, motion } from "framer-motion";
 import { useLocation } from "react-router-dom";
 
-// ✅ Create Context *inside* Layout (or better: move to its own file)
-const DarkModeContext = createContext();
-
-export const useDarkMode = () => {
-  const context = useContext(DarkModeContext);
-  if (!context) {
-    throw new Error(
-      "useDarkMode must be used within DarkModeProvider (Layout)"
-    );
-  }
-  return context;
-};
+import { DarkModeContext } from "../context/DarkModeContext";
 
 const Layout = ({ children }) => {
   const [darkMode, setDarkMode] = useState(false);

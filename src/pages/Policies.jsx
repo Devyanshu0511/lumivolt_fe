@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FileText, Shield, Lock, Cookie, RefreshCw, AlertTriangle, Download } from "lucide-react";
-import { useDarkMode } from "../components/Layout";
+import { useDarkMode } from "../context/DarkModeContext";
 import policiesData from "../data/policies.json";
 
 const iconMap = {

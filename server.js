@@ -17,6 +17,7 @@ app.use(express.json());
 
 // Paths
 const policiesFile = path.join(__dirname, 'src', 'data', 'policies.json');
+const productsFile = path.join(__dirname, 'src', 'data', 'products.json');
 const publicDir = path.join(__dirname, 'public');
 
 // Configure Multer for file uploads
@@ -54,6 +55,27 @@ app.post('/api/policies', (req, res) => {
   }
 });
 
+// Get Products
+app.get('/api/products', (req, res) => {
+  try {
+    const data = fs.readFileSync(productsFile, 'utf8');
+    res.json(JSON.parse(data));
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to read products' });
+  }
+});
+
+// Update Products
+app.post('/api/products', (req, res) => {
+  try {
+    const newProducts = req.body;
+    fs.writeFileSync(productsFile, JSON.stringify(newProducts, null, 2), 'utf8');
+    res.json({ success: true });
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to write products' });
+  }
+});
+
 // Upload PDF
 app.post('/api/upload', upload.single('pdf'), (req, res) => {
   try {
@@ -62,6 +84,19 @@ app.post('/api/upload', upload.single('pdf'), (req, res) => {
     }
     // Return the public URL path
     res.json({ pdfUrl: `/${req.file.filename}` });
+  } catch (error) {
+    res.status(500).json({ error: 'Upload failed' });
+  }
+});
+
+// Upload Image
+app.post('/api/upload-image', upload.single('image'), (req, res) => {
+  try {
+    if (!req.file) {
+      return res.status(400).json({ error: 'No file uploaded' });
+    }
+    // Return the public URL path
+    res.json({ imageUrl: `/${req.file.filename}` });
   } catch (error) {
     res.status(500).json({ error: 'Upload failed' });
   }

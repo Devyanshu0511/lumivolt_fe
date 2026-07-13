@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { MapPin, ArrowRight } from "lucide-react";
-import { useDarkMode } from "../components/Layout";
+import { useDarkMode } from "../context/DarkModeContext";
 
 const CareersSection = () => {
   const { darkMode } = useDarkMode();

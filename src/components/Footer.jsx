@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import logoFull from "../assets/logo.png";
-import { useDarkMode } from "./Layout";
+import { useDarkMode } from "../context/DarkModeContext";
 
 const Footer = () => {
   const { darkMode } = useDarkMode();

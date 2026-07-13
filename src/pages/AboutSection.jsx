@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { useDarkMode } from "../components/Layout";
+import { useDarkMode } from "../context/DarkModeContext";
 import LeadershipSection from "./Leadership";
 import { useNavigate } from "react-router-dom";
 import logoFull from "../assets/logo.png";

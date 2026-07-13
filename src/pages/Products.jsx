@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Sun, ShieldCheck, Award, Zap, TrendingUp } from "lucide-react";
-import { useDarkMode } from "../components/Layout";
+import { useDarkMode } from "../context/DarkModeContext";
 import { Link } from "react-router-dom";
 import productsData from "../data/products.json";
 

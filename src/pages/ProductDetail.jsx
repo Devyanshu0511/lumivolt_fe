@@ -1,24 +1,12 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Sun, ShieldCheck, Award, Zap, TrendingUp, ArrowLeft } from "lucide-react";
-import { useDarkMode } from "../components/Layout";
+import { useDarkMode } from "../context/DarkModeContext";
 import { Link, useParams } from "react-router-dom";
 import productsData from "../data/products.json";
 
-const ProductDetail = () => {
-  const { darkMode } = useDarkMode();
-  const { id } = useParams();
-
-  const productData = productsData.find((p) => p.id === id);
-
-  if (!productData) {
-    return (
-      <div className={`min-h-screen flex flex-col items-center justify-center ${darkMode ? "bg-slate-950 text-white" : "bg-gray-50 text-gray-900"}`}>
-        <h1 className="text-3xl font-bold mb-4">Product Not Found</h1>
-        <Link to="/products" className="text-blue-500 hover:underline">Return to Products</Link>
-      </div>
-    );
-  }
+export const ProductDetailContent = ({ productData, isPreview = false, darkMode = false }) => {
+  if (!productData) return null;
 
   const product = {
     ...productData,
@@ -26,7 +14,7 @@ const ProductDetail = () => {
   };
 
   return (
-    <div className={`min-h-screen ${darkMode ? "bg-slate-950" : "bg-gray-50"}`}>
+    <div className={`min-h-screen ${darkMode ? "bg-slate-950" : "bg-gray-50"} ${isPreview ? "h-full overflow-y-auto" : ""}`}>
       {/* Hero Section */}
       <section className="relative pt-32 pb-16 overflow-hidden">
         <div
@@ -39,23 +27,25 @@ const ProductDetail = () => {
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           {/* Back Button */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            className="mb-8"
-          >
-            <Link
-              to="/products"
-              className={`inline-flex items-center gap-2 px-4 py-2 rounded-lg transition-colors ${
-                darkMode
-                  ? "text-gray-300 hover:text-white hover:bg-slate-800"
-                  : "text-gray-600 hover:text-gray-900 hover:bg-white"
-              }`}
+          {!isPreview && (
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              className="mb-8"
             >
-              <ArrowLeft className="w-4 h-4" />
-              Back to Products
-            </Link>
-          </motion.div>
+              <Link
+                to="/products"
+                className={`inline-flex items-center gap-2 px-4 py-2 rounded-lg transition-colors ${
+                  darkMode
+                    ? "text-gray-300 hover:text-white hover:bg-slate-800"
+                    : "text-gray-600 hover:text-gray-900 hover:bg-white"
+                }`}
+              >
+                <ArrowLeft className="w-4 h-4" />
+                Back to Products
+              </Link>
+            </motion.div>
+          )}
 
           {/* Hero Content */}
           <motion.div
@@ -126,7 +116,7 @@ const ProductDetail = () => {
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {product.specs.map((spec, i) => (
+            {product.specs?.map((spec, i) => (
               <motion.div
                 key={i}
                 initial={{ opacity: 0, y: 20 }}
@@ -176,7 +166,7 @@ const ProductDetail = () => {
                 Key Features
               </h3>
               <div className="space-y-4">
-                {product.features.map((feature, i) => (
+                {product.features?.map((feature, i) => (
                   <div key={i} className="flex items-start gap-3">
                     <div
                       className="mt-1.5 w-2 h-2 rounded-full flex-shrink-0"
@@ -206,7 +196,7 @@ const ProductDetail = () => {
                 Benefits
               </h3>
               <div className="space-y-4">
-                {product.benefits.map((benefit, i) => (
+                {product.benefits?.map((benefit, i) => (
                   <div key={i} className="flex items-start gap-3">
                     <div
                       className="mt-1.5 w-2 h-2 rounded-full flex-shrink-0"
@@ -251,7 +241,7 @@ const ProductDetail = () => {
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {product.certifications.map((cert, i) => (
+            {product.certifications?.map((cert, i) => (
               <motion.div
                 key={i}
                 initial={{ opacity: 0, scale: 0.9 }}
@@ -324,6 +314,24 @@ const ProductDetail = () => {
       </section>
     </div>
   );
+};
+
+const ProductDetail = () => {
+  const { darkMode } = useDarkMode();
+  const { id } = useParams();
+
+  const productData = productsData.find((p) => p.id === id);
+
+  if (!productData) {
+    return (
+      <div className={`min-h-screen flex flex-col items-center justify-center ${darkMode ? "bg-slate-950 text-white" : "bg-gray-50 text-gray-900"}`}>
+        <h1 className="text-3xl font-bold mb-4">Product Not Found</h1>
+        <Link to="/products" className="text-blue-500 hover:underline">Return to Products</Link>
+      </div>
+    );
+  }
+
+  return <ProductDetailContent productData={productData} darkMode={darkMode} />;
 };
 
 export default ProductDetail;

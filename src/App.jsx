@@ -20,6 +20,7 @@ import ComingSoon from "./pages/ComingSoon";
 import AdminLayout from "./components/AdminLayout";
 import AdminLogin from "./pages/AdminLogin";
 import AdminPolicies from "./pages/AdminPolicies";
+import AdminProducts from "./pages/AdminProducts";
 import AdminSettings from "./pages/AdminSettings";
 
 const ScrollToTop = () => {
@@ -47,7 +48,8 @@ const App = () => {
         {/* Admin Routes - without frontend Layout */}
         <Route path="/admin/login" element={<AdminLogin />} />
         <Route path="/admin" element={<AdminLayout />}>
-          <Route index element={<Navigate to="policies" replace />} />
+          <Route index element={<Navigate to="products" replace />} />
+          <Route path="products" element={<AdminProducts />} />
           <Route path="policies" element={<AdminPolicies />} />
           <Route path="settings" element={<AdminSettings />} />
         </Route>

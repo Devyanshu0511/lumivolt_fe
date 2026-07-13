@@ -7,12 +7,21 @@
     "colorLight": "#1d4ed8",
     "colorDark": "#3b82f6",
     "path": "/products/monofacial-perc",
-    "image": "/products/monofacial-perc.svg",
+    "image": "/policy-1783964017063-539348130.svg",
     "description": "Our Monofacial PERC modules deliver exceptional performance for residential and commercial installations. Featuring advanced PERC technology with half-cut cells, these modules offer superior efficiency and reliability.",
     "overviewSpecs": [
-      { "label": "Power", "value": "400–550W" },
-      { "label": "Efficiency", "value": "Up to 22.3%" },
-      { "label": "Warranty", "value": "25 yrs" }
+      {
+        "label": "Power",
+        "value": "400–550W"
+      },
+      {
+        "label": "Efficiency",
+        "value": "Up to 22.3%"
+      },
+      {
+        "label": "Warranty",
+        "value": "25 yrs"
+      }
     ],
     "overviewDetails": [
       "Half-cut PERC cells",
@@ -20,12 +29,30 @@
       "IEC 61215 / 61730 certified"
     ],
     "specs": [
-      { "label": "Power Range", "value": "400–550W" },
-      { "label": "Efficiency", "value": "Up to 22.3%" },
-      { "label": "Warranty", "value": "25 years" },
-      { "label": "Cell Type", "value": "Mono-crystalline" },
-      { "label": "Dimensions", "value": "2094×1038×35mm" },
-      { "label": "Weight", "value": "22.5 kg" }
+      {
+        "label": "Power Range",
+        "value": "400–550W"
+      },
+      {
+        "label": "Efficiency",
+        "value": "Up to 22.3%"
+      },
+      {
+        "label": "Warrant",
+        "value": "25 years"
+      },
+      {
+        "label": "Cell Type",
+        "value": "Mono-crystalline"
+      },
+      {
+        "label": "Dimensions",
+        "value": "2094×1038×35mm"
+      },
+      {
+        "label": "Weight",
+        "value": "22.5 kg"
+      }
     ],
     "features": [
       "Half-cut PERC cells for improved efficiency",
@@ -68,9 +95,18 @@
     "image": "/products/bifacial-topcon.svg",
     "description": "Our Bifacial TOPCon modules maximize energy generation by capturing sunlight from both sides. Designed for utility-scale and ground-mount installations, these modules deliver superior bifacial gain and long-term performance.",
     "overviewSpecs": [
-      { "label": "Power", "value": "500–600+W" },
-      { "label": "Bifacial Gain", "value": "+10% to +25%" },
-      { "label": "Degradation", "value": "<0.45%/yr" }
+      {
+        "label": "Power",
+        "value": "500–600+W"
+      },
+      {
+        "label": "Bifacial Gain",
+        "value": "+10% to +25%"
+      },
+      {
+        "label": "Degradation",
+        "value": "<0.45%/yr"
+      }
     ],
     "overviewDetails": [
       "N-type TOPCon cells",
@@ -78,12 +114,30 @@
       "MNRE & ISO 9001 compliant"
     ],
     "specs": [
-      { "label": "Power Range", "value": "500–600+W" },
-      { "label": "Bifacial Gain", "value": "+10% to +25%" },
-      { "label": "Efficiency", "value": "Up to 22.5%" },
-      { "label": "Cell Type", "value": "N-type TOPCon" },
-      { "label": "Dimensions", "value": "2278×1134×35mm" },
-      { "label": "Weight", "value": "32.5 kg" }
+      {
+        "label": "Power Range",
+        "value": "500–600+W"
+      },
+      {
+        "label": "Bifacial Gain",
+        "value": "+10% to +25%"
+      },
+      {
+        "label": "Efficiency",
+        "value": "Up to 22.5%"
+      },
+      {
+        "label": "Cell Type",
+        "value": "N-type TOPCon"
+      },
+      {
+        "label": "Dimensions",
+        "value": "2278×1134×35mm"
+      },
+      {
+        "label": "Weight",
+        "value": "32.5 kg"
+      }
     ],
     "features": [
       "N-type TOPCon cells with advanced passivation",
@@ -127,9 +181,18 @@
     "image": "/products/ultra-series.svg",
     "description": "Our Ultra Series represents the pinnacle of solar module technology, combining cutting-edge design with uncompromising quality. Perfect for residential, commercial, and utility applications where maximum performance is essential.",
     "overviewSpecs": [
-      { "label": "Power", "value": "550–610W" },
-      { "label": "Efficiency", "value": "Up to 22.5%" },
-      { "label": "Load Rating", "value": "5400/8500 Pa" }
+      {
+        "label": "Power",
+        "value": "550–610W"
+      },
+      {
+        "label": "Efficiency",
+        "value": "Up to 22.5%"
+      },
+      {
+        "label": "Load Rating",
+        "value": "5400/8500 Pa"
+      }
     ],
     "overviewDetails": [
       "Advanced multi-busbar design",
@@ -137,12 +200,30 @@
       "30-year linear performance warranty"
     ],
     "specs": [
-      { "label": "Power Range", "value": "550–610W" },
-      { "label": "Efficiency", "value": "Up to 22.5%" },
-      { "label": "Load Rating", "value": "5400/8500 Pa" },
-      { "label": "Cell Type", "value": "Mono-crystalline" },
-      { "label": "Dimensions", "value": "2172×1303×35mm" },
-      { "label": "Weight", "value": "27.8 kg" }
+      {
+        "label": "Power Range",
+        "value": "550–610W"
+      },
+      {
+        "label": "Efficiency",
+        "value": "Up to 22.5%"
+      },
+      {
+        "label": "Load Rating",
+        "value": "5400/8500 Pa"
+      },
+      {
+        "label": "Cell Type",
+        "value": "Mono-crystalline"
+      },
+      {
+        "label": "Dimensions",
+        "value": "2172×1303×35mm"
+      },
+      {
+        "label": "Weight",
+        "value": "27.8 kg"
+      }
     ],
     "features": [
       "Advanced multi-busbar design for optimal current collection",

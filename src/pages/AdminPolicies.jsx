@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Plus, Edit2, Save, X, FileText, Shield, RefreshCw, AlertTriangle, Cookie, Lock } from 'lucide-react';
+import { Plus, Edit2, Save, X, FileText, Shield, RefreshCw, AlertTriangle, Cookie, Lock, Trash2 } from 'lucide-react';
 
 const iconMap = {
   Shield: Shield,
@@ -20,6 +20,9 @@ const AdminPolicies = () => {
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [addForm, setAddForm] = useState({ title: '', description: '', pdfUrl: '' });
   const [addPdfFile, setAddPdfFile] = useState(null);
+
+  const [deletingPolicy, setDeletingPolicy] = useState(null);
+  const [deleteConfirmText, setDeleteConfirmText] = useState('');
 
   const API_BASE = 'http://localhost:3001/api';
 
@@ -89,6 +92,23 @@ const AdminPolicies = () => {
     } catch (error) {
       console.error('Failed to save policies', error);
       alert('Failed to save changes');
+    }
+  };
+
+  const handleDeletePolicy = async (id) => {
+    try {
+      const updatedPolicies = policies.filter(p => p.id !== id);
+      await fetch(`${API_BASE}/policies`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(updatedPolicies)
+      });
+      setPolicies(updatedPolicies);
+      setDeletingPolicy(null);
+      setDeleteConfirmText('');
+    } catch (error) {
+      console.error('Failed to delete policy', error);
+      alert('Failed to delete policy');
     }
   };
 
@@ -211,13 +231,22 @@ const AdminPolicies = () => {
                       <div className="text-xs text-gray-500 truncate max-w-[150px]">
                         PDF: {policy.pdfUrl}
                       </div>
-                      <button
-                        onClick={() => handleEditClick(policy)}
-                        className="p-2 text-gray-400 hover:text-white hover:bg-gray-800 rounded-lg transition-colors"
-                        title="Edit Policy"
-                      >
-                        <Edit2 className="w-4 h-4" />
-                      </button>
+                      <div className="flex gap-1">
+                        <button
+                          onClick={() => handleEditClick(policy)}
+                          className="p-2 text-gray-400 hover:text-white hover:bg-gray-800 rounded-lg transition-colors"
+                          title="Edit Policy"
+                        >
+                          <Edit2 className="w-4 h-4" />
+                        </button>
+                        <button
+                          onClick={() => setDeletingPolicy(policy)}
+                          className="p-2 text-red-400 hover:text-red-300 hover:bg-red-500/10 rounded-lg transition-colors"
+                          title="Delete Policy"
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </button>
+                      </div>
                     </div>
                   ) : (
                     <div className="pt-4 border-t border-gray-800 space-y-4">
@@ -270,6 +299,46 @@ const AdminPolicies = () => {
           })}
         </AnimatePresence>
       </div>
+
+      <AnimatePresence>
+        {deletingPolicy && (
+          <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4">
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              className="bg-gray-900 border border-gray-800 p-6 rounded-2xl max-w-md w-full relative shadow-2xl"
+            >
+              <h3 className="text-xl font-bold text-white mb-4">Delete Policy</h3>
+              <p className="text-gray-400 text-sm mb-4">
+                This action cannot be undone. Please type <span className="font-bold text-white">{deletingPolicy.title}</span> to confirm.
+              </p>
+              <input
+                type="text"
+                value={deleteConfirmText}
+                onChange={(e) => setDeleteConfirmText(e.target.value)}
+                className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white mb-6 focus:outline-none focus:border-red-500"
+                placeholder="Type policy title"
+              />
+              <div className="flex gap-3 justify-end">
+                <button
+                  onClick={() => { setDeletingPolicy(null); setDeleteConfirmText(''); }}
+                  className="px-4 py-2 bg-gray-800 hover:bg-gray-700 text-white rounded-lg text-sm font-medium transition-colors"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={() => handleDeletePolicy(deletingPolicy.id)}
+                  disabled={deleteConfirmText !== deletingPolicy.title}
+                  className="px-4 py-2 bg-red-600 hover:bg-red-700 disabled:opacity-50 disabled:cursor-not-allowed text-white rounded-lg text-sm font-medium transition-colors"
+                >
+                  Delete
+                </button>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
 
       {/* Add Policy Modal */}
       <AnimatePresence>

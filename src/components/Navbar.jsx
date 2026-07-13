@@ -6,7 +6,7 @@ import { Link, useLocation } from "react-router-dom";
 import { Menu, X, Sun, Moon, ChevronDown } from "lucide-react";
 import logoFull from "../assets/logo.png";
 import "../assets/navbar.css";
-import { useDarkMode } from "./Layout";
+import { useDarkMode } from "../context/DarkModeContext";
 import productsData from "../data/products.json";
 
 const Navigation = () => {

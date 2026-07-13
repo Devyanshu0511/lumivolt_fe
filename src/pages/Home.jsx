@@ -2,7 +2,7 @@ import HeroSection from "../components/HeroSection";
 import StatsSection from "../components/StatsSection";
 import WhyChooseUsPreview from "../components/WhyChooseUsPreview";
 import FAQSection from "../components/FAQSection";
-import { useDarkMode } from "../components/Layout";
+import { useDarkMode } from "../context/DarkModeContext";
 
 const Home = () => {
   const { darkMode } = useDarkMode();
