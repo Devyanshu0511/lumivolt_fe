@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Plus, Edit2, Save, X, FileText, Shield, RefreshCw, AlertTriangle, Cookie, Lock, Trash2 } from 'lucide-react';
+import { API_BASE_URL } from '../config';
 
 const iconMap = {
   Shield: Shield,
@@ -24,7 +25,7 @@ const AdminPolicies = () => {
   const [deletingPolicy, setDeletingPolicy] = useState(null);
   const [deleteConfirmText, setDeleteConfirmText] = useState('');
 
-  const API_BASE = 'http://localhost:3001/api';
+  const API_BASE = `${API_BASE_URL}/api`;
 
   useEffect(() => {
     fetchPolicies();

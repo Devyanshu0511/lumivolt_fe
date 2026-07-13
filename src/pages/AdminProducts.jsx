@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Plus, Edit2, Save, X, Package, LayoutTemplate, Trash2 } from 'lucide-react';
+import { API_BASE_URL } from '../config';
 import { ProductDetailContent } from './ProductDetail';
 
 const AdminProducts = () => {
@@ -12,7 +13,7 @@ const AdminProducts = () => {
   const [deleteConfirmText, setDeleteConfirmText] = useState('');
   const [editImageFile, setEditImageFile] = useState(null);
   
-  const API_BASE = 'http://localhost:3001/api';
+  const API_BASE = `${API_BASE_URL}/api`;
 
   useEffect(() => {
     fetchProducts();

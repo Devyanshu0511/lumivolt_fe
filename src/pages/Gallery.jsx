@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Loader2, X } from 'lucide-react';
 import { useDarkMode } from '../context/DarkModeContext';
+import { API_BASE_URL } from '../config';
 
 const Gallery = () => {
   const [items, setItems] = useState([]);
@@ -24,7 +25,7 @@ const Gallery = () => {
 
   const fetchGallery = async () => {
     try {
-      const res = await fetch('http://localhost:3001/api/gallery');
+      const res = await fetch(`${API_BASE_URL}/api/gallery`);
       const data = await res.json();
       setItems(data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)));
     } catch (err) {
@@ -77,7 +78,7 @@ const Gallery = () => {
               >
                 {item.type === 'video' ? (
                   <video 
-                    src={`http://localhost:3001${item.url}`} 
+                    src={`${API_BASE_URL}${item.url}`} 
                     autoPlay 
                     loop 
                     muted 
@@ -86,7 +87,7 @@ const Gallery = () => {
                   />
                 ) : (
                   <img 
-                    src={`http://localhost:3001${item.url}`} 
+                    src={`${API_BASE_URL}${item.url}`} 
                     alt="Gallery item" 
                     className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105"
                   />
@@ -127,14 +128,14 @@ const Gallery = () => {
             >
               {selectedMedia.type === 'video' ? (
                 <video 
-                  src={`http://localhost:3001${selectedMedia.url}`} 
+                  src={`${API_BASE_URL}${selectedMedia.url}`} 
                   controls
                   autoPlay
                   className="w-full h-full max-h-[90vh] object-contain"
                 />
               ) : (
                 <img 
-                  src={`http://localhost:3001${selectedMedia.url}`} 
+                  src={`${API_BASE_URL}${selectedMedia.url}`} 
                   alt="Gallery expanded" 
                   className="w-full h-full max-h-[90vh] object-contain"
                 />

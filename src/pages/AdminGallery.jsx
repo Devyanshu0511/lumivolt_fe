@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Upload, Trash2, Image as ImageIcon, Film, Loader2 } from 'lucide-react';
+import { API_BASE_URL } from '../config';
 
 const AdminGallery = () => {
   const [items, setItems] = useState([]);
@@ -14,7 +15,7 @@ const AdminGallery = () => {
 
   const fetchGallery = async () => {
     try {
-      const res = await fetch('http://localhost:3001/api/gallery');
+      const res = await fetch(`${API_BASE_URL}/api/gallery`);
       const data = await res.json();
       // Sort by newest first
       setItems(data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)));
@@ -42,7 +43,7 @@ const AdminGallery = () => {
       formData.append('media', file);
 
       // Upload file
-      const uploadRes = await fetch('http://localhost:3001/api/upload-gallery', {
+      const uploadRes = await fetch(`${API_BASE_URL}/api/upload-gallery`, {
         method: 'POST',
         body: formData,
       });
@@ -64,7 +65,7 @@ const AdminGallery = () => {
 
       const updatedItems = [newItem, ...items];
       
-      const saveRes = await fetch('http://localhost:3001/api/gallery', {
+      const saveRes = await fetch(`${API_BASE_URL}/api/gallery`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(updatedItems),
@@ -85,7 +86,7 @@ const AdminGallery = () => {
     if (!window.confirm('Are you sure you want to delete this item?')) return;
     
     try {
-      const res = await fetch(`http://localhost:3001/api/gallery/${id}`, {
+      const res = await fetch(`${API_BASE_URL}/api/gallery/${id}`, {
         method: 'DELETE'
       });
       
@@ -161,12 +162,12 @@ const AdminGallery = () => {
             >
               {item.type === 'video' ? (
                 <video 
-                  src={`http://localhost:3001${item.url}`} 
+                  src={`${API_BASE_URL}${item.url}`} 
                   className="w-full h-full object-cover"
                 />
               ) : (
                 <img 
-                  src={`http://localhost:3001${item.url}`} 
+                  src={`${API_BASE_URL}${item.url}`} 
                   alt="Gallery" 
                   className="w-full h-full object-cover"
                 />
