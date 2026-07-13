@@ -13,6 +13,7 @@ const Navigation = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [productsDropdownOpen, setProductsDropdownOpen] = useState(false);
   const [aboutDropdownOpen, setAboutDropdownOpen] = useState(false);
+  const [resourcesDropdownOpen, setResourcesDropdownOpen] = useState(false);
   const location = useLocation();
   const { darkMode, setDarkMode } = useDarkMode();
 
@@ -30,6 +31,7 @@ const Navigation = () => {
     setMobileMenuOpen(false);
     setProductsDropdownOpen(false);
     setAboutDropdownOpen(false);
+    setResourcesDropdownOpen(false);
   }, [location]);
 
   useEffect(() => {
@@ -37,14 +39,15 @@ const Navigation = () => {
       if (!event.target.closest(".dropdown-container")) {
         setProductsDropdownOpen(false);
         setAboutDropdownOpen(false);
+        setResourcesDropdownOpen(false);
       }
     };
 
-    if (productsDropdownOpen || aboutDropdownOpen) {
+    if (productsDropdownOpen || aboutDropdownOpen || resourcesDropdownOpen) {
       document.addEventListener("mousedown", handleClickOutside);
       return () => document.removeEventListener("mousedown", handleClickOutside);
     }
-  }, [productsDropdownOpen, aboutDropdownOpen]);
+  }, [productsDropdownOpen, aboutDropdownOpen, resourcesDropdownOpen]);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 10);
@@ -104,8 +107,16 @@ const Navigation = () => {
       ],
     },
     { name: "Sustainability", path: "/sustainability" },
-    { name: "Careers", path: "/careers" },
-    { name: "Gallery", path: "/gallery" },
+    {
+      name: "Resources",
+      path: "#",
+      hasDropdown: true,
+      dropdownItems: [
+        { name: "Downloads", path: "/downloads" },
+        { name: "Gallery", path: "/gallery" },
+        { name: "Careers", path: "/careers" },
+      ],
+    },
     { name: "Contact", path: "/contact" },
   ];
 
@@ -148,9 +159,15 @@ const Navigation = () => {
                           if (item.name === "About") {
                             setAboutDropdownOpen(!aboutDropdownOpen);
                             setProductsDropdownOpen(false);
+                            setResourcesDropdownOpen(false);
                           } else if (item.name === "Products") {
                             setProductsDropdownOpen(!productsDropdownOpen);
                             setAboutDropdownOpen(false);
+                            setResourcesDropdownOpen(false);
+                          } else if (item.name === "Resources") {
+                            setResourcesDropdownOpen(!resourcesDropdownOpen);
+                            setAboutDropdownOpen(false);
+                            setProductsDropdownOpen(false);
                           }
                         }}
                         className="navbar__dropdown-btn"
@@ -158,7 +175,7 @@ const Navigation = () => {
                         {item.name}
                         <ChevronDown
                           className={`navbar__chevron${
-                            (item.name === "About" ? aboutDropdownOpen : productsDropdownOpen)
+                            (item.name === "About" ? aboutDropdownOpen : item.name === "Products" ? productsDropdownOpen : resourcesDropdownOpen)
                               ? " navbar__chevron--open"
                               : ""
                           }`}
@@ -174,7 +191,7 @@ const Navigation = () => {
                       </button>
 
                       <AnimatePresence>
-                        {(item.name === "About" ? aboutDropdownOpen : productsDropdownOpen) && (
+                        {(item.name === "About" ? aboutDropdownOpen : item.name === "Products" ? productsDropdownOpen : resourcesDropdownOpen) && (
                           <motion.div
                             initial={{ opacity: 0, y: -10, scale: 0.95 }}
                             animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -195,6 +212,7 @@ const Navigation = () => {
                                     onClick={() => {
                                       setProductsDropdownOpen(false);
                                       setAboutDropdownOpen(false);
+                                      setResourcesDropdownOpen(false);
                                     }}
                                     className="navbar__dropdown-link"
                                   >
