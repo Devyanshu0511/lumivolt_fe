@@ -139,7 +139,7 @@ export const ProductDetailContent = ({ productData, isPreview = false, darkMode 
                   {spec.label}
                 </div>
                 <div
-                  className="font-semibold text-lg"
+                  className="font-semibold text-lg break-all"
                   style={{ color: product.color }}
                 >
                   {spec.value}

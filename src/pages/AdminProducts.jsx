@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Plus, Edit2, Save, X, Package, LayoutTemplate, Trash2 } from 'lucide-react';
+import { Plus, Edit2, Save, X, Package, LayoutTemplate, Trash2, ChevronLeft, ChevronRight } from 'lucide-react';
 import { API_BASE_URL } from '../config';
 import { ProductDetailContent } from './ProductDetail';
 
@@ -162,6 +162,27 @@ const AdminProducts = () => {
     } catch (error) {
       console.error('Failed to delete product', error);
       alert('Failed to delete product');
+    }
+  };
+
+  const handleMoveProduct = async (index, direction) => {
+    const newProducts = [...products];
+    if (direction === 'left' && index > 0) {
+      [newProducts[index - 1], newProducts[index]] = [newProducts[index], newProducts[index - 1]];
+    } else if (direction === 'right' && index < newProducts.length - 1) {
+      [newProducts[index + 1], newProducts[index]] = [newProducts[index], newProducts[index + 1]];
+    } else {
+      return;
+    }
+    
+    setProducts(newProducts);
+    
+    try {
+      await axios.post(`${API_BASE}/products`, newProducts);
+    } catch (error) {
+      console.error('Failed to update product order', error);
+      alert('Failed to update product order');
+      fetchProducts();
     }
   };
 
@@ -491,7 +512,7 @@ const AdminProducts = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <AnimatePresence>
-          {products.map((product) => (
+          {products.map((product, index) => (
             <motion.div
               key={product.id}
               initial={{ opacity: 0, scale: 0.95 }}
@@ -518,16 +539,32 @@ const AdminProducts = () => {
                 
                 <div className="mt-auto pt-4 border-t border-gray-800 flex justify-between items-center">
                   <span className="text-xs text-gray-500 font-mono">{product.id}</span>
-                  <div className="flex gap-2">
+                  <div className="flex gap-1.5 flex-wrap justify-end items-center">
+                    <button
+                      onClick={() => handleMoveProduct(index, 'left')}
+                      disabled={index === 0}
+                      className="p-1.5 bg-gray-800 hover:bg-gray-700 disabled:opacity-30 disabled:cursor-not-allowed rounded-lg text-gray-300 transition-colors"
+                      title="Move Left/Up"
+                    >
+                      <ChevronLeft className="w-4 h-4" />
+                    </button>
+                    <button
+                      onClick={() => handleMoveProduct(index, 'right')}
+                      disabled={index === products.length - 1}
+                      className="p-1.5 bg-gray-800 hover:bg-gray-700 disabled:opacity-30 disabled:cursor-not-allowed rounded-lg text-gray-300 transition-colors mr-1"
+                      title="Move Right/Down"
+                    >
+                      <ChevronRight className="w-4 h-4" />
+                    </button>
                     <button
                       onClick={() => handleEditClick(product)}
-                      className="flex items-center gap-2 px-3 py-1.5 bg-gray-800 hover:bg-gray-700 rounded-lg text-sm text-gray-300 hover:text-white transition-colors"
+                      className="flex items-center gap-1.5 px-3 py-1.5 bg-gray-800 hover:bg-gray-700 rounded-lg text-sm text-gray-300 hover:text-white transition-colors"
                     >
                       <Edit2 className="w-4 h-4" /> Edit
                     </button>
                     <button
                       onClick={() => setDeletingProduct(product)}
-                      className="flex items-center gap-2 px-3 py-1.5 bg-red-500/10 hover:bg-red-500/20 text-red-500 rounded-lg text-sm transition-colors"
+                      className="flex items-center gap-1.5 px-3 py-1.5 bg-red-500/10 hover:bg-red-500/20 text-red-500 rounded-lg text-sm transition-colors"
                     >
                       <Trash2 className="w-4 h-4" /> Delete
                     </button>
