@@ -167,14 +167,14 @@ const SustainabilitySection = () => {
         {/* Two-Column: Quality + Sustainability */}
         <div
           id="overview"
-          className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center mb-20"
+          className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-stretch mb-20"
         >
           {/* ✅ Quality Pillar */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className={`rounded-2xl p-6 sm:p-8 ${darkMode
+            className={`h-full rounded-2xl p-6 sm:p-8 flex flex-col justify-center ${darkMode
                 ? "bg-slate-900 border border-slate-800"
                 : "bg-white border border-gray-200"
               }`}
@@ -256,7 +256,7 @@ const SustainabilitySection = () => {
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className={`rounded-2xl p-6 sm:p-8 ${darkMode
+            className={`h-full rounded-2xl p-6 sm:p-8 flex flex-col justify-center ${darkMode
                 ? "bg-slate-900 border border-slate-800"
                 : "bg-white border border-gray-200"
               }`}
@@ -565,19 +565,21 @@ const CarbonCalculator = ({ darkMode, productsData, loading }) => {
   const calculateSavings = () => {
     const selectedProduct = productsData.find((p) => p.id === panelType) || productsData[1] || productsData[0];
     if (!selectedProduct) return { generation: 0, carbon: 0, trees: 0, costSavings: 0 };
-    const baseEfficiency = selectedProduct.ecoStats.efficiencyValue / 100;
+    const baseEfficiency = (selectedProduct.ecoStats.efficiencyValue || 20) / 100;
     const locationMultiplier =
       location === "high" ? 1.3 : location === "moderate" ? 1.0 : 0.8;
     const annualGeneration =
       energyUsage * 365 * baseEfficiency * locationMultiplier * 0.85; // 85% system efficiency
-    const carbonSaved = annualGeneration * 0.4; // kg CO2 per kWh
+    const co2PerKwh = selectedProduct.ecoStats.co2SavedPerKwh || 0.4;
+    const carbonSaved = annualGeneration * co2PerKwh; // kg CO2 per kWh
     const treesEquivalent = carbonSaved / 21; // kg CO2 absorbed per tree per year
+    const costPerKwh = selectedProduct.ecoStats.costSavedPerKwh || 10;
 
     return {
       generation: Math.round(annualGeneration),
       carbon: Math.round(carbonSaved),
       trees: Math.round(treesEquivalent),
-      costSavings: Math.round(annualGeneration * 0.12), // $0.12 per kWh average
+      costSavings: Math.round(annualGeneration * costPerKwh), 
     };
   };
 
@@ -727,7 +729,7 @@ const CarbonCalculator = ({ darkMode, productsData, loading }) => {
                 className={`text-2xl font-bold ${darkMode ? "text-amber-400" : "text-amber-600"
                   }`}
               >
-                ₹{Math.round(savings.costSavings * 83).toLocaleString()}
+                ₹{savings.costSavings.toLocaleString()}
               </div>
               <div
                 className={`text-sm ${darkMode ? "text-gray-400" : "text-gray-600"
@@ -1330,13 +1332,13 @@ const TechnologyComparison = ({ darkMode, productsData, loading }) => {
             <div className="grid grid-cols-2 gap-4 text-sm">
               <div>
                 <span className={darkMode ? "text-gray-400" : "text-gray-600"}>
-                  CO₂ Saved (30 years):
+                  CO₂ Saved ({currentTech.ecoStats.lifespan} years):
                 </span>
                 <div
                   className={`font-semibold ${darkMode ? "text-green-400" : "text-green-600"
                     }`}
                 >
-                  {Math.round((currentTech.ecoStats.energyOutput * 30 * 0.4) / 1000)}{" "}
+                  {Math.round((currentTech.ecoStats.energyOutput * currentTech.ecoStats.lifespan * (currentTech.ecoStats.co2SavedPerKwh || 0.4)) / 1000)}{" "}
                   tons
                 </div>
               </div>

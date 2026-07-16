@@ -56,7 +56,9 @@ const AdminProducts = () => {
         efficiencyValue: 20,
         lifespan: 25,
         carbonPayback: 2.0,
-        energyOutput: 400
+        energyOutput: 400,
+        co2SavedPerKwh: 0.4,
+        costSavedPerKwh: 10
       }
     };
     setEditingProduct(newProduct);
@@ -219,6 +221,16 @@ const AdminProducts = () => {
     setErrors(prev => ({ ...prev, [`spec_${key}_${index}`]: undefined }));
   };
 
+  const handleEcoStatChange = (key, value) => {
+    setEditingProduct({
+      ...editingProduct,
+      ecoStats: {
+        ...(editingProduct.ecoStats || {}),
+        [key]: Number(value)
+      }
+    });
+  };
+
   if (editingProduct) {
     return (
       <div className="flex flex-col lg:flex-row gap-6 h-[calc(100vh-6rem)]">
@@ -358,6 +370,69 @@ const AdminProducts = () => {
             </div>
 
             <div className="border-t border-gray-800 pt-6">
+              <h4 className="text-white font-semibold mb-4 flex items-center gap-2">
+                Eco Stats
+              </h4>
+              <div className="grid grid-cols-2 gap-4 mb-6">
+                <div>
+                  <label className="text-sm text-gray-400 mb-1 block">Efficiency (%)</label>
+                  <input
+                    type="number"
+                    value={editingProduct.ecoStats?.efficiencyValue || ''}
+                    onChange={(e) => handleEcoStatChange('efficiencyValue', e.target.value)}
+                    className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-blue-500"
+                  />
+                </div>
+                <div>
+                  <label className="text-sm text-gray-400 mb-1 block">Lifespan (Years)</label>
+                  <input
+                    type="number"
+                    value={editingProduct.ecoStats?.lifespan || ''}
+                    onChange={(e) => handleEcoStatChange('lifespan', e.target.value)}
+                    className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-blue-500"
+                  />
+                </div>
+                <div>
+                  <label className="text-sm text-gray-400 mb-1 block">Carbon Payback (Years)</label>
+                  <input
+                    type="number"
+                    step="0.1"
+                    value={editingProduct.ecoStats?.carbonPayback || ''}
+                    onChange={(e) => handleEcoStatChange('carbonPayback', e.target.value)}
+                    className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-blue-500"
+                  />
+                </div>
+                <div>
+                  <label className="text-sm text-gray-400 mb-1 block">Energy Output (kWh/kW)</label>
+                  <input
+                    type="number"
+                    value={editingProduct.ecoStats?.energyOutput || ''}
+                    onChange={(e) => handleEcoStatChange('energyOutput', e.target.value)}
+                    className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-blue-500"
+                  />
+                </div>
+                <div>
+                  <label className="text-sm text-gray-400 mb-1 block">CO₂ Saved (kg/kWh)</label>
+                  <input
+                    type="number"
+                    step="0.01"
+                    value={editingProduct.ecoStats?.co2SavedPerKwh || ''}
+                    onChange={(e) => handleEcoStatChange('co2SavedPerKwh', e.target.value)}
+                    className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-blue-500"
+                  />
+                </div>
+                <div>
+                  <label className="text-sm text-gray-400 mb-1 block">Cost Saved (₹/kWh)</label>
+                  <input
+                    type="number"
+                    step="0.1"
+                    value={editingProduct.ecoStats?.costSavedPerKwh || ''}
+                    onChange={(e) => handleEcoStatChange('costSavedPerKwh', e.target.value)}
+                    className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-blue-500"
+                  />
+                </div>
+              </div>
+
               <h4 className="text-white font-semibold mb-4 flex items-center gap-2">
                 Features
               </h4>
