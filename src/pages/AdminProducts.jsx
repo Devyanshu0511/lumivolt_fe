@@ -13,7 +13,7 @@ const AdminProducts = () => {
   const [deletingProduct, setDeletingProduct] = useState(null);
   const [deleteConfirmText, setDeleteConfirmText] = useState('');
   const [editImageFile, setEditImageFile] = useState(null);
-  
+
   const API_BASE = `${API_BASE_URL}/api`;
 
   useEffect(() => {
@@ -79,7 +79,7 @@ const AdminProducts = () => {
     if (!editingProduct.description?.trim()) newErrors.description = "Description is required";
     if (!editingProduct.colorLight?.trim()) newErrors.colorLight = "Color (Light) is required";
     if (!editingProduct.colorDark?.trim()) newErrors.colorDark = "Color (Dark) is required";
-    
+
     if (!editingProduct.features || editingProduct.features.length === 0) {
       newErrors.features_empty = "At least one feature is required";
     } else {
@@ -87,7 +87,7 @@ const AdminProducts = () => {
         if (!feature?.trim()) newErrors[`feature_${index}`] = "Feature is required";
       });
     }
-    
+
     if (!editingProduct.benefits || editingProduct.benefits.length === 0) {
       newErrors.benefits_empty = "At least one benefit is required";
     } else {
@@ -95,7 +95,7 @@ const AdminProducts = () => {
         if (!benefit?.trim()) newErrors[`benefit_${index}`] = "Benefit is required";
       });
     }
-    
+
     if (!editingProduct.specs || editingProduct.specs.length === 0) {
       newErrors.specs_empty = "At least one specification is required";
     } else {
@@ -111,7 +111,7 @@ const AdminProducts = () => {
 
   const handleSave = async () => {
     if (!validateForm()) return;
-    
+
     let finalImageUrl = editingProduct.image;
     if (editImageFile) {
       if (editImageFile.size > 10 * 1024 * 1024) {
@@ -120,7 +120,7 @@ const AdminProducts = () => {
       }
       const formData = new FormData();
       formData.append('image', editImageFile);
-      
+
       try {
         const uploadRes = await axios.post(`${API_BASE}/upload-image`, formData);
         finalImageUrl = uploadRes.data.imageUrl;
@@ -130,9 +130,9 @@ const AdminProducts = () => {
         return;
       }
     }
-    
+
     const finalProduct = { ...editingProduct, image: finalImageUrl };
-    
+
     let updatedProducts;
     if (isAdding) {
       updatedProducts = [...products, finalProduct];
@@ -174,9 +174,9 @@ const AdminProducts = () => {
     } else {
       return;
     }
-    
+
     setProducts(newProducts);
-    
+
     try {
       await axios.post(`${API_BASE}/products`, newProducts);
     } catch (error) {
@@ -199,9 +199,9 @@ const AdminProducts = () => {
   };
 
   const handleAddArrayItem = (field, emptyValue = '') => {
-    setEditingProduct({ 
-      ...editingProduct, 
-      [field]: [...(editingProduct[field] || []), emptyValue] 
+    setEditingProduct({
+      ...editingProduct,
+      [field]: [...(editingProduct[field] || []), emptyValue]
     });
     setErrors(prev => ({ ...prev, [`${field}_empty`]: undefined }));
   };
@@ -223,7 +223,7 @@ const AdminProducts = () => {
     return (
       <div className="flex flex-col lg:flex-row gap-6 h-[calc(100vh-6rem)]">
         {/* Left Side: Form */}
-        <form 
+        <form
           noValidate
           onSubmit={(e) => { e.preventDefault(); handleSave(); }}
           className="w-full lg:w-1/2 flex flex-col bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden"
@@ -249,7 +249,7 @@ const AdminProducts = () => {
               </button>
             </div>
           </div>
-          
+
           <div className="flex-1 overflow-y-auto p-6 space-y-6">
             <div className="grid grid-cols-2 gap-4">
               <div>
@@ -303,16 +303,16 @@ const AdminProducts = () => {
                 </div>
                 <label className="bg-gray-700 hover:bg-gray-600 text-white rounded-lg px-4 py-2 cursor-pointer flex items-center justify-center font-medium transition-colors shrink-0">
                   <span>Upload Image</span>
-                  <input 
-                    type="file" 
-                    accept="image/*" 
-                    className="hidden" 
+                  <input
+                    type="file"
+                    accept="image/*"
+                    className="hidden"
                     onChange={(e) => {
                       const file = e.target.files[0];
                       if (file) {
                         setEditImageFile(file);
                       }
-                    }} 
+                    }}
                   />
                 </label>
               </div>
@@ -520,42 +520,44 @@ const AdminProducts = () => {
               exit={{ opacity: 0, scale: 0.95 }}
               className="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden group flex flex-col"
             >
-              <div 
+              <div
                 className="h-32 flex items-center justify-center p-6 relative"
                 style={{ background: `linear-gradient(135deg, ${product.colorDark}20, ${product.colorDark}10)` }}
               >
                 <Package className="w-12 h-12" style={{ color: product.colorDark }} />
-                <span 
+                <span
                   className="absolute top-4 right-4 text-xs font-semibold px-2 py-1 rounded bg-black/20"
                   style={{ color: product.colorLight }}
                 >
                   {product.badge}
                 </span>
               </div>
-              
+
               <div className="p-6 flex-1 flex flex-col">
                 <h3 className="text-xl font-bold mb-2">{product.name}</h3>
                 <p className="text-gray-400 text-sm mb-4 line-clamp-2">{product.tagline}</p>
-                
+
                 <div className="mt-auto pt-4 border-t border-gray-800 flex justify-between items-center">
-                  <span className="text-xs text-gray-500 font-mono">{product.id}</span>
-                  <div className="flex gap-1.5 flex-wrap justify-end items-center">
-                    <button
-                      onClick={() => handleMoveProduct(index, 'left')}
-                      disabled={index === 0}
-                      className="p-1.5 bg-gray-800 hover:bg-gray-700 disabled:opacity-30 disabled:cursor-not-allowed rounded-lg text-gray-300 transition-colors"
-                      title="Move Left/Up"
-                    >
-                      <ChevronLeft className="w-4 h-4" />
-                    </button>
-                    <button
-                      onClick={() => handleMoveProduct(index, 'right')}
-                      disabled={index === products.length - 1}
-                      className="p-1.5 bg-gray-800 hover:bg-gray-700 disabled:opacity-30 disabled:cursor-not-allowed rounded-lg text-gray-300 transition-colors mr-1"
-                      title="Move Right/Down"
-                    >
-                      <ChevronRight className="w-4 h-4" />
-                    </button>
+                  {/* <span className="text-xs text-gray-500 font-mono">{product.id}</span> */}
+                  <div className="flex gap-1.5 flex-wrap items-center justify-between w-100">
+                    <div className='flex flex-wrap gap-1 items-center'>
+                      <button
+                        onClick={() => handleMoveProduct(index, 'left')}
+                        disabled={index === 0}
+                        className="p-1.5 bg-gray-800 hover:bg-gray-700 disabled:opacity-30 disabled:cursor-not-allowed rounded-lg text-gray-300 transition-colors"
+                        title="Move Left/Up"
+                      >
+                        <ChevronLeft className="w-4 h-4" />
+                      </button>
+                      <button
+                        onClick={() => handleMoveProduct(index, 'right')}
+                        disabled={index === products.length - 1}
+                        className="p-1.5 bg-gray-800 hover:bg-gray-700 disabled:opacity-30 disabled:cursor-not-allowed rounded-lg text-gray-300 transition-colors mr-1"
+                        title="Move Right/Down"
+                      >
+                        <ChevronRight className="w-4 h-4" />
+                      </button>
+                    </div>
                     <button
                       onClick={() => handleEditClick(product)}
                       className="flex items-center gap-1.5 px-3 py-1.5 bg-gray-800 hover:bg-gray-700 rounded-lg text-sm text-gray-300 hover:text-white transition-colors"
@@ -575,11 +577,11 @@ const AdminProducts = () => {
           ))}
         </AnimatePresence>
       </div>
-      
+
       <AnimatePresence>
         {deletingProduct && (
           <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4">
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}

@@ -57,7 +57,7 @@ const App = () => {
           <Route path="policies" element={<AdminPolicies />} />
           <Route path="gallery" element={<AdminGallery />} />
           <Route path="downloads" element={<AdminDownloads />} />
-          <Route path="settings" element={<AdminSettings />} />
+          {/* <Route path="settings" element={<AdminSettings />} /> */}
         </Route>
 
         {/* Public Frontend Routes - wrapped in frontend Layout */}

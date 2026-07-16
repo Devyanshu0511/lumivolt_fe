@@ -24,13 +24,12 @@ const AdminLayout = () => {
     { name: 'Policies', path: '/admin/policies', icon: Shield },
     { name: 'Gallery', path: '/admin/gallery', icon: Image },
     { name: 'Downloads', path: '/admin/downloads', icon: Download },
-    { name: 'Settings', path: '/admin/settings', icon: Settings },
   ];
 
   return (
     <div className="min-h-screen bg-gray-950 flex text-white font-sans">
       {/* Sidebar */}
-      <motion.aside 
+      <motion.aside
         initial={{ x: -300 }}
         animate={{ x: 0 }}
         className="w-64 bg-gray-900 border-r border-gray-800 flex flex-col"
@@ -53,10 +52,9 @@ const AdminLayout = () => {
                 key={item.name}
                 to={item.path}
                 className={({ isActive }) =>
-                  `flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 ${
-                    isActive
-                      ? 'bg-blue-600/10 text-blue-400 border border-blue-500/20'
-                      : 'text-gray-400 hover:bg-gray-800 hover:text-white border border-transparent'
+                  `flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 ${isActive
+                    ? 'bg-blue-600/10 text-blue-400 border border-blue-500/20'
+                    : 'text-gray-400 hover:bg-gray-800 hover:text-white border border-transparent'
                   }`
                 }
               >

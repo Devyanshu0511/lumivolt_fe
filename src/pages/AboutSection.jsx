@@ -71,8 +71,8 @@ const AboutSection = () => {
     >
       <div
         className={`absolute inset-0 ${darkMode
-            ? "bg-linear-to-br from-slate-950 via-slate-900 to-slate-950"
-            : "bg-linear-to-br from-blue-50 via-indigo-50 to-purple-50"
+          ? "bg-linear-to-br from-slate-950 via-slate-900 to-slate-950"
+          : "bg-linear-to-br from-blue-50 via-indigo-50 to-purple-50"
           }`}
       />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-24">
@@ -149,8 +149,8 @@ const AboutSection = () => {
                 />
                 <div
                   className={`absolute inset-0 ${darkMode
-                      ? "bg-linear-to-t from-slate-900/60 via-transparent to-transparent"
-                      : "bg-linear-to-t from-blue-900/40 via-transparent to-transparent"
+                    ? "bg-linear-to-t from-slate-900/60 via-transparent to-transparent"
+                    : "bg-linear-to-t from-blue-900/40 via-transparent to-transparent"
                     }`}
                 />
                 <div className="absolute bottom-6 left-6 right-6">
@@ -188,8 +188,8 @@ const AboutSection = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
                 className={`p-8 rounded-xl ${darkMode
-                    ? "bg-slate-900 border border-slate-700"
-                    : "bg-blue-50 border border-blue-100"
+                  ? "bg-slate-900 border border-slate-700"
+                  : "bg-blue-50 border border-blue-100"
                   }`}
               >
                 <h3
@@ -213,8 +213,8 @@ const AboutSection = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.1 }}
                 className={`p-8 rounded-xl ${darkMode
-                    ? "bg-slate-900 border border-slate-700"
-                    : "bg-emerald-50 border border-emerald-100"
+                  ? "bg-slate-900 border border-slate-700"
+                  : "bg-emerald-50 border border-emerald-100"
                   }`}
               >
                 <h3
@@ -267,8 +267,8 @@ const AboutSection = () => {
                   transition={{ delay: i * 0.1 }}
                   whileHover={{ scale: 1.02 }}
                   className={`flex items-start gap-4 p-6 rounded-xl ${darkMode
-                      ? "bg-slate-900/70 border border-slate-700"
-                      : "bg-white border border-gray-200"
+                    ? "bg-slate-900/70 border border-slate-700"
+                    : "bg-white border border-gray-200"
                     }`}
                 >
                   <div
@@ -326,8 +326,8 @@ const AboutSection = () => {
                   transition={{ delay: i * 0.15 }}
                   whileHover={{ y: -8, scale: 1.02 }}
                   className={`relative overflow-hidden rounded-2xl shadow-xl group ${darkMode
-                      ? "bg-slate-900/80 border border-slate-700"
-                      : "bg-white border border-gray-200"
+                    ? "bg-slate-900/80 border border-slate-700"
+                    : "bg-white border border-gray-200"
                     }`}
                 >
                   {/* Background Image */}
@@ -353,9 +353,8 @@ const AboutSection = () => {
                       />
                     )}
                     <div
-                      className={`absolute inset-0 bg-linear-to-t ${goal.color} ${
-                        goal.brandLogo ? "opacity-55" : "opacity-80"
-                      }`}
+                      className={`absolute inset-0 bg-linear-to-t ${goal.color} ${goal.brandLogo ? "opacity-55" : "opacity-80"
+                        }`}
                     />
                     <div className="absolute inset-0 bg-black/20" />
                     <div className="absolute inset-0 bg-black/20" />
@@ -381,8 +380,8 @@ const AboutSection = () => {
                     <div className="flex items-center justify-between mb-3">
                       <span
                         className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium ${darkMode
-                            ? "bg-slate-800 text-slate-300"
-                            : "bg-gray-100 text-gray-700"
+                          ? "bg-slate-800 text-slate-300"
+                          : "bg-gray-100 text-gray-700"
                           }`}
                       >
                         Strategic Priority
@@ -407,7 +406,7 @@ const AboutSection = () => {
 
         {/* Leadership Section */}
 
-        <LeadershipSection />
+        {/* <LeadershipSection /> */}
 
         {/* Contact Banner */}
         <motion.div
@@ -420,8 +419,8 @@ const AboutSection = () => {
           {/* Contact Banner Background */}
           <div
             className={`absolute inset-0 ${darkMode
-                ? "bg-gray-800"
-                : "bg-linear-to-r from-blue-600 via-blue-500 to-indigo-600"
+              ? "bg-gray-800"
+              : "bg-linear-to-r from-blue-600 via-blue-500 to-indigo-600"
               }`}
           />
 
