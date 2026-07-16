@@ -1,4 +1,5 @@
 import React from "react";
+import axios from "axios";
 import { motion } from "framer-motion";
 import { Sun, ShieldCheck, Award, Zap, TrendingUp } from "lucide-react";
 import { useDarkMode } from "../context/DarkModeContext";
@@ -12,10 +13,9 @@ const ProductsSection = () => {
   const [loading, setLoading] = React.useState(true);
 
   React.useEffect(() => {
-    fetch(`${API_BASE_URL}/api/products`)
-      .then(res => res.json())
-      .then(data => {
-        setProductsData(data);
+    axios.get(`${API_BASE_URL}/api/products`)
+      .then(res => {
+        setProductsData(res.data);
         setLoading(false);
       })
       .catch(err => {

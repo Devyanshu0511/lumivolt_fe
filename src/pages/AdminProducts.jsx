@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import axios from 'axios';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Plus, Edit2, Save, X, Package, LayoutTemplate, Trash2 } from 'lucide-react';
 import { API_BASE_URL } from '../config';
@@ -21,9 +22,8 @@ const AdminProducts = () => {
 
   const fetchProducts = async () => {
     try {
-      const res = await fetch(`${API_BASE}/products`);
-      const data = await res.json();
-      setProducts(data);
+      const res = await axios.get(`${API_BASE}/products`);
+      setProducts(res.data);
     } catch (error) {
       console.error('Failed to fetch products', error);
     }
@@ -114,16 +114,16 @@ const AdminProducts = () => {
     
     let finalImageUrl = editingProduct.image;
     if (editImageFile) {
+      if (editImageFile.size > 10 * 1024 * 1024) {
+        alert("Image file size must be 10MB or less");
+        return;
+      }
       const formData = new FormData();
       formData.append('image', editImageFile);
       
       try {
-        const uploadRes = await fetch(`${API_BASE}/upload-image`, {
-          method: 'POST',
-          body: formData,
-        });
-        const uploadData = await uploadRes.json();
-        finalImageUrl = uploadData.imageUrl;
+        const uploadRes = await axios.post(`${API_BASE}/upload-image`, formData);
+        finalImageUrl = uploadRes.data.imageUrl;
       } catch (error) {
         console.error('Failed to upload image', error);
         alert('Failed to upload image');
@@ -141,11 +141,7 @@ const AdminProducts = () => {
     }
 
     try {
-      await fetch(`${API_BASE}/products`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(updatedProducts)
-      });
+      await axios.post(`${API_BASE}/products`, updatedProducts);
       setProducts(updatedProducts);
       setEditingProduct(null);
       setIsAdding(false);
@@ -159,11 +155,7 @@ const AdminProducts = () => {
   const handleDeleteProduct = async (id) => {
     try {
       const updatedProducts = products.filter(p => p.id !== id);
-      await fetch(`${API_BASE}/products`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(updatedProducts)
-      });
+      await axios.post(`${API_BASE}/products`, updatedProducts);
       setProducts(updatedProducts);
       setDeletingProduct(null);
       setDeleteConfirmText('');

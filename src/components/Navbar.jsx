@@ -1,5 +1,6 @@
 // src/components/Navigation.jsx (or Navbar.jsx)
 import React, { useState, useEffect, useCallback } from "react";
+import axios from "axios";
 import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link, useLocation } from "react-router-dom";
@@ -21,9 +22,8 @@ const Navigation = () => {
   const [productsData, setProductsData] = useState([]);
 
   useEffect(() => {
-    fetch(`${API_BASE_URL}/api/products`)
-      .then(res => res.json())
-      .then(data => setProductsData(data))
+    axios.get(`${API_BASE_URL}/api/products`)
+      .then(res => setProductsData(res.data))
       .catch(err => console.error("Failed to fetch products:", err));
   }, []);
 

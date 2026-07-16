@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import axios from "axios";
 import { motion } from "framer-motion";
 import { ShieldCheck, Leaf } from "lucide-react";
 import { useDarkMode } from "../context/DarkModeContext";
@@ -12,10 +13,9 @@ const SustainabilitySection = () => {
   const [loadingProducts, setLoadingProducts] = useState(true);
 
   useEffect(() => {
-    fetch(`${API_BASE_URL}/api/products`)
-      .then(res => res.json())
-      .then(data => {
-        setProductsData(data);
+    axios.get(`${API_BASE_URL}/api/products`)
+      .then(res => {
+        setProductsData(res.data);
         setLoadingProducts(false);
       })
       .catch(err => {

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Plus, Edit2, Save, X, FileText, Download, Trash2, FolderOpen } from 'lucide-react';
 import { API_BASE_URL } from '../config';
@@ -25,9 +26,8 @@ const AdminDownloads = () => {
 
   const fetchDownloads = async () => {
     try {
-      const res = await fetch(`${API_BASE}/downloads`);
-      const data = await res.json();
-      setDownloads(data);
+      const res = await axios.get(`${API_BASE}/downloads`);
+      setDownloads(res.data);
     } catch (error) {
       console.error('Failed to fetch downloads', error);
     }
@@ -52,16 +52,16 @@ const AdminDownloads = () => {
     let finalFileUrl = editForm.fileUrl;
 
     if (editPdfFile) {
+      if (editPdfFile.size > 10 * 1024 * 1024) {
+        alert("File size must be 10MB or less");
+        return;
+      }
       const formData = new FormData();
       formData.append('pdf', editPdfFile); // Reuse pdf upload logic in server
       
       try {
-        const uploadRes = await fetch(`${API_BASE}/upload`, {
-          method: 'POST',
-          body: formData,
-        });
-        const uploadData = await uploadRes.json();
-        finalFileUrl = uploadData.pdfUrl; // Server returns pdfUrl for now
+        const uploadRes = await axios.post(`${API_BASE}/upload`, formData);
+        finalFileUrl = uploadRes.data.pdfUrl; // Server returns pdfUrl for now
       } catch (error) {
         console.error('Failed to upload File', error);
         alert('Failed to upload File');
@@ -74,11 +74,7 @@ const AdminDownloads = () => {
     );
 
     try {
-      await fetch(`${API_BASE}/downloads`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(updatedDownloads)
-      });
+      await axios.post(`${API_BASE}/downloads`, updatedDownloads);
       setDownloads(updatedDownloads);
       setEditingId(null);
       setEditPdfFile(null);
@@ -90,9 +86,7 @@ const AdminDownloads = () => {
 
   const handleDeleteDownload = async (id) => {
     try {
-      await fetch(`${API_BASE}/downloads/${id}`, {
-        method: 'DELETE'
-      });
+      await axios.delete(`${API_BASE}/downloads/${id}`);
       setDownloads(downloads.filter(d => d.id !== id));
       setDeletingDownload(null);
       setDeleteConfirmText('');
@@ -113,16 +107,16 @@ const AdminDownloads = () => {
     let finalFileUrl = addForm.fileUrl;
 
     if (addPdfFile) {
+      if (addPdfFile.size > 10 * 1024 * 1024) {
+        alert("File size must be 10MB or less");
+        return;
+      }
       const formData = new FormData();
       formData.append('pdf', addPdfFile);
       
       try {
-        const uploadRes = await fetch(`${API_BASE}/upload`, {
-          method: 'POST',
-          body: formData,
-        });
-        const uploadData = await uploadRes.json();
-        finalFileUrl = uploadData.pdfUrl;
+        const uploadRes = await axios.post(`${API_BASE}/upload`, formData);
+        finalFileUrl = uploadRes.data.pdfUrl;
       } catch (error) {
         console.error('Failed to upload File', error);
         alert('Failed to upload File');
@@ -142,11 +136,7 @@ const AdminDownloads = () => {
     const updatedDownloads = [...downloads, newDownload];
 
     try {
-      await fetch(`${API_BASE}/downloads`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(updatedDownloads)
-      });
+      await axios.post(`${API_BASE}/downloads`, updatedDownloads);
       setDownloads(updatedDownloads);
       setIsAddModalOpen(false);
       setAddForm({ title: '', category: '', fileUrl: '' });

@@ -1,4 +1,5 @@
 import React from "react";
+import axios from "axios";
 import { motion } from "framer-motion";
 import { Sun, ShieldCheck, Award, Zap, TrendingUp, ArrowLeft } from "lucide-react";
 import { useDarkMode } from "../context/DarkModeContext";
@@ -320,21 +321,20 @@ export const ProductDetailContent = ({ productData, isPreview = false, darkMode 
 const ProductDetail = () => {
   const { darkMode } = useDarkMode();
   const { id } = useParams();
-  const [productsData, setProductsData] = useState([]);
+  const [productData, setProductData] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`${API_BASE_URL}/api/products`)
-      .then(res => res.json())
-      .then(data => {
-        setProductsData(data);
+    axios.get(`${API_BASE_URL}/api/products/${id}`)
+      .then(res => {
+        setProductData(res.data);
         setLoading(false);
       })
       .catch(err => {
-        console.error("Failed to fetch products:", err);
+        console.error("Failed to fetch product:", err);
         setLoading(false);
       });
-  }, []);
+  }, [id]);
 
   if (loading) {
     return (
@@ -343,8 +343,6 @@ const ProductDetail = () => {
       </div>
     );
   }
-
-  const productData = productsData.find((p) => p.id === id);
 
   if (!productData) {
     return (

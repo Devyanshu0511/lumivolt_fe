@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { motion } from 'framer-motion';
 import { Upload, Trash2, Image as ImageIcon, Film, Loader2 } from 'lucide-react';
 import { API_BASE_URL } from '../config';
@@ -15,8 +16,8 @@ const AdminGallery = () => {
 
   const fetchGallery = async () => {
     try {
-      const res = await fetch(`${API_BASE_URL}/api/gallery`);
-      const data = await res.json();
+      const res = await axios.get(`${API_BASE_URL}/api/gallery`);
+      const data = res.data;
       // Sort by newest first
       setItems(data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)));
     } catch (err) {
@@ -30,9 +31,9 @@ const AdminGallery = () => {
     const file = e.target.files?.[0];
     if (!file) return;
 
-    // Check size (5MB)
-    if (file.size > 5 * 1024 * 1024) {
-      setError('File size must be less than 5MB');
+    // Check size (10MB)
+    if (file.size > 10 * 1024 * 1024) {
+      setError('File size must be 10MB or less');
       return;
     }
     setError(null);
@@ -43,17 +44,8 @@ const AdminGallery = () => {
       formData.append('media', file);
 
       // Upload file
-      const uploadRes = await fetch(`${API_BASE_URL}/api/upload-gallery`, {
-        method: 'POST',
-        body: formData,
-      });
-
-      if (!uploadRes.ok) {
-        const errorData = await uploadRes.json();
-        throw new Error(errorData.error || 'Upload failed');
-      }
-
-      const { url, type } = await uploadRes.json();
+      const uploadRes = await axios.post(`${API_BASE_URL}/api/upload-gallery`, formData);
+      const { url, type } = uploadRes.data;
 
       // Add to gallery JSON
       const newItem = {
@@ -65,13 +57,7 @@ const AdminGallery = () => {
 
       const updatedItems = [newItem, ...items];
       
-      const saveRes = await fetch(`${API_BASE_URL}/api/gallery`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(updatedItems),
-      });
-
-      if (!saveRes.ok) throw new Error('Failed to save to gallery');
+      await axios.post(`${API_BASE_URL}/api/gallery`, updatedItems);
 
       setItems(updatedItems);
     } catch (err) {
@@ -86,11 +72,7 @@ const AdminGallery = () => {
     if (!window.confirm('Are you sure you want to delete this item?')) return;
     
     try {
-      const res = await fetch(`${API_BASE_URL}/api/gallery/${id}`, {
-        method: 'DELETE'
-      });
-      
-      if (!res.ok) throw new Error('Failed to delete item');
+      await axios.delete(`${API_BASE_URL}/api/gallery/${id}`);
       
       setItems(items.filter(item => item.id !== id));
     } catch (err) {
@@ -162,12 +144,12 @@ const AdminGallery = () => {
             >
               {item.type === 'video' ? (
                 <video 
-                  src={`${API_BASE_URL}${item.url}`} 
+                  src={item.url?.startsWith('/') ? API_BASE_URL + item.url : item.url} 
                   className="w-full h-full object-cover"
                 />
               ) : (
                 <img 
-                  src={`${API_BASE_URL}${item.url}`} 
+                  src={item.url?.startsWith('/') ? API_BASE_URL + item.url : item.url} 
                   alt="Gallery" 
                   className="w-full h-full object-cover"
                 />

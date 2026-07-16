@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios";
 import { motion, AnimatePresence } from "framer-motion";
 import { FileText, Shield, Lock, Cookie, RefreshCw, AlertTriangle, Download } from "lucide-react";
 import { useDarkMode } from "../context/DarkModeContext";
@@ -21,10 +22,9 @@ const Policies = () => {
   const [loading, setLoading] = useState(true);
 
   React.useEffect(() => {
-    fetch(`${API_BASE_URL}/api/policies`)
-      .then(res => res.json())
-      .then(data => {
-        setPoliciesData(data);
+    axios.get(`${API_BASE_URL}/api/policies`)
+      .then(res => {
+        setPoliciesData(res.data);
         setLoading(false);
       })
       .catch(err => {

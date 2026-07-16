@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Plus, Edit2, Save, X, FileText, Shield, RefreshCw, AlertTriangle, Cookie, Lock, Trash2 } from 'lucide-react';
 import { API_BASE_URL } from '../config';
@@ -33,9 +34,8 @@ const AdminPolicies = () => {
 
   const fetchPolicies = async () => {
     try {
-      const res = await fetch(`${API_BASE}/policies`);
-      const data = await res.json();
-      setPolicies(data);
+      const res = await axios.get(`${API_BASE}/policies`);
+      setPolicies(res.data);
     } catch (error) {
       console.error('Failed to fetch policies', error);
     }
@@ -60,16 +60,16 @@ const AdminPolicies = () => {
     let finalPdfUrl = editForm.pdfUrl;
 
     if (editPdfFile) {
+      if (editPdfFile.size > 10 * 1024 * 1024) {
+        alert("File size must be 10MB or less");
+        return;
+      }
       const formData = new FormData();
       formData.append('pdf', editPdfFile);
       
       try {
-        const uploadRes = await fetch(`${API_BASE}/upload`, {
-          method: 'POST',
-          body: formData,
-        });
-        const uploadData = await uploadRes.json();
-        finalPdfUrl = uploadData.pdfUrl;
+        const uploadRes = await axios.post(`${API_BASE}/upload`, formData);
+        finalPdfUrl = uploadRes.data.pdfUrl;
       } catch (error) {
         console.error('Failed to upload PDF', error);
         alert('Failed to upload PDF');
@@ -82,11 +82,7 @@ const AdminPolicies = () => {
     );
 
     try {
-      await fetch(`${API_BASE}/policies`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(updatedPolicies)
-      });
+      await axios.post(`${API_BASE}/policies`, updatedPolicies);
       setPolicies(updatedPolicies);
       setEditingId(null);
       setEditPdfFile(null);
@@ -99,11 +95,7 @@ const AdminPolicies = () => {
   const handleDeletePolicy = async (id) => {
     try {
       const updatedPolicies = policies.filter(p => p.id !== id);
-      await fetch(`${API_BASE}/policies`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(updatedPolicies)
-      });
+      await axios.post(`${API_BASE}/policies`, updatedPolicies);
       setPolicies(updatedPolicies);
       setDeletingPolicy(null);
       setDeleteConfirmText('');
@@ -118,16 +110,16 @@ const AdminPolicies = () => {
     let finalPdfUrl = addForm.pdfUrl || '/dummy.pdf';
 
     if (addPdfFile) {
+      if (addPdfFile.size > 10 * 1024 * 1024) {
+        alert("File size must be 10MB or less");
+        return;
+      }
       const formData = new FormData();
       formData.append('pdf', addPdfFile);
       
       try {
-        const uploadRes = await fetch(`${API_BASE}/upload`, {
-          method: 'POST',
-          body: formData,
-        });
-        const uploadData = await uploadRes.json();
-        finalPdfUrl = uploadData.pdfUrl;
+        const uploadRes = await axios.post(`${API_BASE}/upload`, formData);
+        finalPdfUrl = uploadRes.data.pdfUrl;
       } catch (error) {
         console.error('Failed to upload PDF', error);
         alert('Failed to upload PDF');
@@ -147,11 +139,7 @@ const AdminPolicies = () => {
     const updatedPolicies = [...policies, newPolicy];
 
     try {
-      await fetch(`${API_BASE}/policies`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(updatedPolicies)
-      });
+      await axios.post(`${API_BASE}/policies`, updatedPolicies);
       setPolicies(updatedPolicies);
       setIsAddModalOpen(false);
       setAddForm({ title: '', description: '', pdfUrl: '' });

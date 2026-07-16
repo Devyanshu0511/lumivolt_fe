@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo } from "react";
+import axios from "axios";
 import { motion, AnimatePresence } from "framer-motion";
 import { FileText, Download, FolderOpen, Loader2, Search, X } from "lucide-react";
 import { useDarkMode } from "../context/DarkModeContext";
@@ -13,10 +14,9 @@ const Downloads = () => {
   const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
-    fetch(`${API_BASE_URL}/api/downloads`)
-      .then((res) => res.json())
-      .then((data) => {
-        setDownloadsData(data);
+    axios.get(`${API_BASE_URL}/api/downloads`)
+      .then((res) => {
+        setDownloadsData(res.data);
         setLoading(false);
       })
       .catch((err) => {

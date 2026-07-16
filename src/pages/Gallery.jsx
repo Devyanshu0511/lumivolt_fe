@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Loader2, X } from 'lucide-react';
 import { useDarkMode } from '../context/DarkModeContext';
@@ -25,8 +26,8 @@ const Gallery = () => {
 
   const fetchGallery = async () => {
     try {
-      const res = await fetch(`${API_BASE_URL}/api/gallery`);
-      const data = await res.json();
+      const res = await axios.get(`${API_BASE_URL}/api/gallery`);
+      const data = res.data;
       setItems(data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)));
     } catch (err) {
       console.error('Failed to fetch gallery', err);
@@ -78,7 +79,7 @@ const Gallery = () => {
               >
                 {item.type === 'video' ? (
                   <video 
-                    src={`${API_BASE_URL}${item.url}`} 
+                    src={item.url?.startsWith('/') ? API_BASE_URL + item.url : item.url} 
                     autoPlay 
                     loop 
                     muted 
@@ -87,7 +88,7 @@ const Gallery = () => {
                   />
                 ) : (
                   <img 
-                    src={`${API_BASE_URL}${item.url}`} 
+                    src={item.url?.startsWith('/') ? API_BASE_URL + item.url : item.url} 
                     alt="Gallery item" 
                     className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105"
                   />
@@ -128,14 +129,14 @@ const Gallery = () => {
             >
               {selectedMedia.type === 'video' ? (
                 <video 
-                  src={`${API_BASE_URL}${selectedMedia.url}`} 
+                  src={selectedMedia.url?.startsWith('/') ? API_BASE_URL + selectedMedia.url : selectedMedia.url} 
                   controls
                   autoPlay
                   className="w-full h-full max-h-[90vh] object-contain"
                 />
               ) : (
                 <img 
-                  src={`${API_BASE_URL}${selectedMedia.url}`} 
+                  src={selectedMedia.url?.startsWith('/') ? API_BASE_URL + selectedMedia.url : selectedMedia.url} 
                   alt="Gallery expanded" 
                   className="w-full h-full max-h-[90vh] object-contain"
                 />
