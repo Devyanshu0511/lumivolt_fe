@@ -1,74 +1,30 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { motion } from "framer-motion";
 import { Users, Award, TrendingUp } from "lucide-react";
 import { useDarkMode } from "../context/DarkModeContext";
+import { API_BASE_URL } from "../config";
 
 const BoardOfDirectors = () => {
   const { darkMode } = useDarkMode();
+  const [directorsData, setDirectorsData] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const directors = [
-    {
-      name: "Samarth Wadhwa",
-      role: "Director",
-      image:
-        "data:image/svg+xml,%3Csvg width='400' height='400' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='400' height='400' fill='%236b7280'/%3E%3C/svg%3E",
-      bio: "Strategic operations leader overseeing manufacturing excellence and scaling operations for sustainable growth.",
-      expertise:
-        "Renewable Energy Infrastructure, Strategic Scaling & Operational Excellence",
-      experience: "15+ years in clean energy sector",
-    },
-    {
-      name: "Pankaj Gupta",
-      role: "Director",
-      image:
-        "data:image/svg+xml,%3Csvg width='400' height='400' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='400' height='400' fill='%236b7280'/%3E%3C/svg%3E",
-      bio: "Technical innovator specializing in advanced photovoltaic technologies and product development.",
-      expertise:
-        "Industrial Lifecycle Management, Retail Operations & Photovoltaic R&D",
-      experience:
-        "30+ year experience in Industrial Operation, Retail and 5+ years experience in clean energy sector",
-    },
-    {
-      name: "Mukesh Tyagi",
-      role: "Director",
-      image:
-        "data:image/svg+xml,%3Csvg width='400' height='400' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='400' height='400' fill='%236b7280'/%3E%3C/svg%3E",
-      bio: "Market strategist with deep insights into solar energy distribution and business development.",
-      expertise:
-        "Advanced Manufacturing, Retail Supply Chain & Clean-Tech Market Strategy",
-      experience:
-        "25+ years experience in Manufacturing and Retail, 5+ years experience in clean energy sector",
-    },
-    {
-      name: "Rajkumar Chaudhary",
-      role: "Director",
-      image:
-        "data:image/svg+xml,%3Csvg width='400' height='400' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='400' height='400' fill='%236b7280'/%3E%3C/svg%3E",
-      bio: "Quality assurance expert ensuring world-class manufacturing standards and operational efficiency.",
-      expertise:
-        "Quality Assurance (QA), TQM, & Industrial Process Optimization",
-      experience: "25+ years experience in Manufacturing quality",
-    },
-    {
-      name: "Surekha",
-      role: "Director",
-      image:
-        "data:image/svg+xml,%3Csvg width='400' height='400' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='400' height='400' fill='%236b7280'/%3E%3C/svg%3E",
-      bio: "Strategic advisor providing expertise in stakeholder engagement and sustainable business practices.",
-      expertise: "Corporate Governance, ESG Strategy & Stakeholder Relations",
-      experience: "20+ years experience in corporate strategy",
-    },
-    {
-      name: "Devyanshu Singhal",
-      role: "Promoter",
-      image:
-        "data:image/svg+xml,%3Csvg width='400' height='400' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='400' height='400' fill='%236b7280'/%3E%3C/svg%3E",
-      bio: "Visionary leader driving Lumivolt's mission to revolutionize solar energy accessibility with innovative manufacturing solutions.",
-      expertise:
-        "Venture Growth, Multi-Sector Operations & Clean Energy Transformation",
-      experience: "5+ years in Manufacturing, Retail and clean energy sector",
-    },
-  ];
+  useEffect(() => {
+    const fetchDirectors = async () => {
+      try {
+        const res = await axios.get(`${API_BASE_URL}/api/directors`);
+        setDirectorsData(res.data);
+      } catch (error) {
+        console.error('Failed to fetch directors', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchDirectors();
+  }, []);
+
+  const displayDirectors = directorsData;
 
   const stats = [
     {
@@ -78,7 +34,7 @@ const BoardOfDirectors = () => {
     },
     {
       icon: Award,
-      value: "6",
+      value: displayDirectors?.length?.toString(),
       label: "Board Members",
     },
     {
@@ -91,11 +47,10 @@ const BoardOfDirectors = () => {
   return (
     <section className="py-32 relative overflow-hidden">
       <div
-        className={`absolute inset-0 ${
-          darkMode
+        className={`absolute inset-0 ${darkMode
             ? "bg-linear-to-b from-slate-950 via-blue-950 to-slate-950"
             : "bg-linear-to-b from-sky-50 via-blue-50 to-indigo-50"
-        }`}
+          }`}
       />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -109,9 +64,8 @@ const BoardOfDirectors = () => {
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className={`text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 ${
-              darkMode ? "text-yellow-400" : "text-[#274488]"
-            }`}
+            className={`text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 ${darkMode ? "text-yellow-400" : "text-[#274488]"
+              }`}
           >
             Board of Directors
           </motion.h2>
@@ -119,9 +73,8 @@ const BoardOfDirectors = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className={`text-base sm:text-lg md:text-xl max-w-3xl mx-auto ${
-              darkMode ? "text-gray-300" : "text-gray-600"
-            }`}
+            className={`text-base sm:text-lg md:text-xl max-w-3xl mx-auto ${darkMode ? "text-gray-300" : "text-gray-600"
+              }`}
           >
             Our experienced leadership team brings together decades of expertise
             in renewable energy, manufacturing, and strategic business
@@ -145,32 +98,28 @@ const BoardOfDirectors = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className={`text-center p-6 rounded-2xl ${
-                  darkMode
+                className={`text-center p-6 rounded-2xl ${darkMode
                     ? "bg-slate-900/70 backdrop-blur-sm border border-slate-700"
                     : "bg-white/80 backdrop-blur-sm border border-gray-200"
-                }`}
+                  }`}
               >
                 <div
-                  className={`inline-flex items-center justify-center w-12 h-12 rounded-full mb-4 ${
-                    darkMode
+                  className={`inline-flex items-center justify-center w-12 h-12 rounded-full mb-4 ${darkMode
                       ? "bg-yellow-400/10 text-yellow-400"
                       : "bg-blue-50 text-[#274488]"
-                  }`}
+                    }`}
                 >
                   <IconComponent className="w-6 h-6" />
                 </div>
                 <div
-                  className={`text-2xl sm:text-3xl font-bold mb-2 ${
-                    darkMode ? "text-yellow-400" : "text-[#274488]"
-                  }`}
+                  className={`text-2xl sm:text-3xl font-bold mb-2 ${darkMode ? "text-yellow-400" : "text-[#274488]"
+                    }`}
                 >
                   {stat.value}
                 </div>
                 <div
-                  className={`text-sm font-medium ${
-                    darkMode ? "text-gray-300" : "text-gray-600"
-                  }`}
+                  className={`text-sm font-medium ${darkMode ? "text-gray-300" : "text-gray-600"
+                    }`}
                 >
                   {stat.label}
                 </div>
@@ -181,7 +130,7 @@ const BoardOfDirectors = () => {
 
         {/* Directors Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {directors.map((director, index) => (
+          {displayDirectors.map((director, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 30 }}
@@ -189,11 +138,10 @@ const BoardOfDirectors = () => {
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
               whileHover={{ y: -10, scale: 1.02 }}
-              className={`group relative overflow-hidden rounded-2xl ${
-                darkMode
+              className={`group relative overflow-hidden rounded-2xl ${darkMode
                   ? "bg-slate-900/70 backdrop-blur-sm border border-slate-700"
                   : "bg-white/80 backdrop-blur-sm border border-gray-200"
-              }`}
+                }`}
             >
               <div className="relative">
                 <div className="aspect-square overflow-hidden">
