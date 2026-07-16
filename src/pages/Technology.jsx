@@ -31,8 +31,25 @@ import {
   Sparkles,
   Shield,
   Globe,
+  Activity,
+  Battery,
+  Cpu,
+  Layers
 } from "lucide-react";
 import { useDarkMode } from "../context/DarkModeContext";
+import axios from 'axios';
+import { API_BASE_URL } from '../config';
+
+const ICONS = {
+  Zap: Zap,
+  Factory: Factory,
+  ShieldCheck: ShieldCheck,
+  Boxes: Boxes,
+  Activity: Activity,
+  Battery: Battery,
+  Cpu: Cpu,
+  Layers: Layers
+};
 
 const TechnologySection = () => {
   const { darkMode } = useDarkMode();
@@ -46,41 +63,38 @@ const TechnologySection = () => {
     typeof window !== "undefined" &&
     window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
 
-  // Equipment cards — based on your data
-  const equipmentCards = [
-    {
-      title: "Autowell ATW 059 AB",
-      desc: "Fully automatic cell cutting, stringing, bussing & pre-EL testing. Precision layup with <0.1mm tolerance.",
-      colorClass: darkMode
-        ? "from-amber-500 to-orange-500"
-        : "from-amber-600 to-orange-600",
-      icon: <Zap className="w-6 h-6" />,
-    },
-    {
-      title: "Autowell 2787 Laminator",
-      desc: "3-chamber oil-heated laminator. Dual-layer curing with uniform pressure & adhesion for >99.5% yield.",
-      colorClass: darkMode
-        ? "from-blue-500 to-cyan-400"
-        : "from-blue-600 to-cyan-600",
-      icon: <Factory className="w-6 h-6" />,
-    },
-    {
-      title: "Controlled Curing Chamber",
-      desc: "Precision climate control (±1°C, ±3% RH) for optimal EVA crosslinking & long-term reliability.",
-      colorClass: darkMode
-        ? "from-emerald-500 to-teal-400"
-        : "from-emerald-600 to-teal-600",
-      icon: <ShieldCheck className="w-6 h-6" />,
-    },
-    {
-      title: "Auto Frame & Glue System",
-      desc: "Robotic frame placement with 0.2mm alignment accuracy & consistent adhesive dispensing.",
-      colorClass: darkMode
-        ? "from-purple-500 to-pink-400"
-        : "from-purple-600 to-pink-600",
-      icon: <Boxes className="w-6 h-6" />,
-    },
-  ];
+  const [equipmentCards, setEquipmentCards] = useState([]);
+
+  useEffect(() => {
+    const fetchEquipments = async () => {
+      try {
+        const res = await axios.get(`${API_BASE_URL}/api/equipments`);
+        if (res.data && res.data.length > 0) {
+          setEquipmentCards(res.data);
+        }
+      } catch (error) {
+        console.error('Failed to fetch equipments', error);
+      }
+    };
+    fetchEquipments();
+  }, []);
+
+  const getColorClasses = (colorName) => {
+    const map = {
+      amber: darkMode ? "from-amber-500 to-orange-500 text-amber-500" : "from-amber-600 to-orange-600 text-amber-600",
+      blue: darkMode ? "from-blue-500 to-cyan-400 text-blue-500" : "from-blue-600 to-cyan-600 text-blue-600",
+      emerald: darkMode ? "from-emerald-500 to-teal-400 text-emerald-500" : "from-emerald-600 to-teal-600 text-emerald-600",
+      purple: darkMode ? "from-purple-500 to-pink-400 text-purple-500" : "from-purple-600 to-pink-600 text-purple-600",
+      rose: darkMode ? "from-rose-500 to-red-400 text-rose-500" : "from-rose-600 to-red-600 text-rose-600",
+      cyan: darkMode ? "from-cyan-500 to-sky-400 text-cyan-500" : "from-cyan-600 to-sky-600 text-cyan-600",
+    };
+    return map[colorName] || map.amber;
+  };
+
+  const renderIcon = (iconName, className) => {
+    const IconComponent = ICONS[iconName] || ICONS['Zap'];
+    return <IconComponent className={className} />;
+  };
 
   // Auto-scroll animation
   useEffect(() => {
@@ -322,7 +336,11 @@ const TechnologySection = () => {
               }
             }}
           >
-            {[...equipmentCards, ...equipmentCards].map((eq, i) => (
+            {[...equipmentCards, ...equipmentCards].map((eq, i) => {
+              const colorClasses = getColorClasses(eq.color);
+              const gradientClass = colorClasses.split(' text-')[0];
+              const textClass = colorClasses.split(' ').pop();
+              return (
               <motion.div
                 key={i}
                 className="flex-shrink-0 w-80 rounded-2xl overflow-hidden shadow-xl border border-white/10 dark:border-slate-700/50"
@@ -331,7 +349,7 @@ const TechnologySection = () => {
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.6 }}
               >
-                <div className={`h-1.5 bg-gradient-to-r ${eq.colorClass}`} />
+                <div className={`h-1.5 bg-gradient-to-r ${gradientClass}`} />
                 <div
                   className={`p-6 ${
                     darkMode ? "bg-slate-900" : "bg-white"
@@ -344,13 +362,11 @@ const TechnologySection = () => {
                       }`}
                     >
                       <motion.span
-                        className={eq.colorClass
-                          .split(" ")[0]
-                          .replace("from-", "text-")}
+                        className={textClass}
                         whileHover={{ rotate: 10 }}
                         transition={{ type: "spring", stiffness: 250 }}
                       >
-                        {eq.icon}
+                        {renderIcon(eq.icon, "w-6 h-6")}
                       </motion.span>
                     </div>
                     <div>
@@ -372,7 +388,7 @@ const TechnologySection = () => {
                   </div>
                 </div>
               </motion.div>
-            ))}
+            )})}
           </motion.div>
         </div>
 

@@ -27,6 +27,7 @@ import AdminSettings from "./pages/AdminSettings";
 import AdminGallery from "./pages/AdminGallery";
 import AdminDownloads from "./pages/AdminDownloads";
 import AdminDirectors from "./pages/AdminDirectors";
+import AdminEquipment from "./pages/AdminEquipment";
 
 const ScrollToTop = () => {
   const { pathname } = useLocation();
@@ -59,6 +60,7 @@ const App = () => {
           <Route path="gallery" element={<AdminGallery />} />
           <Route path="downloads" element={<AdminDownloads />} />
           <Route path="directors" element={<AdminDirectors />} />
+          <Route path="equipment" element={<AdminEquipment />} />
           {/* <Route path="settings" element={<AdminSettings />} /> */}
         </Route>
 

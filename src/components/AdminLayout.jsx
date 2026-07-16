@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Outlet, NavLink, useNavigate } from 'react-router-dom';
-import { Shield, Settings, LogOut, ChevronLeft, Package, Image, Download, Users } from 'lucide-react';
+import { Shield, Settings, LogOut, ChevronLeft, Package, Image, Download, Users, Factory } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const AdminLayout = () => {
@@ -25,6 +25,7 @@ const AdminLayout = () => {
     { name: 'Gallery', path: '/admin/gallery', icon: Image },
     { name: 'Downloads', path: '/admin/downloads', icon: Download },
     { name: 'Directors', path: '/admin/directors', icon: Users },
+    { name: 'Equipment', path: '/admin/equipment', icon: Factory },
   ];
 
   return (
