@@ -33,21 +33,18 @@ const HeroSection = ({ darkMode }) => {
           transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
         />
         <div
-          className={`absolute inset-0 bg-gradient-to-t ${
-            darkMode
-              ? "from-slate-950/90 via-slate-950/70 to-transparent"
-              : "from-white/70 via-white/40 to-transparent"
-          }`}
+          className={`absolute inset-0 bg-gradient-to-t ${darkMode
+            ? "from-slate-950/90 via-slate-950/70 to-transparent"
+            : "from-white/70 via-white/40 to-transparent"
+            }`}
         />
         <motion.div
           className="absolute inset-0 opacity-10"
           style={{
-            backgroundImage: `linear-gradient(to right, ${
-              darkMode ? "#fbbf24" : "#3b82f6"
-            } 1px, transparent 1px),
-                             linear-gradient(to bottom, ${
-                               darkMode ? "#fbbf24" : "#3b82f6"
-                             } 1px, transparent 1px)`,
+            backgroundImage: `linear-gradient(to right, ${darkMode ? "#fbbf24" : "#3b82f6"
+              } 1px, transparent 1px),
+                             linear-gradient(to bottom, ${darkMode ? "#fbbf24" : "#3b82f6"
+              } 1px, transparent 1px)`,
             backgroundSize: "80px 80px",
             y,
           }}
@@ -110,11 +107,10 @@ const HeroSection = ({ darkMode }) => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.1, duration: 0.8 }}
-          className={`text-lg sm:text-xl font-medium italic mb-2 ${
-            darkMode ? "text-gray-300" : "text-gray-600"
-          }`}
+          className={`text-lg sm:text-xl font-medium italic mb-2 ${darkMode ? "text-gray-300" : "text-gray-600"
+            }`}
         >
-          “Harnessing the Sun to Power Progress.”
+          “Harnessing the Sun. Powering the Future.”
         </motion.p>
 
         <motion.h1
@@ -147,20 +143,17 @@ const HeroSection = ({ darkMode }) => {
           }}
         >
           <span
-            className={`text-sm sm:text-base font-semibold flex items-center gap-2 ${
-              darkMode ? "text-yellow-300" : "text-[#274488]"
-            }`}
+            className={`text-sm sm:text-base font-semibold flex items-center gap-2 ${darkMode ? "text-yellow-300" : "text-[#274488]"
+              }`}
           >
             <Factory className="w-4 h-4" />
-            Next-Generation Solar Module Manufacturing | 800 MW Fully Automated
-            Line
+            Next Generation Solar Module Manufacturing | AI+ Technology | 800 MW Annual Capacity | Expansion ready upto 1.2GW
           </span>
         </motion.div>
 
         <motion.p
-          className={`max-w-2xl mx-auto text-base sm:text-lg mb-10 ${
-            darkMode ? "text-gray-300" : "text-gray-600"
-          }`}
+          className={`max-w-2xl mx-auto text-base sm:text-lg mb-10 ${darkMode ? "text-gray-300" : "text-gray-600"
+            }`}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5, duration: 0.8 }}
@@ -184,11 +177,10 @@ const HeroSection = ({ darkMode }) => {
                 : "0 0 40px rgba(59, 130, 246, 0.4)",
             }}
             whileTap={{ scale: 0.95 }}
-            className={`group px-8 py-4 sm:px-10 sm:py-5 rounded-full font-bold text-lg flex items-center gap-3 shadow-xl ${
-              darkMode
-                ? "bg-yellow-400 text-slate-950 shadow-yellow-400/30"
-                : "bg-[#274488] text-white shadow-[#274488]/30"
-            }`}
+            className={`group px-8 py-4 sm:px-10 sm:py-5 rounded-full font-bold text-lg flex items-center gap-3 shadow-xl ${darkMode
+              ? "bg-yellow-400 text-slate-950 shadow-yellow-400/30"
+              : "bg-[#274488] text-white shadow-[#274488]/30"
+              }`}
           >
             Explore Our Solutions
             <ArrowRight className="w-5 h-5 sm:w-6 sm:h-6 group-hover:translate-x-2 transition-transform" />
@@ -198,11 +190,10 @@ const HeroSection = ({ darkMode }) => {
             onClick={() => navigate("/contact")}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className={`px-8 py-4 sm:px-10 sm:py-5 rounded-full font-bold text-lg border-2 hover:bg-opacity-10 transition-all ${
-              darkMode
-                ? "border-yellow-400 text-yellow-400 hover:bg-yellow-400/10"
-                : "border-[#274488] text-[#274488] hover:bg-[#274488]/10"
-            }`}
+            className={`px-8 py-4 sm:px-10 sm:py-5 rounded-full font-bold text-lg border-2 hover:bg-opacity-10 transition-all ${darkMode
+              ? "border-yellow-400 text-yellow-400 hover:bg-yellow-400/10"
+              : "border-[#274488] text-[#274488] hover:bg-[#274488]/10"
+              }`}
           >
             Partner with Us
           </motion.button>
@@ -217,16 +208,14 @@ const HeroSection = ({ darkMode }) => {
       >
         <div className="flex flex-col items-center gap-2">
           <span
-            className={`text-sm ${
-              darkMode ? "text-gray-400" : "text-gray-500"
-            }`}
+            className={`text-sm ${darkMode ? "text-gray-400" : "text-gray-500"
+              }`}
           >
             Scroll to discover more
           </span>
           <ChevronDown
-            className={`w-6 h-6 ${
-              darkMode ? "text-yellow-400" : "text-[#274488]"
-            }`}
+            className={`w-6 h-6 ${darkMode ? "text-yellow-400" : "text-[#274488]"
+              }`}
           />
         </div>
       </motion.div>
